@@ -81,7 +81,7 @@ public class Client {
 	 * @param idTrot - The scooters' ID.
 	 * @pre idTrot != null
 	 */
-	public void setTrot(Trot trot) {
+	public void rent(Trot trot) {
 		this.trot = trot;
 	}
 	

@@ -160,7 +160,7 @@ public class Main {
 		if (position == DOES_NOT_EXIST) {
 			System.out.println(CLIENT_DOES_NOT_EXIST);
 		}	
-		else if (manager.clientHasTrot()) {
+		else if (manager.clientHasTrot(position)) {
 			System.out.println(CLIENT_MOVING);
 		}
 		else {
@@ -202,10 +202,10 @@ public class Main {
 		int position = manager.findClient(nif);
 		
 		if (position != DOES_NOT_EXIST) {
-			System.out.println(manager.getClientName() + ": " + manager.getClientNif() + ", " + manager.getClientEmail() + ", "
-					+ manager.getClientPhone() + ", " + manager.getClientBalance() + ", " + manager.getClientTotalMinutes() + ", "
-					+ manager.getClientRents() + ", " + manager.getClientMaxMinutes() + ", " + manager.getClientAvgMinutes() + ", "
-					+ manager.getClientTotalSpent());
+			System.out.println(manager.getClientName(position) + ": " + manager.getClientNif(position) + ", " + manager.getClientEmail(position) + ", "
+					+ manager.getClientPhone(position) + ", " + manager.getClientBalance(position) + ", " + manager.getClientTotalMinutes(position) + ", "
+					+ manager.getClientRents(position) + ", " + manager.getClientMaxMinutes(position) + ", " + manager.getClientAvgMinutes(position) + ", "
+					+ manager.getClientTotalSpent(position));
 		} 
 		else {
 			System.out.println(CLIENT_DOES_NOT_EXIST);
@@ -223,14 +223,14 @@ public class Main {
 		
 		int position = manager.findClient(nif);
 
-		if ( position == DOES_NOT_EXIST ) {
+		if (position == DOES_NOT_EXIST) {
 			System.out.println(CLIENT_DOES_NOT_EXIST);
 		}
-		else if (!manager.clientHasTrot()) {
+		else if (!manager.clientHasTrot(position)) {
 			System.out.println(CLIENT_WITHOUT_SCOOTER);
 		}
 		else {
-			System.out.println(manager.getTrotId() + ", " + manager.getTrotLicensePlate());
+			System.out.println(manager.getClientIdTrot(position) + ", " + manager.getClientLicensePlate(position));
 		}
 	}
 
@@ -245,12 +245,12 @@ public class Main {
 		
 		int position = manager.findTrot(idTrot);
 		
-		if (position != DOES_NOT_EXIST) {
-			System.out.println(manager.getTrotLicensePlate() + ": " + manager.getTrotStatus() + ", " + manager.getTrotRents()
-					+ ", " + manager.getTrotTotalMinutes());
+		if (position == DOES_NOT_EXIST) {
+			System.out.println(SCOOTER_DOES_NOT_EXIST);
 		} 
 		else {
-			System.out.println(SCOOTER_DOES_NOT_EXIST);
+			System.out.println(manager.getTrotLicensePlate(position) + ": " + manager.getTrotStatus(position) + ", " + manager.getTrotRents(position)
+			+ ", " + manager.getTrotTotalMinutes(position));
 		}
 	}
 
@@ -272,7 +272,7 @@ public class Main {
 			System.out.println(SCOOTER_NOT_RENTED);
 		}
 		else {
-			System.out.println(manager.getClientNif() + ", " + manager.getClientName());
+			System.out.println(manager.getClientNif(position) + ", " + manager.getClientName(position));
 		}
 	}
 
@@ -310,20 +310,23 @@ public class Main {
 		String idTrot = in.next();
 		in.nextLine();
 		
-		if (!(manager.findClient() && manager.getClientNif().equalsIgnoreCase(nif))) {
+		int positionClient = manager.findClient(nif);
+		int positionTrot = manager.findTrot(idTrot);
+		
+		if (positionClient == DOES_NOT_EXIST) {
 			System.out.println(CLIENT_DOES_NOT_EXIST);
 		}
-		else if (!(manager.trotExists() && manager.getTrotId().equalsIgnoreCase(idTrot))) {
+		else if (positionTrot == DOES_NOT_EXIST) {
 			System.out.println(SCOOTER_DOES_NOT_EXIST);
 		}
-		else if (!(manager.trotIsActivated() && manager.getTrotStatus().equals("parada"))) {
+		else if (!(manager.trotIsActivated(positionTrot) && manager.getTrotStatus(positionTrot).equals("parada"))) {
 			System.out.println(SCOOTER_CANNOT_BE_RENTED);
 		}
-		else if (manager.getClientBalance() < 100) {
+		else if (manager.getClientBalance(positionClient) < 100) {
 			System.out.println(INSUFFICIENT_BALANCE);
 		}
 		else {
-			manager.rentTrot(nif, idTrot);
+			manager.rentTrot(positionClient, positionTrot);
 			System.out.println(RENT_INITIALIZED);
 		} 
 	}
@@ -338,17 +341,19 @@ public class Main {
 		int minutes = in.nextInt();
 		in.nextLine();
 		
+		int position = manager.findTrot(idTrot);
+		
 		if (minutes <= 0) {
 			System.out.println(INVALID_AMOUNT);
 		}
-		else if (!(manager.trotExists() && manager.getTrotId().equalsIgnoreCase(idTrot))) {
+		else if (position == DOES_NOT_EXIST) {
 			System.out.println(SCOOTER_DOES_NOT_EXIST);
 		}
-		else if (!manager.getTrotStatus().equals("alugada")) {
+		else if (!manager.getTrotStatus(position).equals("alugada")) {
 			System.out.println(SCOOTER_NOT_RENTED);
 		}
 		else {
-			manager.releaseTrot(idTrot, minutes);
+			manager.releaseTrot(position, minutes);
 			System.out.println(RENT_TERMINATED);
 		}
 	}
@@ -373,10 +378,10 @@ public class Main {
 
 		int position = manager.findClient(nif);
 		
-		if (position == -1) {
+		if (position == DOES_NOT_EXIST) {
 			System.out.println(CLIENT_DOES_NOT_EXIST);
 		}
-		else if (!manager.getClientIdTrot().equals("")) {
+		else if (!manager.getClientIdTrot(position).equals("")) {
 			System.out.println(CLIENT_INITIALIZED_NEW_RENT);
 		}
 		else if (manager.usedPromotion()) {
@@ -397,14 +402,16 @@ public class Main {
 		String idTrot = in.next();
 		in.nextLine();
 		
-		if (!(manager.trotExists() && manager.getTrotId().equalsIgnoreCase(idTrot))) {
+		int position = manager.findTrot(idTrot);
+		
+		if (position == DOES_NOT_EXIST) {
 			System.out.println(SCOOTER_DOES_NOT_EXIST);
 		}
-		else if (manager.getTrotStatus().equals("alugada")) {
+		else if (manager.getTrotStatus(position).equals("alugada")) {
 			System.out.println(SCOOTER_MOVING);
 		}
 		else {
-			manager.deactivateTrot();
+			manager.deactivateTrot(position);
 			System.out.println(SCOOTER_DEACTIVATED);
 		}
 	}
@@ -417,15 +424,17 @@ public class Main {
 	private static void activateTrot(Scanner in, Manager manager) {
 		String idTrot = in.next();
 		in.nextLine();
+		
+		int position = manager.findTrot(idTrot);
 
-		if (!(manager.trotExists() && manager.getTrotId().equalsIgnoreCase(idTrot))) {
+		if (position == DOES_NOT_EXIST) {
 			System.out.println(SCOOTER_DOES_NOT_EXIST);
 		}
-		else if (!manager.getTrotStatus().equals("inactiva")) {
+		else if (!manager.getTrotStatus(position).equals("inactiva")) {
 			System.out.println(SCOOTER_NOT_INACTIVE);
 		}
 		else {
-			manager.activateTrot();
+			manager.activateTrot(position);
 			System.out.println(SCOOTER_REACTIVATED);
 		}
 	}
