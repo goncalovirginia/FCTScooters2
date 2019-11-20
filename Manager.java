@@ -44,6 +44,15 @@ public class Manager {
 		return -1;
 	}
 	
+	public int trotExists(String id) {
+		for (int i = 0; i < trotCounter; i++) {
+			if (trots[i].getId().equalsIgnoreCase(id)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
 	/**
 	 * Creates a new client using the following parameters:
 	 * @param nif - The new clients' NIF (Identification number).
