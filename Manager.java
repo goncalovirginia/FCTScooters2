@@ -53,9 +53,7 @@ public class Manager {
 	 * @pre nif != null && email != null && phone != null && name != null
 	 */
 	public void addClient(String nif, String email, String phone, String name) {
-		
 		clients[clientCounter++] = new Client(nif, email, phone, name);
-		
 	}
 
 	/**

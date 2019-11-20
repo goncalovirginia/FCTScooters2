@@ -133,13 +133,12 @@ public class Main {
 		String phone = in.next();
 		String name = in.next() + in.nextLine();
 
-		if (!manager.clientExists()) {
+		int position = manager.clientExists(nif);
+		
+		if (position == -1) {
 			manager.addClient(nif, email, phone, name);
 			System.out.println(CLIENT_INSERTED);
-		}
-		else if (manager.getClientNif().equalsIgnoreCase(nif)) {
-			System.out.println(CLIENT_EXISTS);
-		}
+		} 
 		else {
 			System.out.println(CLIENT_EXISTS);
 		}
