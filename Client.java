@@ -17,7 +17,7 @@ public class Client {
 		this.email = email;
 		this.phone = phone;
 		this.name = name;
-		balance = 200;heyyyy
+		balance = 200;
 		totalSpent = 0;
 		rents = 0;
 		totalMinutes = 0;
