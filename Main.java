@@ -179,7 +179,7 @@ public class Main {
 		String licensePlate = in.next();
 		in.nextLine();
 		
-		int position = manager.trotExists(idTrot);
+		int position = manager.findTrot(idTrot);
 		
 		if (position == DOES_NOT_EXIST) {
 			manager.addTrot(idTrot, licensePlate);
@@ -201,7 +201,7 @@ public class Main {
 		
 		int position = manager.findClient(nif);
 		
-		if ( position != DOES_NOT_EXIST ) {
+		if (position != DOES_NOT_EXIST) {
 			System.out.println(manager.getClientName() + ": " + manager.getClientNif() + ", " + manager.getClientEmail() + ", "
 					+ manager.getClientPhone() + ", " + manager.getClientBalance() + ", " + manager.getClientTotalMinutes() + ", "
 					+ manager.getClientRents() + ", " + manager.getClientMaxMinutes() + ", " + manager.getClientAvgMinutes() + ", "
