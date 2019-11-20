@@ -207,13 +207,24 @@ public class Manager {
 		return (trots[position].getClient() != null);
 	}
 	
-	public String getClientIdTrot() {
-		if (client.getTrot() == null) {
-			return "";
+	public String getClientIdTrot(int position) {
+		String idTrot = "";
+		
+		if (clients[position].getTrot() != null) {
+			idTrot = clients[position].getTrot().getId();
 		}
-		else {
-			return client.getTrot().getId();
+		
+		return idTrot;
+	}
+	
+	public String getTrotNif(int position) {
+		String nif = "";
+		
+		if (trots[position].getClient() != null) {
+			nif = trots[position].getClient().getNif();
 		}
+		
+		return nif;
 	}
 	
 	public boolean trotExists() {
