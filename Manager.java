@@ -203,6 +203,10 @@ public class Manager {
 		return (client.getTrot() != null);
 	}
 	
+	public boolean trotHasClient(int position) {
+		return (trots[position].getClient() != null);
+	}
+	
 	public String getClientIdTrot() {
 		if (client.getTrot() == null) {
 			return "";

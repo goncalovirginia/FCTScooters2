@@ -34,6 +34,8 @@ public class Main {
 	private static final String SCOOTER_REACTIVATED = "Trotinete reactivada.";
 	private static final String SCOOTER_NOT_INACTIVE = "Trotinete nao inactiva.";
 	
+	private static final int DOES_NOT_EXIST = -1;
+	
 	/**
 	 * Creates and initializes the Scanner and Manager.
 	 * Repeatedly reads inputs and interprets them until the command "SAIR" is typed.
@@ -135,7 +137,7 @@ public class Main {
 
 		int position = manager.clientExists(nif);
 		
-		if (position == -1) {
+		if (position == DOES_NOT_EXIST) {
 			manager.addClient(nif, email, phone, name);
 			System.out.println(CLIENT_INSERTED);
 		} 
@@ -153,14 +155,16 @@ public class Main {
 		String nif = in.next();
 		in.nextLine();
 		
-		if (!(manager.clientExists() && manager.getClientNif().equalsIgnoreCase(nif))) {
+		int position = manager.clientExists(nif);
+		
+		if (position == DOES_NOT_EXIST) {
 			System.out.println(CLIENT_DOES_NOT_EXIST);
 		}	
 		else if (manager.clientHasTrot()) {
 			System.out.println(CLIENT_MOVING);
 		}
 		else {
-			manager.removeClient(nif);
+			manager.removeClient(position);
 			System.out.println(CLIENT_REMOVED);
 		}
 	}
@@ -175,13 +179,12 @@ public class Main {
 		String licensePlate = in.next();
 		in.nextLine();
 		
-		if (!manager.trotExists()) {
+		int position = manager.trotExists(idTrot);
+		
+		if (position == DOES_NOT_EXIST) {
 			manager.addTrot(idTrot, licensePlate);
 			System.out.println(SCOOTER_INSERTED);
 		} 
-		else if (manager.getTrotId().equalsIgnoreCase(idTrot)) {
-			System.out.println(SCOOTER_EXISTS);
-		}
 		else {
 			System.out.println(SCOOTER_EXISTS);
 		}
@@ -196,7 +199,9 @@ public class Main {
 		String nif = in.next();
 		in.nextLine();
 		
-		if (manager.clientExists() && manager.getClientNif().equalsIgnoreCase(nif)) {
+		int position = manager.clientExists(nif);
+		
+		if ( position != DOES_NOT_EXIST ) {
 			System.out.println(manager.getClientName() + ": " + manager.getClientNif() + ", " + manager.getClientEmail() + ", "
 					+ manager.getClientPhone() + ", " + manager.getClientBalance() + ", " + manager.getClientTotalMinutes() + ", "
 					+ manager.getClientRents() + ", " + manager.getClientMaxMinutes() + ", " + manager.getClientAvgMinutes() + ", "
@@ -215,8 +220,10 @@ public class Main {
 	private static void getTrotFromClient(Scanner in, Manager manager) {
 		String nif = in.next();
 		in.nextLine();
+		
+		int position = manager.clientExists(nif);
 
-		if (!(manager.clientExists() && manager.getClientNif().equalsIgnoreCase(nif))) {
+		if ( position == DOES_NOT_EXIST ) {
 			System.out.println(CLIENT_DOES_NOT_EXIST);
 		}
 		else if (!manager.clientHasTrot()) {
@@ -236,7 +243,9 @@ public class Main {
 		String idTrot = in.next();
 		in.nextLine();
 		
-		if (manager.trotExists() && manager.getTrotId().equalsIgnoreCase(idTrot)) {
+		int position = manager.trotExists(idTrot);
+		
+		if (position != DOES_NOT_EXIST) {
 			System.out.println(manager.getTrotLicensePlate() + ": " + manager.getTrotStatus() + ", " + manager.getTrotRents()
 					+ ", " + manager.getTrotTotalMinutes());
 		} 
@@ -253,11 +262,13 @@ public class Main {
 	private static void getClientFromTrot(Scanner in, Manager manager) {
 		String idTrot = in.next();
 		in.nextLine();
+		
+		int position = manager.trotExists(idTrot);
 
-		if (!(manager.trotExists() && manager.getTrotId().equalsIgnoreCase(idTrot))) {
+		if (position == DOES_NOT_EXIST) {
 			System.out.println(SCOOTER_DOES_NOT_EXIST);
 		}
-		else if (!(manager.clientExists() && manager.getClientIdTrot().equalsIgnoreCase(idTrot))) {
+		else if (!manager.trotHasClient(position)) {
 			System.out.println(SCOOTER_NOT_RENTED);
 		}
 		else {
