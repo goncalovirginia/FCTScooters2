@@ -227,7 +227,7 @@ public class Manager {
 		return nif;
 	}
 	
-	public boolean trotExists() {
+	public boolean findTrot() {
 		return (trot != null);
 	}
 	

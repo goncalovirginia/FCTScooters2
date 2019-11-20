@@ -135,7 +135,7 @@ public class Main {
 		String phone = in.next();
 		String name = in.next() + in.nextLine();
 
-		int position = manager.clientExists(nif);
+		int position = manager.findClient(nif);
 		
 		if (position == DOES_NOT_EXIST) {
 			manager.addClient(nif, email, phone, name);
@@ -155,7 +155,7 @@ public class Main {
 		String nif = in.next();
 		in.nextLine();
 		
-		int position = manager.clientExists(nif);
+		int position = manager.findClient(nif);
 		
 		if (position == DOES_NOT_EXIST) {
 			System.out.println(CLIENT_DOES_NOT_EXIST);
@@ -199,7 +199,7 @@ public class Main {
 		String nif = in.next();
 		in.nextLine();
 		
-		int position = manager.clientExists(nif);
+		int position = manager.findClient(nif);
 		
 		if ( position != DOES_NOT_EXIST ) {
 			System.out.println(manager.getClientName() + ": " + manager.getClientNif() + ", " + manager.getClientEmail() + ", "
@@ -221,7 +221,7 @@ public class Main {
 		String nif = in.next();
 		in.nextLine();
 		
-		int position = manager.clientExists(nif);
+		int position = manager.findClient(nif);
 
 		if ( position == DOES_NOT_EXIST ) {
 			System.out.println(CLIENT_DOES_NOT_EXIST);
@@ -243,7 +243,7 @@ public class Main {
 		String idTrot = in.next();
 		in.nextLine();
 		
-		int position = manager.trotExists(idTrot);
+		int position = manager.findTrot(idTrot);
 		
 		if (position != DOES_NOT_EXIST) {
 			System.out.println(manager.getTrotLicensePlate() + ": " + manager.getTrotStatus() + ", " + manager.getTrotRents()
@@ -263,7 +263,7 @@ public class Main {
 		String idTrot = in.next();
 		in.nextLine();
 		
-		int position = manager.trotExists(idTrot);
+		int position = manager.findTrot(idTrot);
 
 		if (position == DOES_NOT_EXIST) {
 			System.out.println(SCOOTER_DOES_NOT_EXIST);
@@ -286,14 +286,16 @@ public class Main {
 		int amount = in.nextInt();
 		in.nextLine();
 		
+		int position = manager.findClient(nif);
+		
 		if (amount <= 0) {
 			System.out.println(INVALID_AMOUNT);
 		}
-		else if (!(manager.clientExists() && manager.getClientNif().equalsIgnoreCase(nif))) {
+		else if (position == DOES_NOT_EXIST) {
 			System.out.println(CLIENT_DOES_NOT_EXIST);
 		}
 		else {
-			manager.loadBalance(nif, amount);
+			manager.loadBalance(position, amount);
 			System.out.println(BALANCE_LOADED);
 		}	
 	}
@@ -308,7 +310,7 @@ public class Main {
 		String idTrot = in.next();
 		in.nextLine();
 		
-		if (!(manager.clientExists() && manager.getClientNif().equalsIgnoreCase(nif))) {
+		if (!(manager.findClient() && manager.getClientNif().equalsIgnoreCase(nif))) {
 			System.out.println(CLIENT_DOES_NOT_EXIST);
 		}
 		else if (!(manager.trotExists() && manager.getTrotId().equalsIgnoreCase(idTrot))) {
@@ -369,7 +371,7 @@ public class Main {
 		String nif = in.next();
 		in.nextLine();
 
-		int position = manager.clientExists(nif);
+		int position = manager.findClient(nif);
 		
 		if (position == -1) {
 			System.out.println(CLIENT_DOES_NOT_EXIST);
