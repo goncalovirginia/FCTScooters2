@@ -29,6 +29,20 @@ public class Manager {
 	}
 	
 	/**
+	 * Searches the list of clients
+	 * @param nif - The new clients' NIF (Identification number).
+	 * @return Position of the client on the client list.
+	 */
+	public int clientExists(String nif) {
+		for (int i = 0; i < clientCounter; i++) {
+			if (clients[i].getNif().equalsIgnoreCase(nif)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	/**
 	 * Creates a new client using the following parameters:
 	 * @param nif - The new clients' NIF (Identification number).
 	 * @param email - The new clients' Email.
@@ -126,15 +140,6 @@ public class Manager {
 		if (minutesLate > 0) {
 			totalMinutesLate -= minutesLate;
 		}
-	}
-	
-	public int clientExists(String nif) {
-		for (int i = 0; i < clientCounter; i++) {
-			if (clients[i].getNif().equalsIgnoreCase(nif)) {
-				return i;
-			}
-		}
-		return -1;
 	}
 	
 	public String getClientNif() {

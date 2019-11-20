@@ -359,7 +359,9 @@ public class Main {
 		String nif = in.next();
 		in.nextLine();
 
-		if (!(manager.clientExists() && manager.getClientNif().equalsIgnoreCase(nif))) {
+		int position = manager.clientExists(nif);
+		
+		if (position == -1) {
 			System.out.println(CLIENT_DOES_NOT_EXIST);
 		}
 		else if (!manager.getClientIdTrot().equals("")) {
@@ -369,7 +371,7 @@ public class Main {
 			System.out.println(PROMOTION_ALREADY_APPLIED);
 		}
 		else {
-			manager.applyPromotion(nif);
+			manager.applyPromotion(position);
 			System.out.println(PROMOTION_APPLIED);
 		}	
 	}
