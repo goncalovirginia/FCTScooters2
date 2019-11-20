@@ -18,6 +18,7 @@ public class Manager {
 
 	/* Constructor */
 	public Manager() {
+		
 		clients = new Client[DEFAULT_SIZE];
 		trots = new Trot[DEFAULT_SIZE];
 		totalRents = 0;
@@ -26,6 +27,7 @@ public class Manager {
 		usedPromotion = false;
 		clientCounter = 0;
 		trotCounter = 0;
+		
 	}
 	
 	/**
@@ -51,12 +53,14 @@ public class Manager {
 	 * @pre nif != null && email != null && phone != null && name != null
 	 */
 	public void addClient(String nif, String email, String phone, String name) {
+		
 		clients[clientCounter++] = new Client(nif, email, phone, name);
+		
 	}
 
 	/**
 	 * Removes the client.
-	 * @param pos - Position of the client on the list of clients.
+	 * @param position - Position of the client on the list of clients.
 	 */
 	public void removeClient(int position) {
 		for (int i = position; i < clientCounter-1; i++) {
@@ -78,6 +82,7 @@ public class Manager {
 	/**
 	 * Loads the clients' balance with a certain amount.
 	 * @param amount - Money (cents) to add to the clients' balance.
+	 * @param position - Position of the client on the list of clients.
 	 * @pre amount > 0
 	 */
 	public void loadBalance(int position, int amount) {
