@@ -31,11 +31,11 @@ public class Manager {
 	}
 	
 	/**
-	 * Searches the list of clients
-	 * @param nif - The new clients' NIF (Identification number).
+	 * Searches the list of clients for a client with a certain NIF.
+	 * @param nif - The clients' NIF (Identification number).
 	 * @return Position of the client on the client list.
 	 */
-	public int clientExists(String nif) {
+	public int findClient(String nif) {
 		for (int i = 0; i < clientCounter; i++) {
 			if (clients[i].getNif().equalsIgnoreCase(nif)) {
 				return i;
@@ -44,7 +44,12 @@ public class Manager {
 		return -1;
 	}
 	
-	public int trotExists(String id) {
+	/**
+	 * Searches the list of scooters for a scooter with a certain ID.
+	 * @param id - The scooters' ID.
+	 * @return Position of the scooter on the scooter list. (-1 if it doesn't exist).
+	 */
+	public int findTrot(String id) {
 		for (int i = 0; i < trotCounter; i++) {
 			if (trots[i].getId().equalsIgnoreCase(id)) {
 				return i;
