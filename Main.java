@@ -35,6 +35,7 @@ public class Main {
 	private static final String SUCCESS_PROMOTION_APPLIED = "Promocao aplicada.";
 	private static final String SUCCESS_SCOOTER_DEACTIVATED = "Trotinete desactivada.";
 	private static final String SUCCESS_SCOOTER_REACTIVATED = "Trotinete reactivada.";
+	private static final String SUCCESS_EXIT = "Saindo...";
 	
 	/* Constants Options */
 	private static final String AD_CLIENT = "ADCLIENTE";
@@ -62,14 +63,14 @@ public class Main {
 	public static void main(String[] args) {
 		Manager manager = new Manager();
 		Scanner in = new Scanner(System.in);
-		String option = "";
 
-		while (!option.equals("SAIR")) {
-			option = readOption(in);
-			executeOption(in, option, manager);
+		while (!readOption(in).equals(EXIT)) {
+			
+			executeOption(in, readOption(in), manager);
+			
 		}
 		
-		System.out.println("Saindo...");
+		System.out.println(SUCCESS_EXIT);
 		managerStatus(in, manager);
 		in.close();
 	}
