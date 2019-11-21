@@ -8,7 +8,7 @@
 public class Manager {
 
 	/* Constants */
-	private static final int FEE = 100, DEFAULT_SIZE = 50;
+	private static final int FEE = 100, DEFAULT_SIZE = 50, GROWTH = 2;
 	
 	/* Instance variables */
 	private Client[] clients;
@@ -75,6 +75,8 @@ public class Manager {
 	 * @pre nif != null && email != null && phone != null && name != null
 	 */
 	public void addClient(String nif, String email, String phone, String name) {
+		if( isClientFull() )
+			resiseClient();
 		clients[clientCounter++] = new Client(nif, email, phone, name);
 	}
 
@@ -96,6 +98,8 @@ public class Manager {
 	 * @pre idTrot != null && licensePlate != null
 	 */
 	public void addTrot(String idTrot, String licensePlate) {
+		if ( isTrotFull() )
+			resiseTrot();
 		trots[trotCounter++] = new Trot(idTrot, licensePlate);
 	}
 
@@ -286,6 +290,28 @@ public class Manager {
 	
 	public boolean trotIsActivated(int position) {
 		return trots[position].isActivated();
+	}
+	
+	private boolean isClientFull() {
+		return clientCounter == clients.length;
+	}
+	
+	private boolean isTrotFull() {
+		return trotCounter == trots.length;
+	}
+	
+	private void resiseClient() {
+		Client[] clientsResise = new Client[GROWTH*clients.length];
+		for(int i=0; i < clients.length; i++)
+			 clientsResise[i] = clients[i];
+		clients = clientsResise;
+	}
+	
+	private void resiseTrot() {
+		Trot[] trotsResise = new Trot[GROWTH*trots.length];
+		for(int i=0; i < trots.length; i++)
+			 trotsResise[i] = trots[i];
+		trots = trotsResise;
 	}
 	
 	public boolean inRedZoneClient(int position) {
