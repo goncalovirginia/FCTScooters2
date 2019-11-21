@@ -288,4 +288,8 @@ public class Manager {
 		return trots[position].isActivated();
 	}
 	
+	public boolean inRedZoneClient(int position) {
+		return clients[position].inRedZone();
+	}
+	
 }
