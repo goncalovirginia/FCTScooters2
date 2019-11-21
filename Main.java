@@ -61,18 +61,29 @@ public class Main {
 	 * Repeatedly reads inputs and interprets them until the command "SAIR" is typed.
 	 */
 	public static void main(String[] args) {
-		Manager manager = new Manager();
+		Manager manager = createManager();
 		Scanner in = new Scanner(System.in);
-		String option = "";
-		
-		while (!option.equals(EXIT)) {
+		String option;
+
+		do {
+			
 			option = readOption(in);
 			executeOption(in, option, manager);
-		}
+			
+		} while (!option.equals(EXIT));
 		
 		System.out.println(SUCCESS_EXIT);
 		managerStatus(in, manager);
 		in.close();
+	}
+	
+	/**
+	 * Creates a SystemScooter.
+	 * @return SystemScooter object.
+	 */
+	private static Manager createManager() {
+		Manager manager = new Manager();
+		return manager;
 	}
 
 	/**
@@ -92,7 +103,7 @@ public class Main {
 	 */
 	private static void executeOption(Scanner in, String option, Manager manager) {
 
-		switch (option) {
+		switch (option.toUpperCase()) {
 		case AD_CLIENT:
 			addClient(in, manager);
 			break;
@@ -150,6 +161,7 @@ public class Main {
 	 * @param manager
 	 */
 	private static void addClient(Scanner in, Manager manager) {
+		
 		String nif = in.next();
 		String email = in.next();
 		String phone = in.next();
