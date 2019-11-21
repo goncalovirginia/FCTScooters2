@@ -63,11 +63,11 @@ public class Main {
 	public static void main(String[] args) {
 		Manager manager = new Manager();
 		Scanner in = new Scanner(System.in);
-
-		while (!readOption(in).equals(EXIT)) {
-			
-			executeOption(in, readOption(in), manager);
-			
+		String option = "";
+		
+		while (!option.equals(EXIT)) {
+			option = readOption(in);
+			executeOption(in, option, manager);
 		}
 		
 		System.out.println(SUCCESS_EXIT);
