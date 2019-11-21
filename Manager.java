@@ -36,12 +36,16 @@ public class Manager {
 	 * @return Position of the client on the client list.
 	 */
 	public int findClient(String nif) {
-		for (int i = 0; i < clientCounter; i++) {
+		int position = -1;
+		boolean found = false;
+		
+		for (int i = 0; i < clientCounter && !found; i++) {
 			if (clients[i].getNif().equalsIgnoreCase(nif)) {
-				return i;
+				position = i;
+				found = true;
 			}
 		}
-		return -1;
+		return position;
 	}
 	
 	/**
@@ -50,12 +54,16 @@ public class Manager {
 	 * @return Position of the scooter on the scooter list. (-1 if it doesn't exist).
 	 */
 	public int findTrot(String id) {
-		for (int i = 0; i < trotCounter; i++) {
+		int position = -1;
+		boolean found = false;
+		
+		for (int i = 0; i < trotCounter && !found; i++) {
 			if (trots[i].getId().equalsIgnoreCase(id)) {
-				return i;
+				position = i;
+				found = true;
 			}
 		}
-		return -1;
+		return position;
 	}
 	
 	/**
