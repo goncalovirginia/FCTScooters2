@@ -7,8 +7,11 @@
 import java.util.Scanner;
 
 public class Main {
+	
+	/* Constants */
+	private static final int DOES_NOT_EXIST = -1;
 
-	/* Constants Errors */
+	/* Error Constants */
 	private static final String ERROR_INVALID_COMMAND = "Comando invalido.";
 	private static final String ERROR_CLIENT_EXISTS = "Cliente existente.";
 	private static final String ERROR_CLIENT_DOES_NOT_EXIST = "Cliente inexistente.";
@@ -25,7 +28,7 @@ public class Main {
 	private static final String ERROR_SCOOTER_MOVING = "Trotinete em movimento.";
 	private static final String ERROR_SCOOTER_NOT_INACTIVE = "Trotinete nao inactiva.";
 	
-	/* Constants Successes */
+	/* Success Constants */
 	private static final String SUCCESS_CLIENT_INSERTED = "Insercao de cliente com sucesso.";
 	private static final String SUCCESS_CLIENT_REMOVED = "Cliente removido com sucesso.";
 	private static final String SUCCESS_SCOOTER_INSERTED = "Insercao de trotinete com sucesso.";
@@ -37,24 +40,22 @@ public class Main {
 	private static final String SUCCESS_SCOOTER_REACTIVATED = "Trotinete reactivada.";
 	private static final String SUCCESS_EXIT = "Saindo...";
 	
-	/* Constants Options */
-	private static final String AD_CLIENT = "ADCLIENTE";
+	/* Option Constants */
+	private static final String ADD_CLIENT = "ADCLIENTE";
 	private static final String REM_CLIENT = "REMCLIENTE";
-	private static final String AD_SCOOTER = "ADTROT";
+	private static final String ADD_SCOOTER = "ADTROT";
 	private static final String CLIENT_DATA = "DADOSCLIENTE";
 	private static final String SCOOTER = "TROT";
 	private static final String SCOOTER_DATA = "DADOSTROT";
 	private static final String CLIENT = "CLIENTE";
-	private static final String INC_BALANCE = "CARRSALDO";
+	private static final String LOAD_BALANCE = "CARRSALDO";
 	private static final String RENT = "ALUGAR";
 	private static final String RELEASE = "LIBERTAR";
 	private static final String PROMOTION = "PROMOCAO";
-	private static final String DIS_SCOOTER = "DESTROT";
-	private static final String ACT_SCOOTER = "REACTROT";
-	private static final String CURRENT_STATE = "ESTADOSISTEMA";
+	private static final String DEACTIVATE_SCOOTER = "DESTROT";
+	private static final String ACTIVATE_SCOOTER = "REACTROT";
+	private static final String SYS_STATE = "ESTADOSISTEMA";
 	private static final String EXIT = "SAIR";
-	
-	private static final int DOES_NOT_EXIST = -1;
 	
 	/**
 	 * Creates and initializes the Scanner and Manager.
@@ -104,13 +105,13 @@ public class Main {
 	private static void executeOption(Scanner in, String option, Manager manager) {
 
 		switch (option.toUpperCase()) {
-		case AD_CLIENT:
+		case ADD_CLIENT:
 			addClient(in, manager);
 			break;
 		case REM_CLIENT:
 			removeClient(in, manager);
 			break;
-		case AD_SCOOTER:
+		case ADD_SCOOTER:
 			addTrot(in, manager);
 			break;
 		case CLIENT_DATA:
@@ -125,7 +126,7 @@ public class Main {
 		case CLIENT:
 			getClientFromTrot(in, manager);
 			break;
-		case INC_BALANCE:
+		case LOAD_BALANCE:
 			loadBalance(in, manager);
 			break;
 		case RENT:
@@ -134,16 +135,16 @@ public class Main {
 		case RELEASE:
 			releaseTrot(in, manager);
 			break;
-		case CURRENT_STATE:
+		case SYS_STATE:
 			managerStatus(in, manager);
 			break;
 		case PROMOTION:
 			promotion(in, manager);
 			break;
-		case DIS_SCOOTER:
+		case DEACTIVATE_SCOOTER:
 			deactivateTrot(in, manager);
 			break;
-		case ACT_SCOOTER:
+		case ACTIVATE_SCOOTER:
 			activateTrot(in, manager);
 			break;
 		case EXIT:
