@@ -152,7 +152,7 @@ public class Main {
 			clientList(manager);
 			break;
 		case CLIENT_NEGATIVE_BALANCE:
-			ClientNegativeBalanceList(in, manager);
+			ClientNegativeBalanceList(manager);
 			break;
 		case EXIT:
 			break;
@@ -460,9 +460,8 @@ public class Main {
 		
 	}
 	
-	private static void ClientNegativeBalanceList(Scanner in, Manager manager) {
-		String divida = in.next();
-		in.nextLine();
+	private static void ClientNegativeBalanceList(Manager manager) {
+		
 		
 		
 		
