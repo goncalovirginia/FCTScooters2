@@ -137,23 +137,5 @@ public class Client {
 	public int getMaxMinutes() {
 		return maxMinutes;
 	}
-<<<<<<< Updated upstream
-	
-	/**
-	 * Resets the clients' information to how it was before the last rent.
-	 * @param minutes - Time (minutes) spent in the last rent.
-	 * @param amount - Money (cents) spent in the last rent.
-	 * @pre minutes > 0 && amount > 0
-	 */
-	public void promotion(int minutes, int amount) {
-		totalMinutes -= minutes;
-		maxMinutes = lastMaxMinutes;
-		totalSpent -= amount;
-		rents--;
-	}
-	
-	public boolean inRedZone() {
-		return balance < 0;
-	}
 
 }
