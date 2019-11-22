@@ -330,4 +330,8 @@ public class Manager {
 		return usedPromotion;
 	}
 	
+	public boolean clientHasNegativeBalance(String nif) { 
+		return clients[findClient(nif)].getBalance() < 0; 
+	} 
+	
 }

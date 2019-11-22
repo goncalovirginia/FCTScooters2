@@ -1,5 +1,3 @@
 *.class
 .classpath
 .project
-/ClientIterator.class
-/TrotIterator.class

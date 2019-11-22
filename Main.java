@@ -49,9 +49,9 @@ public class Main {
 	private static final String PROMOTION = "PROMOCAO";
 	private static final String DEACTIVATE_SCOOTER = "DESTROT";
 	private static final String ACTIVATE_SCOOTER = "REACTROT";
-	private static final String TROT_LIST = "LISTTROT";
-	private static final String CLIENT_LIST = "LISTCLIENTE";
-	private static final String CLIENT_NEGATIVE_BALANCE = "LISTDEV";
+	private static final String LIST_TROTS = "LISTTROT";
+	private static final String LIST_CLIENTS = "LISTCLIENTE";
+	private static final String LIST_CLIENTS_NEGATIVE_BALANCE = "LISTDEV";
 	private static final String SYS_STATE = "ESTADOSISTEMA";
 	private static final String EXIT = "SAIR";
 	
@@ -72,7 +72,7 @@ public class Main {
 		} while (!option.equals(EXIT));
 		
 		System.out.println(SUCCESS_EXIT);
-		managerStatus(in, manager);
+		managerStatus(manager);
 		in.close();
 	}
 	
@@ -134,7 +134,7 @@ public class Main {
 			releaseTrot(in, manager);
 			break;
 		case SYS_STATE:
-			managerStatus(in, manager);
+			managerStatus(manager);
 			break;
 		case PROMOTION:
 			promotion(in, manager);
@@ -145,14 +145,14 @@ public class Main {
 		case ACTIVATE_SCOOTER:
 			activateTrot(in, manager);
 			break;
-		case TROT_LIST:
-			trotList(manager);
+		case LIST_TROTS:
+			listTrots(manager);
 			break;
-		case CLIENT_LIST:
-			clientList(manager);
+		case LIST_CLIENTS:
+			listClientsNif(manager);
 			break;
-		case CLIENT_NEGATIVE_BALANCE:
-			ClientNegativeBalanceList(manager);
+		case LIST_CLIENTS_NEGATIVE_BALANCE:
+			listClientsNegativeBalance(manager);
 			break;
 		case EXIT:
 			break;
@@ -382,7 +382,7 @@ public class Main {
 	 * @param in
 	 * @param manager
 	 */
-	private static void managerStatus(Scanner in, Manager manager) {
+	private static void managerStatus(Manager manager) {
 		System.out.println("Estado actual: " + manager.getTotalRents() + ", " + manager.getTotalSpent() + ", " + manager.getTotalMinutesLate());
 	}
 
@@ -452,15 +452,15 @@ public class Main {
 		}
 	}
 	
-	private static void trotList(Manager manager) {
+	private static void listTrots(Manager manager) {
 		
 	}
 	
-	private static void clientList(Manager manager) {
+	private static void listClientsNif(Manager manager) {
 		
 	}
 	
-	private static void ClientNegativeBalanceList(Manager manager) {
+	private static void listClientsNegativeBalance(Manager manager) {
 		
 		
 		
