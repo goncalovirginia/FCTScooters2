@@ -8,7 +8,7 @@
 public class Manager {
 
 	/* Constants */
-	private static final int FEE = 100, DEFAULT_SIZE = 50, GROWTH = 2;
+	private static final int FEE = 100, DEFAULT_SIZE = 50, ARRAY_GROWTH = 2;
 	
 	/* Instance variables */
 	private Client[] clients;
@@ -35,14 +35,17 @@ public class Manager {
 	 * @param nif - The clients' NIF (Identification number).
 	 * @return Position of the client on the client list.
 	 */
-	public int findClient(String nif) {
-		int position = -1;
+	private int findClient(String nif) {
+		int i = 0, position = -1;
 		boolean found = false;
 		
-		for (int i = 0; i < clientCounter && !found; i++) {
+		while (i < clientCounter && !found) {
 			if (clients[i].getNif().equalsIgnoreCase(nif)) {
 				position = i;
 				found = true;
+			}
+			else {
+				i++;
 			}
 		}
 		return position;
@@ -53,17 +56,28 @@ public class Manager {
 	 * @param id - The scooters' ID.
 	 * @return Position of the scooter on the scooter list. (-1 if it doesn't exist).
 	 */
-	public int findTrot(String id) {
-		int position = -1;
+	private int findTrot(String id) {
+		int i = 0, position = -1;
 		boolean found = false;
 		
-		for (int i = 0; i < trotCounter && !found; i++) {
+		while (i < trotCounter && !found) {
 			if (trots[i].getId().equalsIgnoreCase(id)) {
 				position = i;
 				found = true;
 			}
+			else {
+				i++;
+			}
 		}
 		return position;
+	}
+	
+	public boolean clientExists(String nif) {
+		return findClient(nif) != -1;
+	}
+	
+	public boolean trotExists(String idTrot) {
+		return findTrot(idTrot) != -1;
 	}
 	
 	/**
@@ -75,8 +89,10 @@ public class Manager {
 	 * @pre nif != null && email != null && phone != null && name != null
 	 */
 	public void addClient(String nif, String email, String phone, String name) {
-		if( isClientFull() )
-			resiseClient();
+		if (clientListIsFull()) {
+			resizeClientList();
+		}
+		
 		clients[clientCounter++] = new Client(nif, email, phone, name);
 	}
 
@@ -84,8 +100,8 @@ public class Manager {
 	 * Removes the client.
 	 * @param position - Position of the client on the list of clients.
 	 */
-	public void removeClient(int position) {
-		for (int i = position; i < clientCounter-1; i++) {
+	public void removeClient(String nif) {
+		for (int i = findClient(nif); i < clientCounter-1; i++) {
 			clients[i] = clients[i+1];
 		}
 		clientCounter--;
@@ -98,8 +114,10 @@ public class Manager {
 	 * @pre idTrot != null && licensePlate != null
 	 */
 	public void addTrot(String idTrot, String licensePlate) {
-		if ( isTrotFull() )
-			resiseTrot();
+		if(trotListIsFull()) {
+			resizeTrotList();
+		}
+		
 		trots[trotCounter++] = new Trot(idTrot, licensePlate);
 	}
 
@@ -109,8 +127,8 @@ public class Manager {
 	 * @param position - Position of the client on the list of clients.
 	 * @pre amount > 0
 	 */
-	public void loadBalance(int position, int amount) {
-		clients[position].loadBalance(amount);
+	public void loadBalance(String nif, int amount) {
+		clients[findClient(nif)].loadBalance(amount);
 	}
 
 	/**
@@ -119,7 +137,10 @@ public class Manager {
 	 * @param idTrot - The scooters' ID.
 	 * @pre nif != null && idTrot != null
 	 */
-	public void rentTrot(int positionClient, int positionTrot) {
+	public void rentTrot(String nif, String idTrot) {
+		int positionClient = findClient(nif);
+		int positionTrot = findTrot(idTrot);
+		
 		clients[positionClient].rent(trots[positionTrot]);
 		trots[positionTrot].rent(clients[positionClient]);
 	}
@@ -129,8 +150,9 @@ public class Manager {
 	 * @param minutes - Time (minutes) the client spent using the Scooter.
 	 * @pre minutes > 0
 	 */
-	public void releaseTrot(int positionTrot, int minutes) {
+	public void releaseTrot(String idTrot, int minutes) {
 		int times = 0;
+		int positionTrot = findTrot(idTrot);
 		int positionClient = findClient(trots[positionTrot].getClient().getNif());
 		
 		clients[positionClient].release(minutes);
@@ -159,7 +181,9 @@ public class Manager {
 	/**
 	 * Resets the systems' information to how it was before the last rent.
 	 */
-	public void applyPromotion(int position) {
+	public void applyPromotion(String nif) {
+		int position = findClient(nif);
+		
 		usedPromotion = true;
 		clients[position].loadBalance(tripCost);
 		clients[position].promotion(tripMinutes, tripCost);
@@ -172,96 +196,124 @@ public class Manager {
 		}
 	}
 	
-	public String getClientNif(int position) {
-		return clients[position].getNif();
+	private boolean clientListIsFull() {
+		return clientCounter == clients.length;
 	}
 	
-	public String getClientName(int position) {
-		return clients[position].getName();
+	private boolean trotListIsFull() {
+		return trotCounter == trots.length;
 	}
 	
-	public String getClientEmail(int position) {
-		return clients[position].getEmail();
-	}
-	
-	public String getClientPhone(int position) {
-		return clients[position].getPhone();
-	}
-	
-	public int getClientBalance(int position) {
-		return clients[position].getBalance();
-	}
-	
-	public int getClientTotalMinutes(int position) {
-		return clients[position].getTotalMinutes();
-	}
-	
-	public int getClientRents(int position) {
-		return clients[position].getRents();
-	}
-	
-	public int getClientMaxMinutes(int position) {
-		return clients[position].getMaxMinutes();
-	}
-	
-	public int getClientAvgMinutes(int position) {
-		return clients[position].getAvgMinutes();
-	}
-	
-	public int getClientTotalSpent(int position) {
-		return clients[position].getTotalSpent();
-	}
-	
-	public boolean clientHasTrot(int position) {
-		return (clients[position].getTrot() != null);
-	}
-	
-	public boolean trotHasClient(int position) {
-		return (trots[position].getClient() != null);
-	}
-	
-	public String getClientIdTrot(int position) {
-		String idTrot = "";
+	private void resizeClientList() {
+		Client[] bigClients = new Client[ARRAY_GROWTH * clients.length];
 		
-		if (clients[position].getTrot() != null) {
-			idTrot = clients[position].getTrot().getId();
+		for (int i = 0; i < clientCounter; i++) {
+			bigClients[i] = clients[i];
 		}
 		
-		return idTrot;
+		clients = bigClients;
 	}
 	
-	public String getClientLicensePlate(int position) {
-		return clients[position].getTrot().getLicensePlate();
-	}
-	
-	public String getTrotNif(int position) {
-		String nif = "";
+	private void resizeTrotList() {
+		Trot[] bigTrots = new Trot[ARRAY_GROWTH * trots.length];
 		
-		if (trots[position].getClient() != null) {
-			nif = trots[position].getClient().getNif();
+		for (int i = 0; i < trotCounter; i++) {
+			bigTrots[i] = trots[i];
 		}
 		
-		return nif;
+		trots = bigTrots;
 	}
 	
-	public String getTrotId(int position) {
-		return trots[position].getId();
+	public String getClientNif(String nif) {
+		return clients[findClient(nif)].getNif();
 	}
 	
-	public String getTrotLicensePlate(int position) {
-		return trots[position].getLicensePlate();
+	public String getClientName(String nif) {
+		return clients[findClient(nif)].getName();
 	}
 	
-	public String getTrotStatus(int position) {
-		return trots[position].status();
+	public String getClientEmail(String nif) {
+		return clients[findClient(nif)].getEmail();
 	}
 	
-	public int getTrotRents(int position) {
-		return trots[position].getRents();
+	public String getClientPhone(String nif) {
+		return clients[findClient(nif)].getPhone();
 	}
 	
-	public int getTrotTotalMinutes(int position) {
-		return trots[position].getTotalMinutes();
+	public int getClientBalance(String nif) {
+		return clients[findClient(nif)].getBalance();
+	}
+	
+	public int getClientTotalMinutes(String nif) {
+		return clients[findClient(nif)].getTotalMinutes();
+	}
+	
+	public int getClientRents(String nif) {
+		return clients[findClient(nif)].getRents();
+	}
+	
+	public int getClientMaxMinutes(String nif) {
+		return clients[findClient(nif)].getMaxMinutes();
+	}
+	
+	public int getClientAvgMinutes(String nif) {
+		return clients[findClient(nif)].getAvgMinutes();
+	}
+	
+	public int getClientTotalSpent(String nif) {
+		return clients[findClient(nif)].getTotalSpent();
+	}
+	
+	public boolean clientHasTrot(String nif) {
+		return (clients[findClient(nif)].getTrot() != null);
+	}
+	
+	public String getClientIdTrot(String nif) {
+		return clients[findClient(nif)].getTrot().getId();
+	}
+	
+	public String getClientLicensePlate(String nif) {
+		return clients[findClient(nif)].getTrot().getLicensePlate();
+	}
+	
+	public boolean trotHasClient(String idTrot) {
+		return (trots[findTrot(idTrot)].getClient() != null);
+	}
+	
+	public String getTrotNif(String idTrot) {
+		return trots[findTrot(idTrot)].getClient().getNif();
+	}
+	
+	public String getTrotId(String idTrot) {
+		return trots[findTrot(idTrot)].getId();
+	}
+	
+	public String getTrotLicensePlate(String idTrot) {
+		return trots[findTrot(idTrot)].getLicensePlate();
+	}
+	
+	public String getTrotStatus(String idTrot) {
+		return trots[findTrot(idTrot)].status();
+	}
+	
+	public int getTrotRents(String idTrot) {
+		return trots[findTrot(idTrot)].getRents();
+	}
+	
+	public int getTrotTotalMinutes(String idTrot) {
+		return trots[findTrot(idTrot)].getTotalMinutes();
+	}
+	
+	public void deactivateTrot(String idTrot) {
+		trots[findTrot(idTrot)].deactivate();
+	}
+	
+	public void activateTrot(String idTrot) {
+		trots[findTrot(idTrot)].activate();
+	}
+	
+	public boolean trotIsActivated(String idTrot) {
+		return trots[findTrot(idTrot)].isActivated();
 	}
 	
 	public int getTotalRents() {
@@ -278,44 +330,6 @@ public class Manager {
 	
 	public boolean usedPromotion() {
 		return usedPromotion;
-	}
-	
-	public void deactivateTrot(int position) {
-		trots[position].deactivate();
-	}
-	
-	public void activateTrot(int position) {
-		trots[position].activate();
-	}
-	
-	public boolean trotIsActivated(int position) {
-		return trots[position].isActivated();
-	}
-	
-	private boolean isClientFull() {
-		return clientCounter == clients.length;
-	}
-	
-	private boolean isTrotFull() {
-		return trotCounter == trots.length;
-	}
-	
-	private void resiseClient() {
-		Client[] clientsResise = new Client[GROWTH*clients.length];
-		for(int i=0; i < clients.length; i++)
-			 clientsResise[i] = clients[i];
-		clients = clientsResise;
-	}
-	
-	private void resiseTrot() {
-		Trot[] trotsResise = new Trot[GROWTH*trots.length];
-		for(int i=0; i < trots.length; i++)
-			 trotsResise[i] = trots[i];
-		trots = trotsResise;
-	}
-	
-	public boolean inRedZoneClient(int position) {
-		return clients[position].inRedZone();
 	}
 	
 }
