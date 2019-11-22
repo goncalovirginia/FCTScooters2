@@ -453,11 +453,23 @@ public class Main {
 	}
 	
 	private static void listTrots(Manager manager) {
-		
+		TrotIterator iterator = manager.newTrotIterator();
+		while (iterator.hasNext()) {
+			Trot trot = iterator.next();
+			System.out.println(trot.getLicensePlate() + ": " + trot.status() + ", " + 
+					trot.getRents() + ", " + trot.getTotalMinutes());
+		}
 	}
 	
 	private static void listClientsNif(Manager manager) {
-		
+		ClientIterator iterator = manager.newClientIterator();
+		while(iterator.hasNext()) {
+			Client client = iterator.next();
+			System.out.println(client.getName() + ": " + client.getNif() + ", " + client.getEmail() + ", "
+					+ client.getPhone() + ", " + client.getBalance() + ", " + client.getTotalMinutes() + ", "
+					+ client.getRents() + ", " + client.getMaxMinutes() + ", " + client.getAvgMinutes() + ", "
+					+ client.getTotalSpent());
+		}
 	}
 	
 	private static void listClientsNegativeBalance(Manager manager) {

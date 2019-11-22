@@ -13,6 +13,8 @@ public class Manager {
 	/* Instance variables */
 	private Client[] clients;
 	private Trot[] trots;
+	private ClientIterator clientIterator;
+	private TrotIterator trotIterator;
 	private int totalRents, totalSpent, totalMinutesLate, minutesLate, tripMinutes, tripCost, clientCounter, trotCounter;
 	private boolean usedPromotion;
 
@@ -332,6 +334,15 @@ public class Manager {
 	
 	public boolean clientHasNegativeBalance(String nif) { 
 		return clients[findClient(nif)].getBalance() < 0; 
-	} 
+	}
+	public TrotIterator newTrotIterator() {
+		trotIterator = new TrotIterator(trots, trotCounter);
+		return trotIterator;
+	}
+	
+	public ClientIterator newClientIterator() {
+		clientIterator = new ClientIterator(clients, clientCounter);
+		return clientIterator;
+	}
 	
 }
