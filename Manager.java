@@ -8,7 +8,7 @@
 public class Manager {
 
 	/* Constants */
-	private static final int FEE = 100, DEFAULT_SIZE = 50, ARRAY_GROWTH = 2;
+	private static final int FEE = 100, DEFAULT_SIZE = 100, ARRAY_GROWTH = 2;
 	
 	/* Instance variables */
 	private Client[] clients;
@@ -18,7 +18,6 @@ public class Manager {
 
 	/* Constructor */
 	public Manager() {
-		
 		clients = new Client[DEFAULT_SIZE];
 		trots = new Trot[DEFAULT_SIZE];
 		totalRents = 0;
@@ -26,8 +25,7 @@ public class Manager {
 		totalMinutesLate = 0;
 		usedPromotion = false;
 		clientCounter = 0;
-		trotCounter = 0;
-		
+		trotCounter = 0;	
 	}
 	
 	/**

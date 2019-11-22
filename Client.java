@@ -24,23 +24,6 @@ public class Client {
 		trot = null;
 	}
 	
-	
-	public String getName() {
-		return name;
-	}
-	
-	public String getEmail() {
-		return email;
-	}
-	
-	public String getNif() {
-		return nif;
-	}
-	
-	public String getPhone() {
-		return phone;
-	}
-	
 	/**
 	 * Loads balance with an inserted amount.
 	 * @param amount - Money (cents) to add to balance.
@@ -98,6 +81,39 @@ public class Client {
 		}
 	}
 	
+	/**
+	 * Resets the clients' information to how it was before the last rent.
+	 * @param minutes - Time (minutes) spent in the last rent.
+	 * @param amount - Money (cents) spent in the last rent.
+	 * @pre minutes > 0 && amount > 0
+	 */
+	public void promotion(int minutes, int amount) {
+		totalMinutes -= minutes;
+		maxMinutes = lastMaxMinutes;
+		totalSpent -= amount;
+		rents--;
+	}
+	
+	public boolean greaterThan(Client other) {
+		return this.getNif().compareToIgnoreCase(other.getNif()) > 0;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
+	public String getNif() {
+		return nif;
+	}
+	
+	public String getPhone() {
+		return phone;
+	}
+	
 	public Trot getTrot() {
 		return trot;
 	}
@@ -121,6 +137,7 @@ public class Client {
 	public int getMaxMinutes() {
 		return maxMinutes;
 	}
+<<<<<<< Updated upstream
 	
 	/**
 	 * Resets the clients' information to how it was before the last rent.
