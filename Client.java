@@ -151,5 +151,9 @@ public class Client {
 		totalSpent -= amount;
 		rents--;
 	}
+	
+	public boolean inRedZone() {
+		return balance < 0;
+	}
 
 }

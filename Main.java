@@ -49,6 +49,9 @@ public class Main {
 	private static final String PROMOTION = "PROMOCAO";
 	private static final String DEACTIVATE_SCOOTER = "DESTROT";
 	private static final String ACTIVATE_SCOOTER = "REACTROT";
+	private static final String TROT_LIST = "LISTTROT";
+	private static final String CLIENT_LIST = "LISTCLIENTE";
+	private static final String CLIENT_NEGATIVE_BALANCE = "LISTDEV";
 	private static final String SYS_STATE = "ESTADOSISTEMA";
 	private static final String EXIT = "SAIR";
 	
@@ -141,6 +144,15 @@ public class Main {
 			break;
 		case ACTIVATE_SCOOTER:
 			activateTrot(in, manager);
+			break;
+		case TROT_LIST:
+			trotList(manager);
+			break;
+		case CLIENT_LIST:
+			clientList(manager);
+			break;
+		case CLIENT_NEGATIVE_BALANCE:
+			ClientNegativeBalanceList(manager);
 			break;
 		case EXIT:
 			break;
@@ -438,6 +450,22 @@ public class Main {
 			manager.activateTrot(idTrot);
 			System.out.println(SUCCESS_SCOOTER_REACTIVATED);
 		}
+	}
+	
+	private static void trotList(Manager manager) {
+		
+	}
+	
+	private static void clientList(Manager manager) {
+		
+	}
+	
+	private static void ClientNegativeBalanceList(Manager manager) {
+		
+		
+		
+		
+		
 	}
 	
 }
