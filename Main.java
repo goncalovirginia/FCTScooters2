@@ -149,7 +149,7 @@ public class Main {
 			listTrots(manager);
 			break;
 		case LIST_CLIENTS:
-			listClientsNif(manager);
+			listClientsOrdNif(manager);
 			break;
 		case LIST_CLIENTS_NEGATIVE_BALANCE:
 			listClientsNegativeBalance(manager);
@@ -454,17 +454,21 @@ public class Main {
 	
 	private static void listTrots(Manager manager) {
 		TrotIterator iterator = manager.newTrotIterator();
+		
 		while (iterator.hasNext()) {
 			Trot trot = iterator.next();
+			
 			System.out.println(trot.getLicensePlate() + ": " + trot.status() + ", " + 
 					trot.getRents() + ", " + trot.getTotalMinutes());
 		}
 	}
 	
-	private static void listClientsNif(Manager manager) {
-		ClientIterator iterator = manager.newClientIterator();
+	private static void listClientsOrdNif(Manager manager) {
+		ClientIteratorOrdNif iterator = manager.newClientIteratorOrdNif();
+		
 		while(iterator.hasNext()) {
 			Client client = iterator.next();
+			
 			System.out.println(client.getName() + ": " + client.getNif() + ", " + client.getEmail() + ", "
 					+ client.getPhone() + ", " + client.getBalance() + ", " + client.getTotalMinutes() + ", "
 					+ client.getRents() + ", " + client.getMaxMinutes() + ", " + client.getAvgMinutes() + ", "

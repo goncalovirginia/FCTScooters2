@@ -337,8 +337,8 @@ public class Manager {
 		return new TrotIterator(trots, trotCounter);
 	}
 	
-	public ClientIterator newClientIterator() {
-		return new ClientIterator(clients, clientCounter);
+	public ClientIteratorOrdNif newClientIteratorOrdNif() {
+		return new ClientIteratorOrdNif(clients, clientCounter);
 	}
 	
 }
