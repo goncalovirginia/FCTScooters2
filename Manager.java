@@ -333,12 +333,17 @@ public class Manager {
 	public boolean clientHasNegativeBalance(String nif) { 
 		return clients[findClient(nif)].getBalance() < 0; 
 	}
+	
 	public TrotIterator newTrotIterator() {
 		return new TrotIterator(trots, trotCounter);
 	}
 	
 	public ClientIteratorOrdNif newClientIteratorOrdNif() {
 		return new ClientIteratorOrdNif(clients, clientCounter);
+	}
+	
+	public ClientIteratorOrdNegBal newClientIteratorOrdNegBal() {
+		return new ClientIteratorOrdNegBal(clients, clientCounter);
 	}
 	
 }

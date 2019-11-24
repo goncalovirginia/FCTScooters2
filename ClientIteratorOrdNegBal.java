@@ -1,16 +1,18 @@
 
-public class ClientIteratorOrdNif {
+public class ClientIteratorOrdNegBal {
 
 	private Client[] clients;
 	private int counter, nextClient;
 	
-	public ClientIteratorOrdNif(Client[] clients, int counter) {
+	public ClientIteratorOrdNegBal(Client[] clients, int counter) {
 		this.clients = clients;
 		this.counter = 0;
 		nextClient = 0;
 		
 		for (int i = 0; i < counter; i++) {
-			this.insertSort(clients[i]);
+			if (clients[i].getBalance() < 0) {
+				this.insertSort(clients[i]);
+			}
 		}
 	}
 	
@@ -26,7 +28,7 @@ public class ClientIteratorOrdNif {
 		int pos = -1, i = 0;
 		
 		while (i < counter && pos == -1) {
-			if (clients[i].nifGreaterThan(client)) {
+			if (clients[i].balanceGreaterThan(client) || (clients[i].balanceEquals(client) && clients[i].nifGreaterThan(client))) {
 				pos = i;
 			}
 			else {

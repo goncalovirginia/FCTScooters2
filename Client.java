@@ -94,8 +94,16 @@ public class Client {
 		rents--;
 	}
 	
-	public boolean greaterThan(Client other) {
+	public boolean nifGreaterThan(Client other) {
 		return this.getNif().compareToIgnoreCase(other.getNif()) > 0;
+	}
+	
+	public boolean balanceGreaterThan(Client other) {
+		return this.getBalance() > other.getBalance();
+	}
+	
+	public boolean balanceEquals(Client other) {
+		return this.getBalance() == other.getBalance();
 	}
 	
 	public String getName() {

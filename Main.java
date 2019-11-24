@@ -477,11 +477,16 @@ public class Main {
 	}
 	
 	private static void listClientsNegativeBalance(Manager manager) {
+		ClientIteratorOrdNegBal iterator = manager.newClientIteratorOrdNegBal();
 		
-		
-		
-		
-		
+		while(iterator.hasNext()) {
+			Client client = iterator.next();
+			
+			System.out.println(client.getName() + ": " + client.getNif() + ", " + client.getEmail() + ", "
+					+ client.getPhone() + ", " + client.getBalance() + ", " + client.getTotalMinutes() + ", "
+					+ client.getRents() + ", " + client.getMaxMinutes() + ", " + client.getAvgMinutes() + ", "
+					+ client.getTotalSpent());
+		}
 	}
 	
 }
