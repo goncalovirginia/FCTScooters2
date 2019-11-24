@@ -17,4 +17,5 @@ public class TrotIterator {
 	public Trot next() {
 		return trots[nextTrot++];
 	}
+	
 }

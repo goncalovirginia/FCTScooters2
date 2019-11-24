@@ -55,6 +55,7 @@ public class Main {
 	private static final String LIST_CLIENTS_NEGATIVE_BALANCE = "LISTDEV";
 	private static final String SYS_STATE = "ESTADOSISTEMA";
 	private static final String RELEASE_LOCATION = "LIBLOC";
+	private static final String LOCATE_TROTS = "LOCTROT";
 	private static final String EXIT = "SAIR";
 	
 	/**
@@ -158,6 +159,10 @@ public class Main {
 			break;
 		case RELEASE_LOCATION:
 			releaseTrotLocation(in, manager);
+			break;
+		case LOCATE_TROTS:
+			locateTrots(in, manager);
+			break;
 		case EXIT:
 			break;
 		default:
@@ -520,6 +525,23 @@ public class Main {
 		else {
 			manager.releaseTrotLocation(idTrot, minutes, x, y);
 			System.out.println(SUCCESS_RENT_TERMINATED);
+		}
+	}
+	
+	private static void locateTrots(Scanner in, Manager manager) {
+		double xClient = in.nextDouble();
+		double yClient = in.nextDouble();
+		in.nextLine();
+		
+		TrotIteratorOrdDistance iterator = manager.newTrotIteratorOrdDistance(xClient, yClient);
+		
+		while (iterator.hasNext()) {
+			Trot trot = iterator.next();
+			
+			System.out.printf("Distancia: %.6f\n", trot.distance(xClient, yClient));
+			System.out.println(trot.getLicensePlate() + ": " + trot.status() + ", " + 
+					trot.getRents() + ", " + trot.getTotalMinutes() + ", ");
+			System.out.printf("%.6f, %.6f\n", trot.getX(), trot.getY());
 		}
 	}
 	

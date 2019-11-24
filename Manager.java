@@ -356,4 +356,8 @@ public class Manager {
 		trots[findTrot(idTrot)].setCoordinates(x, y);
 	}
 	
+	public TrotIteratorOrdDistance newTrotIteratorOrdDistance(double xClient, double yClient) {
+		return new TrotIteratorOrdDistance(trots, trotCounter, xClient, yClient);
+	}
+	
 }

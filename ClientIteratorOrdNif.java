@@ -5,7 +5,7 @@ public class ClientIteratorOrdNif {
 	private int counter, nextClient;
 	
 	public ClientIteratorOrdNif(Client[] clients, int counter) {
-		this.clients = clients;
+		this.clients = new Client[counter];
 		this.counter = 0;
 		nextClient = 0;
 		

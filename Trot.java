@@ -4,6 +4,8 @@
  * Handles all the information concerning the scooter.
  */
 
+import java.lang.Math;
+
 public class Trot {
 
 	/* Instance variables */
@@ -104,6 +106,10 @@ public class Trot {
 	
 	public double getY() {
 		return y;
+	}
+	
+	public double distance(double xClient, double yClient) {
+		return Math.sqrt((x - xClient)*(x - xClient) + (y - yClient)*(y - yClient));
 	}
 	
 }
