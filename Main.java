@@ -24,6 +24,7 @@ public class Main {
 	private static final String ERROR_CLIENT_INITIALIZED_NEW_RENT = "Cliente iniciou novo aluguer.";
 	private static final String ERROR_SCOOTER_MOVING = "Trotinete em movimento.";
 	private static final String ERROR_SCOOTER_NOT_INACTIVE = "Trotinete nao inactiva.";
+	private static final String ERROR_INVALID_LOCATION = "Localizacao invalida.";
 	
 	private static final String SUCCESS_CLIENT_INSERTED = "Insercao de cliente com sucesso.";
 	private static final String SUCCESS_CLIENT_REMOVED = "Cliente removido com sucesso.";
@@ -53,6 +54,7 @@ public class Main {
 	private static final String LIST_CLIENTS = "LISTCLIENTE";
 	private static final String LIST_CLIENTS_NEGATIVE_BALANCE = "LISTDEV";
 	private static final String SYS_STATE = "ESTADOSISTEMA";
+	private static final String RELEASE_LOCATION = "LIBLOC";
 	private static final String EXIT = "SAIR";
 	
 	/**
@@ -154,6 +156,8 @@ public class Main {
 		case LIST_CLIENTS_NEGATIVE_BALANCE:
 			listClientsNegativeBalance(manager);
 			break;
+		case RELEASE_LOCATION:
+			releaseTrotLocation(in, manager);
 		case EXIT:
 			break;
 		default:
@@ -486,6 +490,36 @@ public class Main {
 					+ client.getPhone() + ", " + client.getBalance() + ", " + client.getTotalMinutes() + ", "
 					+ client.getRents() + ", " + client.getMaxMinutes() + ", " + client.getAvgMinutes() + ", "
 					+ client.getTotalSpent());
+		}
+	}
+	
+	/**
+	 * Releases the scooter after a client uses it for a certain amount of minutes.
+	 * @param in
+	 * @param manager
+	 */
+	private static void releaseTrotLocation(Scanner in, Manager manager) {
+		String idTrot = in.next();
+		int minutes = in.nextInt();
+		double x = in.nextDouble();
+		double y = in.nextDouble();
+		in.nextLine();
+
+		if (!manager.checkCoordinates(x, y)) {
+			System.out.println(ERROR_INVALID_LOCATION);
+		}
+		else if (minutes <= 0) {
+			System.out.println(ERROR_INVALID_AMOUNT);
+		}
+		else if (!manager.trotExists(idTrot)) {
+			System.out.println(ERROR_SCOOTER_DOES_NOT_EXIST);
+		}
+		else if (!manager.getTrotStatus(idTrot).equals("alugada")) {
+			System.out.println(ERROR_SCOOTER_NOT_RENTED);
+		}
+		else {
+			manager.releaseTrotLocation(idTrot, minutes, x, y);
+			System.out.println(SUCCESS_RENT_TERMINATED);
 		}
 	}
 	

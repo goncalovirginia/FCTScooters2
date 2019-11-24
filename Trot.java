@@ -11,6 +11,7 @@ public class Trot {
 	private Client client;
 	private int rents, totalMinutes;
 	private boolean activated;
+	private double x, y;
 	
 	/* Constructor */
 	public Trot(String idTrot, String licensePlate) {
@@ -90,6 +91,11 @@ public class Trot {
 	
 	public boolean isActivated() {
 		return activated;
+	}
+	
+	public void setCoordinates(double x, double y) {
+		this.x = x;
+		this.y = y;
 	}
 	
 }

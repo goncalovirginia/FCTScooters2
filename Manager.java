@@ -9,6 +9,7 @@ public class Manager {
 
 	/* Constants */
 	private static final int FEE = 100, DEFAULT_SIZE = 100, ARRAY_GROWTH = 2;
+	private static final double NORTE = 38.663964, SUL = 38.658475, OESTE = -9.209269, LESTE = -9.201978;
 	
 	/* Instance variables */
 	private Client[] clients;
@@ -344,6 +345,15 @@ public class Manager {
 	
 	public ClientIteratorOrdNegBal newClientIteratorOrdNegBal() {
 		return new ClientIteratorOrdNegBal(clients, clientCounter);
+	}
+	
+	public boolean checkCoordinates(double x, double y) {
+		return x >= OESTE && x <= LESTE && y >= SUL && y <= NORTE;
+	}
+	
+	public void releaseTrotLocation(String idTrot, int minutes, double x, double y) {
+		releaseTrot(idTrot, minutes);
+		trots[findTrot(idTrot)].setCoordinates(x, y);
 	}
 	
 }
