@@ -10,7 +10,6 @@ public class Client {
 	private String nif, email, phone, name;
 	private int balance, totalMinutes, rents, maxMinutes, totalSpent, lastMaxMinutes;
 	private Trot trot;
-	private double x, y;
 	
 	/* Constructor */
 	public Client(String nif, String email, String phone, String name) {
@@ -105,19 +104,6 @@ public class Client {
 	
 	public boolean balanceEquals(Client other) {
 		return this.getBalance() == other.getBalance();
-	}
-	
-	public void setCoordinates(double x, double y) {
-		this.x = x;
-		this.y = y;
-	}
-	
-	public double getX() {
-		return x;
-	}
-	
-	public double getY() {
-		return y;
 	}
 	
 	public String getName() {
