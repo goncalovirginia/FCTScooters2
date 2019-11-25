@@ -28,8 +28,16 @@ public class TrotList {
 		return findTrot(idTrot) != -1;
 	}
 	
+	public TrotIterator newTrotIterator() {
+		return new TrotIterator(trots, counter);
+	}
+	
 	public Trot getTrot(String idTrot) {
 		return trots[findTrot(idTrot)];
+	}
+	
+	public void release(String idTrot, int minutes) {
+		trots[findTrot(idTrot)].release(minutes);
 	}
 	
 	private boolean isFull() {

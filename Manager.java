@@ -233,7 +233,7 @@ public class Manager {
 	}
 
 	public TrotIterator newTrotIterator() {
-		return new TrotIterator(trots, trotCounter);
+		return trots.newTrotIterator();
 	}
 
 	public ClientIteratorOrdNif newClientIteratorOrdNif() {
