@@ -125,55 +125,55 @@ public class Manager {
 	}
 
 	public String getClientNif(String nif) {
-		return clients[findClient(nif)].getNif();
+		return clients.getClient(nif).getNif();
 	}
 
 	public String getClientName(String nif) {
-		return clients[findClient(nif)].getName();
+		return clients.getClient(nif).getName();
 	}
 
 	public String getClientEmail(String nif) {
-		return clients[findClient(nif)].getEmail();
+		return clients.getClient(nif).getEmail();
 	}
 
 	public String getClientPhone(String nif) {
-		return clients[findClient(nif)].getPhone();
+		return clients.getClient(nif).getPhone();
 	}
 
 	public int getClientBalance(String nif) {
-		return clients[findClient(nif)].getBalance();
+		return clients.getClient(nif).getBalance();
 	}
 
 	public int getClientTotalMinutes(String nif) {
-		return clients[findClient(nif)].getTotalMinutes();
+		return clients.getClient(nif).getTotalMinutes();
 	}
 
 	public int getClientRents(String nif) {
-		return clients[findClient(nif)].getRents();
+		return clients.getClient(nif).getRents();
 	}
 
 	public int getClientMaxMinutes(String nif) {
-		return clients[findClient(nif)].getMaxMinutes();
+		return clients.getClient(nif).getMaxMinutes();
 	}
 
 	public int getClientAvgMinutes(String nif) {
-		return clients[findClient(nif)].getAvgMinutes();
+		return clients.getClient(nif).getAvgMinutes();
 	}
 
 	public int getClientTotalSpent(String nif) {
-		return clients[findClient(nif)].getTotalSpent();
+		return clients.getClient(nif).getTotalSpent();
 	}
 
 	public boolean clientHasTrot(String nif) {
-		return clients[findClient(nif)].getTrot() != null;
+		return clients.getClient(nif).getTrot() != null;
 	}
 
 	public String getClientIdTrot(String nif) {
-		return clients[findClient(nif)].getTrot().getId();
+		return clients.getClient(nif).getTrot().getId();
 	}
 
 	public String getClientLicensePlate(String nif) {
-		return clients[findClient(nif)].getTrot().getLicensePlate();
+		return clients.getClient(nif).getTrot().getLicensePlate();
 	}
 
 	public boolean trotHasClient(String idTrot) {
@@ -231,9 +231,15 @@ public class Manager {
 	public int getTotalMinutesLate() {
 		return totalMinutesLate;
 	}
+<<<<<<< Updated upstream
 
 	public boolean clientHasNegativeBalance(String nif) {
 		return clients[findClient(nif)].getBalance() < DEFAULT_VALUE;
+=======
+	
+	public boolean clientHasNegativeBalance(String nif) { 
+		return clients.getClient(nif).getBalance() < DEFAULT_VALUE; 
+>>>>>>> Stashed changes
 	}
 
 	public TrotIterator newTrotIterator() {
