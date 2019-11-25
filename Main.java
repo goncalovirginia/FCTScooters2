@@ -1,6 +1,6 @@
 
 /**
- * @author Goncalo Virginia N-56773
+ * @author Goncalo Virginia N-56773 e Afonso Batista N-57796
  * Interacts with the user and Manager class in order to control the Scooter renting system.
  */
 

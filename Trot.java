@@ -1,6 +1,6 @@
 
 /**
- * @author Goncalo Virginia N-56773
+ * @author Goncalo Virginia N-56773 e Afonso Batista N-57796
  * Handles all the information concerning the scooter.
  */
 

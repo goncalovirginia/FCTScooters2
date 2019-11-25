@@ -1,6 +1,7 @@
 
 /**
- * @author Goncalo Virginia N-56773
+ * @author Goncalo Virginia N-56773 e Afonso Batista N-57796
+ * 
  * Interacts and receives inputs from the Main class.
  * Manages the scooter renting system and all the interactions concerning the Client and Trot (Scooter) classes.
  */

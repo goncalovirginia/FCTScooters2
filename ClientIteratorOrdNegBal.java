@@ -1,4 +1,8 @@
-
+/**
+ * 
+ * Goncalo Virginia N-56773 e Afonso Batista N-57796
+ *
+ */
 public class ClientIteratorOrdNegBal {
 
 	private Client[] clients;

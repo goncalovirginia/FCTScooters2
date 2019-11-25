@@ -1,6 +1,6 @@
 
 /**
- * @author Goncalo Virginia N-56773
+ * Goncalo Virginia N-56773 e Afonso Batista N-57796
  * Handles all the information concerning the client.
  */
 
@@ -10,6 +10,8 @@ public class Client {
 	private String nif, email, phone, name;
 	private int balance, totalMinutes, rents, maxMinutes, totalSpent, lastMaxMinutes;
 	private Trot trot;
+	private static final int DEFAULT_VALUE = 0, NEW_ACCOUNT_BALANCE = 200;
+	
 	
 	/* Constructor */
 	public Client(String nif, String email, String phone, String name) {
@@ -17,10 +19,10 @@ public class Client {
 		this.email = email;
 		this.phone = phone;
 		this.name = name;
-		balance = 200;
-		totalSpent = 0;
-		rents = 0;
-		totalMinutes = 0;
+		balance = NEW_ACCOUNT_BALANCE;
+		totalSpent = DEFAULT_VALUE;
+		rents = DEFAULT_VALUE;
+		totalMinutes = DEFAULT_VALUE;
 		trot = null;
 	}
 	
@@ -73,12 +75,13 @@ public class Client {
 	 * @return - Average time (minutes).
 	 */
 	public int getAvgMinutes() {
-		if (rents == 0) {
-			return 0;
+		
+		int avg = DEFAULT_VALUE;
+		
+		if (rents != DEFAULT_VALUE) {
+			avg = (totalMinutes/rents);
 		}
-		else {
-			return (totalMinutes/rents);
-		}
+		return avg;
 	}
 	
 	/**
