@@ -14,14 +14,16 @@ public class Manager {
 	
 	/* Instance variables */
 	private ClientList clients;
-	private Trot[] trots;
+	private TrotList trots;
 	private int totalRents, totalSpent, totalMinutesLate, minutesLate, tripCost, clientCounter, trotCounter;
 
 	/* Constructor */
 	public Manager() {
+		
 		totalRents = DEFAULT_VALUE;
 		totalSpent = DEFAULT_VALUE;
 		totalMinutesLate = DEFAULT_VALUE;
+
 	}
 	
 	/**
@@ -39,19 +41,7 @@ public class Manager {
 	 * @return Position of the scooter on the scooter list. (-1 if it doesn't exist).
 	 */
 	private int findTrot(String id) {
-		int i = DEFAULT_VALUE, position = NOT_FOUND;
-		boolean found = false;
-		
-		while (i < trotCounter && !found) {
-			if (trots[i].getId().equalsIgnoreCase(id)) {
-				position = i;
-				found = true;
-			}
-			else {
-				i++;
-			}
-		}
-		return position;
+		return trots.findTrot(id);
 	}
 	
 	public boolean clientExists(String nif) {
@@ -92,11 +82,7 @@ public class Manager {
 	 * @pre idTrot != null && licensePlate != null
 	 */
 	public void addTrot(String idTrot, String licensePlate) {
-		if(trotListIsFull()) {
-			resizeTrotList();
-		}
-		
-		trots[trotCounter++] = new Trot(idTrot, licensePlate);
+		trots.addTrot(idTrot, licensePlate);
 	}
 
 	/**
@@ -116,11 +102,9 @@ public class Manager {
 	 * @pre nif != null && idTrot != null
 	 */
 	public void rentTrot(String nif, String idTrot) {
-		int positionClient = findClient(nif);
-		int positionTrot = findTrot(idTrot);
 		
-		clients[positionClient].rent(trots[positionTrot]);
-		trots[positionTrot].rent(clients[positionClient]);
+		clients.rentClient(nif).rent(trots.rentTrot(idTrot));   //MUDARRRR
+		trots.rentTrot(idTrot).rent(clients.rentClient(nif));
 	}
 	
 	/**

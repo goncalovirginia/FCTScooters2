@@ -75,12 +75,12 @@ public class Client {
 	 */
 	public int getAvgMinutes() {
 		
-		int avg = DEFAULT_VALUE;
+		int average = DEFAULT_VALUE;
 		
 		if (rents != DEFAULT_VALUE) {
-			avg = (totalMinutes/rents);
+			average = (totalMinutes/rents);
 		}
-		return avg;
+		return average;
 	}
 	
 	public boolean nifGreaterThan(Client other) {
