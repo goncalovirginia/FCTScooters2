@@ -9,7 +9,7 @@
 public class Manager {
 
 	/* Constants */
-	private static final int FEE = 100, DEFAULT_SIZE = 100, ARRAY_GROWTH = 2;
+	private static final int FEE = 100, DEFAULT_SIZE = 100, ARRAY_GROWTH = 2, DEFAULT_VALUE = 0, NOT_FOUND = -1, NORMAL_TIME = 60;
 	private static final double NORTE = 38.663964, SUL = 38.658475, OESTE = -9.209269, LESTE = -9.201978;
 	
 	/* Instance variables */
@@ -22,12 +22,13 @@ public class Manager {
 	public Manager() {
 		clients = new Client[DEFAULT_SIZE];
 		trots = new Trot[DEFAULT_SIZE];
-		totalRents = 0;
-		totalSpent = 0;
-		totalMinutesLate = 0;
+		totalRents = DEFAULT_VALUE;
+		totalSpent = DEFAULT_VALUE;
+		totalMinutesLate = DEFAULT_VALUE;
+		clientCounter = DEFAULT_VALUE;
+		trotCounter = DEFAULT_VALUE;
 		usedPromotion = false;
-		clientCounter = 0;
-		trotCounter = 0;	
+			
 	}
 	
 	/**
@@ -36,7 +37,7 @@ public class Manager {
 	 * @return Position of the client on the client list.
 	 */
 	private int findClient(String nif) {
-		int i = 0, position = -1;
+		int i = DEFAULT_VALUE, position = NOT_FOUND;
 		boolean found = false;
 		
 		while (i < clientCounter && !found) {
@@ -57,7 +58,7 @@ public class Manager {
 	 * @return Position of the scooter on the scooter list. (-1 if it doesn't exist).
 	 */
 	private int findTrot(String id) {
-		int i = 0, position = -1;
+		int i = DEFAULT_VALUE, position = NOT_FOUND;
 		boolean found = false;
 		
 		while (i < trotCounter && !found) {
@@ -73,11 +74,11 @@ public class Manager {
 	}
 	
 	public boolean clientExists(String nif) {
-		return findClient(nif) != -1;
+		return findClient(nif) != NOT_FOUND;
 	}
 	
 	public boolean trotExists(String idTrot) {
-		return findTrot(idTrot) != -1;
+		return findTrot(idTrot) != NOT_FOUND;
 	}
 	
 	/**
@@ -151,20 +152,20 @@ public class Manager {
 	 * @pre minutes > 0
 	 */
 	public void releaseTrot(String idTrot, int minutes) {
-		int times = 0;
+		int times = DEFAULT_VALUE;
 		int positionTrot = findTrot(idTrot);
 		int positionClient = findClient(trots[positionTrot].getClient().getNif());
 		
 		clients[positionClient].release(minutes);
 		trots[positionTrot].release(minutes);
 		
-		minutesLate = (minutes - 60);
+		minutesLate = (minutes - NORMAL_TIME);
 		totalRents++;
 		tripMinutes = minutes;
 		usedPromotion = false;
 		
-		if (minutesLate > 0) {
-			if (minutesLate % 30 == 0) {
+		if (minutesLate > DEFAULT_VALUE) {
+			if (minutesLate % 30 == DEFAULT_VALUE) {
 				times = minutesLate/30;
 			}
 			else {
@@ -191,7 +192,7 @@ public class Manager {
 		totalSpent -= tripCost;
 		totalRents--;
 		
-		if (minutesLate > 0) {
+		if (minutesLate > DEFAULT_VALUE) {
 			totalMinutesLate -= minutesLate;
 		}
 	}
@@ -207,7 +208,7 @@ public class Manager {
 	private void resizeClientList() {
 		Client[] bigClients = new Client[ARRAY_GROWTH * clients.length];
 		
-		for (int i = 0; i < clientCounter; i++) {
+		for (int i = DEFAULT_VALUE; i < clientCounter; i++) {
 			bigClients[i] = clients[i];
 		}
 		
@@ -217,7 +218,7 @@ public class Manager {
 	private void resizeTrotList() {
 		Trot[] bigTrots = new Trot[ARRAY_GROWTH * trots.length];
 		
-		for (int i = 0; i < trotCounter; i++) {
+		for (int i = DEFAULT_VALUE; i < trotCounter; i++) {
 			bigTrots[i] = trots[i];
 		}
 		
@@ -337,7 +338,7 @@ public class Manager {
 	}
 	
 	public boolean clientHasNegativeBalance(String nif) { 
-		return clients[findClient(nif)].getBalance() < 0; 
+		return clients[findClient(nif)].getBalance() < DEFAULT_VALUE; 
 	}
 	
 	public TrotIterator newTrotIterator() {
