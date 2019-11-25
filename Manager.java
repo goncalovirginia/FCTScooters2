@@ -27,15 +27,6 @@ public class Manager {
 	}
 	
 	/**
-	 * Searches the list of clients for a client with a certain NIF.
-	 * @param nif - The clients' NIF (Identification number).
-	 * @return Position of the client on the client list.
-	 */
-	private int findClient(String nif) {
-		return clients.findClient(nif);
-	}
-	
-	/**
 	 * Searches the list of scooters for a scooter with a certain ID.
 	 * @param id - The scooters' ID.
 	 * @return Position of the scooter on the scooter list. (-1 if it doesn't exist).
@@ -45,7 +36,7 @@ public class Manager {
 	}
 	
 	public boolean clientExists(String nif) {
-		return findClient(nif) != NOT_FOUND;
+		return clients.clientExists(nif);
 	}
 	
 	public boolean trotExists(String idTrot) {
@@ -69,10 +60,7 @@ public class Manager {
 	 * @param position - Position of the client on the list of clients.
 	 */
 	public void removeClient(String nif) {
-		for (int i = findClient(nif); i < clientCounter-1; i++) {
-			clients[i] = clients[i+1];
-		}
-		clientCounter--;
+		clients.removeClient(nif);
 	}
 
 	/**
@@ -92,7 +80,7 @@ public class Manager {
 	 * @pre amount > 0
 	 */
 	public void loadBalance(String nif, int amount) {
-		clients[findClient(nif)].loadBalance(amount);
+		clients.loadBalance(nif, amount);
 	}
 
 	/**

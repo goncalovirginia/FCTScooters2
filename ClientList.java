@@ -24,7 +24,7 @@ public class ClientList {
 		clients = bigClients;
 	}
 	
-	public int findClient(String nif) {
+	private int findClient(String nif) {
 		int i = 0, position = -1;
 		boolean found = false;
 		
@@ -40,12 +40,31 @@ public class ClientList {
 		return position;
 	}
 	
+	public boolean clientExists(String nif) {
+		return findClient(nif) != -1;
+	}
+	
+	public Client getClient(String nif) {
+		return clients[findClient(nif)];
+	}
+	
 	public void addClient(String nif, String email, String phone, String name) {
 		if (isFull()) {
 			resize();
 		}
 		
 		clients[counter++] = new Client(nif, email, phone, name);
+	}
+	
+	public void removeClient(String nif) {
+		for (int i = findClient(nif); i < counter-1; i++) {
+			clients[i] = clients[i+1];
+		}
+		counter--;
+	}
+	
+	public void loadBalance(String nif, int amount) {
+		clients[findClient(nif)].loadBalance(amount);
 	}
 	
 }
