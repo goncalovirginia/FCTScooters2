@@ -1,6 +1,6 @@
 
 /**
- * @author Goncalo Virginia N-56773 e Afonso Batista N-57796
+ * @author Goncalo Virginia N-56773 & Afonso Batista N-57796.
  * 
  * Interacts and receives inputs from the Main class.
  * Manages the scooter renting system and all the interactions concerning the Client and Trot (Scooter) classes.
@@ -9,23 +9,19 @@
 public class Manager {
 
 	/* Constants */
-	private static final int FEE = 100, DEFAULT_SIZE = 100, ARRAY_GROWTH = 2, DEFAULT_VALUE = 0, NOT_FOUND = -1, NORMAL_TIME = 60;
+	private static final int FEE = 100, DEFAULT_VALUE = 0, NOT_FOUND = -1, NORMAL_TIME = 60;
 	private static final double NORTE = 38.663964, SUL = 38.658475, OESTE = -9.209269, LESTE = -9.201978;
 	
 	/* Instance variables */
-	private Client[] clients;
+	private ClientList clients;
 	private Trot[] trots;
 	private int totalRents, totalSpent, totalMinutesLate, minutesLate, tripCost, clientCounter, trotCounter;
 
 	/* Constructor */
 	public Manager() {
-		clients = new Client[DEFAULT_SIZE];
-		trots = new Trot[DEFAULT_SIZE];
 		totalRents = DEFAULT_VALUE;
 		totalSpent = DEFAULT_VALUE;
 		totalMinutesLate = DEFAULT_VALUE;
-		clientCounter = DEFAULT_VALUE;
-		trotCounter = DEFAULT_VALUE;
 	}
 	
 	/**
@@ -34,19 +30,7 @@ public class Manager {
 	 * @return Position of the client on the client list.
 	 */
 	private int findClient(String nif) {
-		int i = DEFAULT_VALUE, position = NOT_FOUND;
-		boolean found = false;
-		
-		while (i < clientCounter && !found) {
-			if (clients[i].getNif().equalsIgnoreCase(nif)) {
-				position = i;
-				found = true;
-			}
-			else {
-				i++;
-			}
-		}
-		return position;
+		return clients.findClient(nif);
 	}
 	
 	/**
@@ -87,11 +71,7 @@ public class Manager {
 	 * @pre nif != null && email != null && phone != null && name != null
 	 */
 	public void addClient(String nif, String email, String phone, String name) {
-		if (clientListIsFull()) {
-			resizeClientList();
-		}
-		
-		clients[clientCounter++] = new Client(nif, email, phone, name);
+		clients.addClient(nif, email, phone, name);
 	}
 
 	/**
@@ -174,22 +154,8 @@ public class Manager {
 		totalMinutesLate += minutesLate;
 	}
 	
-	private boolean clientListIsFull() {
-		return clientCounter == clients.length;
-	}
-	
 	private boolean trotListIsFull() {
 		return trotCounter == trots.length;
-	}
-	
-	private void resizeClientList() {
-		Client[] bigClients = new Client[ARRAY_GROWTH * clients.length];
-		
-		for (int i = DEFAULT_VALUE; i < clientCounter; i++) {
-			bigClients[i] = clients[i];
-		}
-		
-		clients = bigClients;
 	}
 	
 	private void resizeTrotList() {
