@@ -20,6 +20,7 @@ public class Manager {
 
 	/* Constructor */
 	public Manager() {
+		
 		clients = new ClientList();
 		trots = new TrotList();
 		totalRents = DEFAULT_VALUE;

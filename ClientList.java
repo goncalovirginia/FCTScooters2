@@ -25,16 +25,12 @@ public class ClientList {
 	}
 	
 	private int findClient(String nif) {
-		int i = 0, position = -1;
-		boolean found = false;
+		int position = -1;
 		
-		while (i < counter && !found) {
+		for(int i=0; i < counter; i++) {
 			if (clients[i].getNif().equalsIgnoreCase(nif)) {
 				position = i;
-				found = true;
-			}
-			else {
-				i++;
+				break;
 			}
 		}
 		
