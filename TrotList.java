@@ -68,4 +68,9 @@ public class TrotList {
 		
 		return trots[positionTrot];
 	}
+	
+	public TrotIteratorOrdDistance newTrotIteratorOrdDistance(double xClient, double yClient) {
+		return new TrotIteratorOrdDistance(trots, counter, xClient, yClient);
+	}
+	
 }

@@ -16,7 +16,7 @@ public class Manager {
 	/* Instance variables */
 	private ClientList clients;
 	private TrotList trots;
-	private int totalRents, totalSpent, totalMinutesLate, tripCost, clientCounter, trotCounter;
+	private int totalRents, totalSpent, totalMinutesLate, tripCost;
 
 	/* Constructor */
 	public Manager() {
@@ -253,7 +253,7 @@ public class Manager {
 	}
 
 	public TrotIteratorOrdDistance newTrotIteratorOrdDistance(double xClient, double yClient) {
-		return new TrotIteratorOrdDistance(trots, trotCounter, xClient, yClient);
+		return trots.newTrotIteratorOrdDistance(xClient, yClient);
 	}
 
 }
