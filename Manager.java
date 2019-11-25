@@ -16,7 +16,7 @@ public class Manager {
 	/* Instance variables */
 	private ClientList clients;
 	private TrotList trots;
-	private int totalRents, totalSpent, totalMinutesLate, minutesLate, tripCost, clientCounter, trotCounter;
+	private int totalRents, totalSpent, totalMinutesLate, tripCost, clientCounter, trotCounter;
 
 	/* Constructor */
 	public Manager() {
@@ -101,9 +101,7 @@ public class Manager {
 	 */
 	public void releaseTrot(String idTrot, int minutes) {
 		int times = DEFAULT_VALUE;
-
-		minutesLate = (minutes - NORMAL_TIME);
-		totalRents++;
+		int minutesLate = (minutes - NORMAL_TIME);
 
 		if (minutesLate > DEFAULT_VALUE) {
 			if (minutesLate % 30 == DEFAULT_VALUE) {
@@ -118,6 +116,7 @@ public class Manager {
 		clients.release(trots.getTrot(idTrot).getClient().getNif(), minutes, tripCost);
 		totalSpent += tripCost;
 		totalMinutesLate += minutesLate;
+		totalRents++;
 	}
 
 	public String getClientNif(String nif) {
