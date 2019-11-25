@@ -307,7 +307,7 @@ public class Main {
 			System.out.println(ERROR_SCOOTER_NOT_RENTED);
 		}
 		else {
-			System.out.println(manager.getClientNif(idTrot) + ", " + manager.getClientName(idTrot));
+			System.out.println(manager.getTrotNif(idTrot) + ", " + manager.getTrotName(idTrot));
 		}
 	}
 

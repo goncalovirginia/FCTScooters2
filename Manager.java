@@ -284,6 +284,10 @@ public class Manager {
 		return trots[findTrot(idTrot)].getClient().getNif();
 	}
 	
+	public String getTrotName(String idTrot) {
+		return trots[findTrot(idTrot)].getClient().getName();
+	}
+	
 	public String getTrotId(String idTrot) {
 		return trots[findTrot(idTrot)].getId();
 	}
