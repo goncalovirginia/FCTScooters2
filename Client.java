@@ -8,7 +8,7 @@ public class Client {
 
 	/* Instance variables */
 	private String nif, email, phone, name;
-	private int balance, totalMinutes, rents, maxMinutes, totalSpent, lastMaxMinutes;
+	private int balance, totalMinutes, rents, maxMinutes, totalSpent;
 	private Trot trot;
 	private static final int DEFAULT_VALUE = 0, NEW_ACCOUNT_BALANCE = 200;
 	
@@ -56,7 +56,6 @@ public class Client {
 		rents++;
 		
 		if (minutes > maxMinutes) {
-			lastMaxMinutes = maxMinutes;
 			maxMinutes = minutes;
 		}
 	}
@@ -82,19 +81,6 @@ public class Client {
 			avg = (totalMinutes/rents);
 		}
 		return avg;
-	}
-	
-	/**
-	 * Resets the clients' information to how it was before the last rent.
-	 * @param minutes - Time (minutes) spent in the last rent.
-	 * @param amount - Money (cents) spent in the last rent.
-	 * @pre minutes > 0 && amount > 0
-	 */
-	public void promotion(int minutes, int amount) {
-		totalMinutes -= minutes;
-		maxMinutes = lastMaxMinutes;
-		totalSpent -= amount;
-		rents--;
 	}
 	
 	public boolean nifGreaterThan(Client other) {

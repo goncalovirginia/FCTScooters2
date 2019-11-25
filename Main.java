@@ -20,8 +20,6 @@ public class Main {
 	private static final String ERROR_INVALID_AMOUNT = "Valor invalido.";
 	private static final String ERROR_INSUFFICIENT_BALANCE = "Cliente sem saldo suficiente.";
 	private static final String ERROR_SCOOTER_CANNOT_BE_RENTED = "Trotinete nao pode ser alugada.";
-	private static final String ERROR_PROMOTION_ALREADY_APPLIED = "Promocao ja aplicada.";
-	private static final String ERROR_CLIENT_INITIALIZED_NEW_RENT = "Cliente iniciou novo aluguer.";
 	private static final String ERROR_SCOOTER_MOVING = "Trotinete em movimento.";
 	private static final String ERROR_SCOOTER_NOT_INACTIVE = "Trotinete nao inactiva.";
 	private static final String ERROR_INVALID_LOCATION = "Localizacao invalida.";
@@ -32,7 +30,6 @@ public class Main {
 	private static final String SUCCESS_BALANCE_LOADED = "Carregamento efectuado.";
 	private static final String SUCCESS_RENT_INITIALIZED = "Aluguer efectuado com sucesso.";
 	private static final String SUCCESS_RENT_TERMINATED = "Aluguer terminado.";
-	private static final String SUCCESS_PROMOTION_APPLIED = "Promocao aplicada.";
 	private static final String SUCCESS_SCOOTER_DEACTIVATED = "Trotinete desactivada.";
 	private static final String SUCCESS_SCOOTER_REACTIVATED = "Trotinete reactivada.";
 	private static final String SUCCESS_EXIT = "Saindo...";
@@ -47,7 +44,6 @@ public class Main {
 	private static final String LOAD_BALANCE = "CARRSALDO";
 	private static final String RENT = "ALUGAR";
 	private static final String RELEASE = "LIBERTAR";
-	private static final String PROMOTION = "PROMOCAO";
 	private static final String DEACTIVATE_SCOOTER = "DESTROT";
 	private static final String ACTIVATE_SCOOTER = "REACTROT";
 	private static final String LIST_TROTS = "LISTTROT";
@@ -138,9 +134,6 @@ public class Main {
 			break;
 		case SYS_STATE:
 			managerStatus(manager);
-			break;
-		case PROMOTION:
-			promotion(in, manager);
 			break;
 		case DEACTIVATE_SCOOTER:
 			deactivateTrot(in, manager);
@@ -393,30 +386,6 @@ public class Main {
 	 */
 	private static void managerStatus(Manager manager) {
 		System.out.println("Estado actual: " + manager.getTotalRents() + ", " + manager.getTotalSpent() + ", " + manager.getTotalMinutesLate());
-	}
-
-	/**
-	 * Applies a promotion and resets everything to before the last rent.
-	 * @param in
-	 * @param manager
-	 */
-	private static void promotion(Scanner in, Manager manager) {
-		String nif = in.next();
-		in.nextLine();
-
-		if (!manager.clientExists(nif)) {
-			System.out.println(ERROR_CLIENT_DOES_NOT_EXIST);
-		}
-		else if (!manager.getClientIdTrot(nif).equals("")) {
-			System.out.println(ERROR_CLIENT_INITIALIZED_NEW_RENT);
-		}
-		else if (manager.usedPromotion()) {
-			System.out.println(ERROR_PROMOTION_ALREADY_APPLIED);
-		}
-		else {
-			manager.applyPromotion(nif);
-			System.out.println(SUCCESS_PROMOTION_APPLIED);
-		}	
 	}
 	
 	/**

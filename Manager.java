@@ -15,8 +15,7 @@ public class Manager {
 	/* Instance variables */
 	private Client[] clients;
 	private Trot[] trots;
-	private int totalRents, totalSpent, totalMinutesLate, minutesLate, tripMinutes, tripCost, clientCounter, trotCounter;
-	private boolean usedPromotion;
+	private int totalRents, totalSpent, totalMinutesLate, minutesLate, tripCost, clientCounter, trotCounter;
 
 	/* Constructor */
 	public Manager() {
@@ -161,8 +160,6 @@ public class Manager {
 		
 		minutesLate = (minutes - NORMAL_TIME);
 		totalRents++;
-		tripMinutes = minutes;
-		usedPromotion = false;
 		
 		if (minutesLate > DEFAULT_VALUE) {
 			if (minutesLate % 30 == DEFAULT_VALUE) {
@@ -331,10 +328,6 @@ public class Manager {
 	
 	public int getTotalMinutesLate() {
 		return totalMinutesLate;
-	}
-	
-	public boolean usedPromotion() {
-		return usedPromotion;
 	}
 	
 	public boolean clientHasNegativeBalance(String nif) { 

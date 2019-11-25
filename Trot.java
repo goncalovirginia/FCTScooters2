@@ -78,11 +78,6 @@ public class Trot {
 		return client;
 	}
 	
-	public void promotion(int minutes) {
-		totalMinutes -= minutes;
-		rents--;
-	}
-	
 	public void deactivate() {
 		activated = false;
 	}
