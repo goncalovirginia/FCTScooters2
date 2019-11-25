@@ -105,7 +105,7 @@ public class Main {
 	 */
 	private static void executeOption(Scanner in, String option, Manager manager) {
 
-		switch (option.toUpperCase()) {
+		switch (option) {
 		case ADD_CLIENT:
 			addClient(in, manager);
 			break;
