@@ -53,7 +53,7 @@ public class ClientList {
 			resize();
 		}
 		
-		clients[counter++] = new Client(nif, email, phone, name);
+		insertSort(new Client(nif, email, phone, name));
 	}
 	
 	public void rent(String nif, Trot trot) {
@@ -71,8 +71,8 @@ public class ClientList {
 		counter--;
 	}
 	
-	public ClientIteratorOrdNif newClientIteratorOrdNif() {
-		return new ClientIteratorOrdNif(clients, counter);
+	public ClientIterator newClientIterator() {
+		return new ClientIterator(clients, counter);
 	}
 	
 	public ClientIteratorOrdNegBal newClientIteratorOrdNegBal() {
@@ -81,6 +81,33 @@ public class ClientList {
 	
 	public void loadBalance(String nif, int amount) {
 		clients[findClient(nif)].loadBalance(amount);
+	}
+	
+	private void insertSort(Client client) {
+		int pos = -1, i = 0;
+		
+		while (i < counter && pos == -1) {
+			if (clients[i].nifGreaterThan(client)) {
+				pos = i;
+			}
+			else {
+				i++;
+			}
+		}
+		if (pos == -1) {
+			pos = counter;
+		}
+		
+		insertAt(client, pos);
+	}
+	
+	private void insertAt(Client client, int pos) {
+		for (int i = counter - 1; i >= pos; i--) {
+			clients[i+1] = clients[i];
+		}
+			
+		clients[pos] = client;
+		counter++;
 	}
 	
 }

@@ -46,6 +46,7 @@ public class Manager {
 	 */
 	public void addClient(String nif, String email, String phone, String name) {
 		clients.addClient(nif, email, phone, name);
+		
 	}
 
 	/**
@@ -226,17 +227,17 @@ public class Manager {
 	public int getTotalMinutesLate() {
 		return totalMinutesLate;
 	}
-	
-	public boolean clientHasNegativeBalance(String nif) { 
-		return clients.getClient(nif).getBalance() < DEFAULT_VALUE; 
+
+	public boolean clientHasNegativeBalance(String nif) {
+		return clients.getClient(nif).getBalance() < DEFAULT_VALUE;
 	}
 
 	public TrotIterator newTrotIterator() {
 		return trots.newTrotIterator();
 	}
 
-	public ClientIteratorOrdNif newClientIteratorOrdNif() {
-		return clients.newClientIteratorOrdNif();
+	public ClientIterator newClientIterator() {
+		return clients.newClientIterator();
 	}
 
 	public ClientIteratorOrdNegBal newClientIteratorOrdNegBal() {
@@ -253,7 +254,7 @@ public class Manager {
 	}
 
 	public TrotIteratorOrdDistance newTrotIteratorOrdDistance(double xClient, double yClient) {
-		return trots.newTrotIteratorOrdDistance(xClient, yClient);
+		return new TrotIteratorOrdDistance(trots.getTrotList(), trots.getCounter(), xClient, yClient);
 	}
 
 }

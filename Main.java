@@ -7,7 +7,7 @@
 import java.util.Scanner;
 
 public class Main {
-	
+
 	/* Constants */
 	private static final String ERROR_INVALID_COMMAND = "Comando invalido.";
 	private static final String ERROR_CLIENT_EXISTS = "Cliente existente.";
@@ -23,7 +23,7 @@ public class Main {
 	private static final String ERROR_SCOOTER_MOVING = "Trotinete em movimento.";
 	private static final String ERROR_SCOOTER_NOT_INACTIVE = "Trotinete nao inactiva.";
 	private static final String ERROR_INVALID_LOCATION = "Localizacao invalida.";
-	
+
 	private static final String SUCCESS_CLIENT_INSERTED = "Insercao de cliente com sucesso.";
 	private static final String SUCCESS_CLIENT_REMOVED = "Cliente removido com sucesso.";
 	private static final String SUCCESS_SCOOTER_INSERTED = "Insercao de trotinete com sucesso.";
@@ -33,7 +33,7 @@ public class Main {
 	private static final String SUCCESS_SCOOTER_DEACTIVATED = "Trotinete desactivada.";
 	private static final String SUCCESS_SCOOTER_REACTIVATED = "Trotinete reactivada.";
 	private static final String SUCCESS_EXIT = "Saindo...";
-	
+
 	private static final String ADD_CLIENT = "ADCLIENTE";
 	private static final String REM_CLIENT = "REMCLIENTE";
 	private static final String ADD_SCOOTER = "ADTROT";
@@ -53,10 +53,10 @@ public class Main {
 	private static final String RELEASE_LOCATION = "LIBLOC";
 	private static final String LOCATE_TROTS = "LOCTROT";
 	private static final String EXIT = "SAIR";
-	
+
 	/**
-	 * Creates and initializes the Scanner and Manager.
-	 * Repeatedly reads inputs and interprets them until the command "SAIR" is typed.
+	 * Creates and initializes the Scanner and Manager. Repeatedly reads inputs and
+	 * interprets them until the command "SAIR" is typed.
 	 */
 	public static void main(String[] args) {
 		Manager manager = createManager();
@@ -64,19 +64,20 @@ public class Main {
 		String option;
 
 		do {
-			
+
 			option = readOption(in);
 			executeOption(in, option, manager);
-			
+
 		} while (!option.equals(EXIT));
-		
+
 		System.out.println(SUCCESS_EXIT);
 		managerStatus(manager);
 		in.close();
 	}
-	
+
 	/**
 	 * Creates a SystemScooter.
+	 * 
 	 * @return SystemScooter object.
 	 */
 	private static Manager createManager() {
@@ -93,8 +94,9 @@ public class Main {
 	}
 
 	/**
-	 * Reads the inserted option and executes the correct method.
-	 * Gives an error message in the case of an invalid command.
+	 * Reads the inserted option and executes the correct method. Gives an error
+	 * message in the case of an invalid command.
+	 * 
 	 * @param in
 	 * @param option
 	 * @param manager
@@ -167,11 +169,12 @@ public class Main {
 
 	/**
 	 * Creates a new scooter.
+	 * 
 	 * @param in
 	 * @param manager
 	 */
 	private static void addClient(Scanner in, Manager manager) {
-		
+
 		String nif = in.next();
 		String email = in.next();
 		String phone = in.next();
@@ -179,8 +182,7 @@ public class Main {
 
 		if (manager.clientExists(nif)) {
 			System.out.println(ERROR_CLIENT_EXISTS);
-		} 
-		else {
+		} else {
 			manager.addClient(nif, email, phone, name);
 			System.out.println(SUCCESS_CLIENT_INSERTED);
 		}
@@ -188,6 +190,7 @@ public class Main {
 
 	/**
 	 * Removes the existing client.
+	 * 
 	 * @param in
 	 * @param manager
 	 */
@@ -197,11 +200,9 @@ public class Main {
 
 		if (!manager.clientExists(nif)) {
 			System.out.println(ERROR_CLIENT_DOES_NOT_EXIST);
-		}	
-		else if (manager.clientHasTrot(nif)) {
+		} else if (manager.clientHasTrot(nif)) {
 			System.out.println(ERROR_CLIENT_MOVING);
-		}
-		else {
+		} else {
 			manager.removeClient(nif);
 			System.out.println(SUCCESS_CLIENT_REMOVED);
 		}
@@ -209,6 +210,7 @@ public class Main {
 
 	/**
 	 * Creates a new scooter.
+	 * 
 	 * @param in
 	 * @param manager
 	 */
@@ -219,8 +221,7 @@ public class Main {
 
 		if (manager.trotExists(idTrot)) {
 			System.out.println(ERROR_SCOOTER_EXISTS);
-		} 
-		else {
+		} else {
 			manager.addTrot(idTrot, licensePlate);
 			System.out.println(SUCCESS_SCOOTER_INSERTED);
 		}
@@ -228,26 +229,28 @@ public class Main {
 
 	/**
 	 * Outputs the inserted clients' information.
+	 * 
 	 * @param in
 	 * @param manager
 	 */
 	private static void clientInfo(Scanner in, Manager manager) {
 		String nif = in.next();
 		in.nextLine();
-	
+
 		if (manager.clientExists(nif)) {
-			System.out.println(manager.getClientName(nif) + ": " + manager.getClientNif(nif) + ", " + manager.getClientEmail(nif) + ", "
-					+ manager.getClientPhone(nif) + ", " + manager.getClientBalance(nif) + ", " + manager.getClientTotalMinutes(nif) + ", "
-					+ manager.getClientRents(nif) + ", " + manager.getClientMaxMinutes(nif) + ", " + manager.getClientAvgMinutes(nif) + ", "
-					+ manager.getClientTotalSpent(nif));
-		} 
-		else {
+			System.out.println(manager.getClientName(nif) + ": " + manager.getClientNif(nif) + ", "
+					+ manager.getClientEmail(nif) + ", " + manager.getClientPhone(nif) + ", "
+					+ manager.getClientBalance(nif) + ", " + manager.getClientTotalMinutes(nif) + ", "
+					+ manager.getClientRents(nif) + ", " + manager.getClientMaxMinutes(nif) + ", "
+					+ manager.getClientAvgMinutes(nif) + ", " + manager.getClientTotalSpent(nif));
+		} else {
 			System.out.println(ERROR_CLIENT_DOES_NOT_EXIST);
 		}
 	}
 
 	/**
 	 * Outputs the inserted clients' scooter information.
+	 * 
 	 * @param in
 	 * @param manager
 	 */
@@ -257,17 +260,16 @@ public class Main {
 
 		if (!manager.clientExists(nif)) {
 			System.out.println(ERROR_CLIENT_DOES_NOT_EXIST);
-		}
-		else if (!manager.clientHasTrot(nif)) {
+		} else if (!manager.clientHasTrot(nif)) {
 			System.out.println(ERROR_CLIENT_WITHOUT_SCOOTER);
-		}
-		else {
+		} else {
 			System.out.println(manager.getClientIdTrot(nif) + ", " + manager.getClientLicensePlate(nif));
 		}
 	}
 
 	/**
 	 * Outputs the scooters' information.
+	 * 
 	 * @param in
 	 * @param manager
 	 */
@@ -277,35 +279,34 @@ public class Main {
 
 		if (!manager.trotExists(idTrot)) {
 			System.out.println(ERROR_SCOOTER_DOES_NOT_EXIST);
-		} 
-		else {
-			System.out.println(manager.getTrotLicensePlate(idTrot) + ": " + manager.getTrotStatus(idTrot) + ", " + 
-					manager.getTrotRents(idTrot) + ", " + manager.getTrotTotalMinutes(idTrot));
+		} else {
+			System.out.println(manager.getTrotLicensePlate(idTrot) + ": " + manager.getTrotStatus(idTrot) + ", "
+					+ manager.getTrotRents(idTrot) + ", " + manager.getTrotTotalMinutes(idTrot));
 		}
 	}
 
 	/**
 	 * Outputs the inserted scooters' client information.
+	 * 
 	 * @param in
 	 * @param manager
 	 */
 	private static void getClientFromTrot(Scanner in, Manager manager) {
 		String idTrot = in.next();
 		in.nextLine();
-		
+
 		if (!manager.trotExists(idTrot)) {
 			System.out.println(ERROR_SCOOTER_DOES_NOT_EXIST);
-		}
-		else if (!manager.trotHasClient(idTrot)) {
+		} else if (!manager.trotHasClient(idTrot)) {
 			System.out.println(ERROR_SCOOTER_NOT_RENTED);
-		}
-		else {
+		} else {
 			System.out.println(manager.getTrotNif(idTrot) + ", " + manager.getTrotName(idTrot));
 		}
 	}
 
 	/**
 	 * Loads the inserted clients' balance with the inserted amount.
+	 * 
 	 * @param in
 	 * @param manager
 	 */
@@ -316,18 +317,17 @@ public class Main {
 
 		if (amount <= 0) {
 			System.out.println(ERROR_INVALID_AMOUNT);
-		}
-		else if (!manager.clientExists(nif)) {
+		} else if (!manager.clientExists(nif)) {
 			System.out.println(ERROR_CLIENT_DOES_NOT_EXIST);
-		}
-		else {
+		} else {
 			manager.loadBalance(nif, amount);
 			System.out.println(SUCCESS_BALANCE_LOADED);
-		}	
+		}
 	}
 
 	/**
 	 * Rents a scooter (using the inserted client).
+	 * 
 	 * @param in
 	 * @param manager
 	 */
@@ -338,24 +338,21 @@ public class Main {
 
 		if (!manager.clientExists(nif)) {
 			System.out.println(ERROR_CLIENT_DOES_NOT_EXIST);
-		}
-		else if (!manager.trotExists(idTrot)) {
+		} else if (!manager.trotExists(idTrot)) {
 			System.out.println(ERROR_SCOOTER_DOES_NOT_EXIST);
-		}
-		else if (!(manager.trotIsActivated(idTrot) && manager.getTrotStatus(idTrot).equals("parada"))) {
+		} else if (!(manager.trotIsActivated(idTrot) && manager.getTrotStatus(idTrot).equals("parada"))) {
 			System.out.println(ERROR_SCOOTER_CANNOT_BE_RENTED);
-		}
-		else if (manager.getClientBalance(nif) < 100) {
+		} else if (manager.getClientBalance(nif) < 100) {
 			System.out.println(ERROR_INSUFFICIENT_BALANCE);
-		}
-		else {
+		} else {
 			manager.rentTrot(nif, idTrot);
 			System.out.println(SUCCESS_RENT_INITIALIZED);
-		} 
+		}
 	}
-	
+
 	/**
 	 * Releases the scooter after a client uses it for a certain amount of minutes.
+	 * 
 	 * @param in
 	 * @param manager
 	 */
@@ -366,14 +363,11 @@ public class Main {
 
 		if (minutes <= 0) {
 			System.out.println(ERROR_INVALID_AMOUNT);
-		}
-		else if (!manager.trotExists(idTrot)) {
+		} else if (!manager.trotExists(idTrot)) {
 			System.out.println(ERROR_SCOOTER_DOES_NOT_EXIST);
-		}
-		else if (!manager.getTrotStatus(idTrot).equals("alugada")) {
+		} else if (!manager.getTrotStatus(idTrot).equals("alugada")) {
 			System.out.println(ERROR_SCOOTER_NOT_RENTED);
-		}
-		else {
+		} else {
 			manager.releaseTrot(idTrot, minutes);
 			System.out.println(SUCCESS_RENT_TERMINATED);
 		}
@@ -381,15 +375,18 @@ public class Main {
 
 	/**
 	 * Outputs the system managers' information.
+	 * 
 	 * @param in
 	 * @param manager
 	 */
 	private static void managerStatus(Manager manager) {
-		System.out.println("Estado actual: " + manager.getTotalRents() + ", " + manager.getTotalSpent() + ", " + manager.getTotalMinutesLate());
+		System.out.println("Estado actual: " + manager.getTotalRents() + ", " + manager.getTotalSpent() + ", "
+				+ manager.getTotalMinutesLate());
 	}
-	
+
 	/**
 	 * Deactivates the scooter (cannot be used for rents until reactivated).
+	 * 
 	 * @param in
 	 * @param manager
 	 */
@@ -399,18 +396,17 @@ public class Main {
 
 		if (!manager.trotExists(idTrot)) {
 			System.out.println(ERROR_SCOOTER_DOES_NOT_EXIST);
-		}
-		else if (manager.getTrotStatus(idTrot).equals("alugada")) {
+		} else if (manager.getTrotStatus(idTrot).equals("alugada")) {
 			System.out.println(ERROR_SCOOTER_MOVING);
-		}
-		else {
+		} else {
 			manager.deactivateTrot(idTrot);
 			System.out.println(SUCCESS_SCOOTER_DEACTIVATED);
 		}
 	}
-	
+
 	/**
 	 * Activates the scooter.
+	 * 
 	 * @param in
 	 * @param manager
 	 */
@@ -420,55 +416,54 @@ public class Main {
 
 		if (!manager.trotExists(idTrot)) {
 			System.out.println(ERROR_SCOOTER_DOES_NOT_EXIST);
-		}
-		else if (!manager.getTrotStatus(idTrot).equals("inactiva")) {
+		} else if (!manager.getTrotStatus(idTrot).equals("inactiva")) {
 			System.out.println(ERROR_SCOOTER_NOT_INACTIVE);
-		}
-		else {
+		} else {
 			manager.activateTrot(idTrot);
 			System.out.println(SUCCESS_SCOOTER_REACTIVATED);
 		}
 	}
-	
+
 	private static void listTrots(Manager manager) {
 		TrotIterator iterator = manager.newTrotIterator();
-		
+
 		while (iterator.hasNext()) {
 			Trot trot = iterator.next();
-			
-			System.out.println(trot.getLicensePlate() + ": " + trot.status() + ", " + 
-					trot.getRents() + ", " + trot.getTotalMinutes());
+
+			System.out.println(trot.getLicensePlate() + ": " + trot.status() + ", " + trot.getRents() + ", "
+					+ trot.getTotalMinutes());
 		}
 	}
-	
+
 	private static void listClientsOrdNif(Manager manager) {
-		ClientIteratorOrdNif iterator = manager.newClientIteratorOrdNif();
-		
-		while(iterator.hasNext()) {
+		ClientIterator iterator = manager.newClientIterator();
+
+		while (iterator.hasNext()) {
 			Client client = iterator.next();
-			
+
 			System.out.println(client.getName() + ": " + client.getNif() + ", " + client.getEmail() + ", "
 					+ client.getPhone() + ", " + client.getBalance() + ", " + client.getTotalMinutes() + ", "
 					+ client.getRents() + ", " + client.getMaxMinutes() + ", " + client.getAvgMinutes() + ", "
 					+ client.getTotalSpent());
 		}
 	}
-	
+
 	private static void listClientsNegativeBalance(Manager manager) {
 		ClientIteratorOrdNegBal iterator = manager.newClientIteratorOrdNegBal();
-		
-		while(iterator.hasNext()) {
+
+		while (iterator.hasNext()) {
 			Client client = iterator.next();
-			
+
 			System.out.println(client.getName() + ": " + client.getNif() + ", " + client.getEmail() + ", "
 					+ client.getPhone() + ", " + client.getBalance() + ", " + client.getTotalMinutes() + ", "
 					+ client.getRents() + ", " + client.getMaxMinutes() + ", " + client.getAvgMinutes() + ", "
 					+ client.getTotalSpent());
 		}
 	}
-	
+
 	/**
 	 * Releases the scooter after a client uses it for a certain amount of minutes.
+	 * 
 	 * @param in
 	 * @param manager
 	 */
@@ -481,37 +476,33 @@ public class Main {
 
 		if (!manager.checkCoordinates(x, y)) {
 			System.out.println(ERROR_INVALID_LOCATION);
-		}
-		else if (minutes <= 0) {
+		} else if (minutes <= 0) {
 			System.out.println(ERROR_INVALID_AMOUNT);
-		}
-		else if (!manager.trotExists(idTrot)) {
+		} else if (!manager.trotExists(idTrot)) {
 			System.out.println(ERROR_SCOOTER_DOES_NOT_EXIST);
-		}
-		else if (!manager.getTrotStatus(idTrot).equals("alugada")) {
+		} else if (!manager.getTrotStatus(idTrot).equals("alugada")) {
 			System.out.println(ERROR_SCOOTER_NOT_RENTED);
-		}
-		else {
+		} else {
 			manager.releaseTrotLocation(idTrot, minutes, x, y);
 			System.out.println(SUCCESS_RENT_TERMINATED);
 		}
 	}
-	
+
 	private static void locateTrots(Scanner in, Manager manager) {
 		double xClient = in.nextDouble();
 		double yClient = in.nextDouble();
 		in.nextLine();
-		
+
 		TrotIteratorOrdDistance iterator = manager.newTrotIteratorOrdDistance(xClient, yClient);
-		
+
 		while (iterator.hasNext()) {
 			Trot trot = iterator.next();
-			
+
 			System.out.printf("Distancia: %.6f\n", trot.distance(xClient, yClient));
-			System.out.println(trot.getLicensePlate() + ": " + trot.status() + ", " + 
-					trot.getRents() + ", " + trot.getTotalMinutes() + ", ");
+			System.out.println(trot.getLicensePlate() + ": " + trot.status() + ", " + trot.getRents() + ", "
+					+ trot.getTotalMinutes() + ", ");
 			System.out.printf("%.6f, %.6f\n", trot.getX(), trot.getY());
 		}
 	}
-	
+
 }
