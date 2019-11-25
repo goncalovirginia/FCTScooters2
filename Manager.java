@@ -20,11 +20,9 @@ public class Manager {
 
 	/* Constructor */
 	public Manager() {
-
 		totalRents = DEFAULT_VALUE;
 		totalSpent = DEFAULT_VALUE;
 		totalMinutesLate = DEFAULT_VALUE;
-
 	}
 
 	public boolean clientExists(String nif) {
@@ -227,6 +225,10 @@ public class Manager {
 	public int getTotalMinutesLate() {
 		return totalMinutesLate;
 	}
+	
+	public Client[] getClientList() {
+		return clients.getClientList();
+	}
 
 	public boolean clientHasNegativeBalance(String nif) {
 		return clients.getClient(nif).getBalance() < DEFAULT_VALUE;
@@ -235,13 +237,13 @@ public class Manager {
 	public TrotIterator newTrotIterator() {
 		return trots.newTrotIterator();
 	}
-
+	
 	public ClientIterator newClientIterator() {
-		return clients.newClientIterator();
+		return new ClientIterator(clients.getClientList(), clients.getCounter());
 	}
-
+	
 	public ClientIteratorOrdNegBal newClientIteratorOrdNegBal() {
-		return clients.newClientIteratorOrdNegBal();
+		return new ClientIteratorOrdNegBal(clients.getClientList(), clients.getCounter());
 	}
 
 	public boolean checkCoordinates(double x, double y) {

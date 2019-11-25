@@ -37,6 +37,7 @@ public class ClientList {
 				i++;
 			}
 		}
+		
 		return position;
 	}
 	
@@ -71,14 +72,6 @@ public class ClientList {
 		counter--;
 	}
 	
-	public ClientIterator newClientIterator() {
-		return new ClientIterator(clients, counter);
-	}
-	
-	public ClientIteratorOrdNegBal newClientIteratorOrdNegBal() {
-		return new ClientIteratorOrdNegBal(clients, counter);
-	}
-	
 	public void loadBalance(String nif, int amount) {
 		clients[findClient(nif)].loadBalance(amount);
 	}
@@ -108,6 +101,14 @@ public class ClientList {
 			
 		clients[pos] = client;
 		counter++;
+	}
+	
+	public Client[] getClientList() {
+		return clients;
+	}
+	
+	public int getCounter() {
+		return counter;
 	}
 	
 }
