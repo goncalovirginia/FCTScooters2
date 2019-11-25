@@ -225,13 +225,18 @@ public class Manager {
 	public int getTotalMinutesLate() {
 		return totalMinutesLate;
 	}
-	
-	public Client[] getClientList() {
-		return clients.getClientList();
-	}
 
 	public boolean clientHasNegativeBalance(String nif) {
 		return clients.getClient(nif).getBalance() < DEFAULT_VALUE;
+	}
+	
+	public boolean checkCoordinates(double x, double y) {
+		return x >= OESTE && x <= LESTE && y >= SUL && y <= NORTE;
+	}
+
+	public void releaseTrotLocation(String idTrot, int minutes, double x, double y) {
+		releaseTrot(idTrot, minutes);
+		trots.getTrot(idTrot).setCoordinates(x, y);
 	}
 
 	public TrotIterator newTrotIterator() {
@@ -244,15 +249,6 @@ public class Manager {
 	
 	public ClientIteratorOrdNegBal newClientIteratorOrdNegBal() {
 		return new ClientIteratorOrdNegBal(clients.getClientList(), clients.getCounter());
-	}
-
-	public boolean checkCoordinates(double x, double y) {
-		return x >= OESTE && x <= LESTE && y >= SUL && y <= NORTE;
-	}
-
-	public void releaseTrotLocation(String idTrot, int minutes, double x, double y) {
-		releaseTrot(idTrot, minutes);
-		trots.getTrot(idTrot).setCoordinates(x, y);
 	}
 
 	public TrotIteratorOrdDistance newTrotIteratorOrdDistance(double xClient, double yClient) {
