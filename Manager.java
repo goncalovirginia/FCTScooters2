@@ -236,11 +236,11 @@ public class Manager {
 	}
 
 	public ClientIteratorOrdNif newClientIteratorOrdNif() {
-		return new ClientIteratorOrdNif(clients, clientCounter);
+		return clients.newClientIteratorOrdNif();
 	}
 
 	public ClientIteratorOrdNegBal newClientIteratorOrdNegBal() {
-		return new ClientIteratorOrdNegBal(clients, clientCounter);
+		return clients.newClientIteratorOrdNegBal();
 	}
 
 	public boolean checkCoordinates(double x, double y) {

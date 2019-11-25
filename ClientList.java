@@ -68,6 +68,14 @@ public class ClientList {
 		counter--;
 	}
 	
+	public ClientIteratorOrdNif newClientIteratorOrdNif() {
+		return new ClientIteratorOrdNif(clients, counter);
+	}
+	
+	public ClientIteratorOrdNegBal newClientIteratorOrdNegBal() {
+		return new ClientIteratorOrdNegBal(clients, counter);
+	}
+	
 	public void loadBalance(String nif, int amount) {
 		clients[findClient(nif)].loadBalance(amount);
 	}
