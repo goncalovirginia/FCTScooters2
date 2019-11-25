@@ -59,7 +59,7 @@ public class Main {
 	 * interprets them until the command "SAIR" is typed.
 	 */
 	public static void main(String[] args) {
-		Manager manager = createManager();
+		Manager manager = new Manager();
 		Scanner in = new Scanner(System.in);
 		String option;
 
@@ -73,16 +73,6 @@ public class Main {
 		System.out.println(SUCCESS_EXIT);
 		managerStatus(manager);
 		in.close();
-	}
-
-	/**
-	 * Creates a SystemScooter.
-	 * 
-	 * @return SystemScooter object.
-	 */
-	private static Manager createManager() {
-		Manager manager = new Manager();
-		return manager;
 	}
 
 	/**
