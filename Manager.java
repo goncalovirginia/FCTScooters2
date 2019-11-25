@@ -26,8 +26,6 @@ public class Manager {
 		totalMinutesLate = DEFAULT_VALUE;
 		clientCounter = DEFAULT_VALUE;
 		trotCounter = DEFAULT_VALUE;
-		usedPromotion = false;
-			
 	}
 	
 	/**
@@ -174,24 +172,6 @@ public class Manager {
 		clients[positionClient].unloadBalance(tripCost);
 		totalSpent += tripCost;
 		totalMinutesLate += minutesLate;
-	}
-	
-	/**
-	 * Resets the systems' information to how it was before the last rent.
-	 */
-	public void applyPromotion(String nif) {
-		int position = findClient(nif);
-		
-		usedPromotion = true;
-		clients[position].loadBalance(tripCost);
-		clients[position].promotion(tripMinutes, tripCost);
-		trots[position].promotion(tripMinutes);
-		totalSpent -= tripCost;
-		totalRents--;
-		
-		if (minutesLate > DEFAULT_VALUE) {
-			totalMinutesLate -= minutesLate;
-		}
 	}
 	
 	private boolean clientListIsFull() {
