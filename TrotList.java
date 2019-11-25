@@ -9,12 +9,7 @@ public class TrotList {
 		trots = new Trot[DEFAULT_SIZE];
 	}
 	
-	/**
-	 * Searches the list of scooters for a scooter with a certain ID.
-	 * @param id - The scooters' ID.
-	 * @return Position of the scooter on the scooter list. (-1 if it doesn't exist).
-	 */
-	public int findTrot(String id) {
+	private int findTrot(String id) {
 		int i = 0, position = -1;
 		boolean found = false;
 		
@@ -29,10 +24,31 @@ public class TrotList {
 		}
 		return position;
 	}
+	public boolean trotExist(String idTrot) {
+		return findTrot(idTrot) != -1;
+	}
+	
+	public Trot getTrot(String idTrot) {
+		return trots[findTrot(idTrot)];
+	}
+	
+	private boolean isFull() {
+		return counter == trots.length;
+	}
+	
+	private void resize() {
+		Trot[] bigTrots = new Trot[ARRAY_GROWTH * trots.length];
+		
+		for (int i = 0; i < counter; i++) {
+			bigTrots[i] = trots[i];
+		}
+		
+		trots = bigTrots;
+	}
 	
 	public void addTrot(String idTrot, String licensePlate) {
-		if(trotListIsFull()) {
-			resizeTrotList();
+		if(isFull()) {
+			resize();
 		}
 		
 		trots[counter++] = new Trot(idTrot, licensePlate);

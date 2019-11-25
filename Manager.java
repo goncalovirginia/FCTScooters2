@@ -26,21 +26,12 @@ public class Manager {
 
 	}
 	
-	/**
-	 * Searches the list of scooters for a scooter with a certain ID.
-	 * @param id - The scooters' ID.
-	 * @return Position of the scooter on the scooter list. (-1 if it doesn't exist).
-	 */
-	private int findTrot(String id) {
-		return trots.findTrot(id);
-	}
-	
 	public boolean clientExists(String nif) {
 		return clients.clientExists(nif);
 	}
 	
 	public boolean trotExists(String idTrot) {
-		return findTrot(idTrot) != NOT_FOUND;
+		return trots.findTrot(idTrot) != NOT_FOUND;
 	}
 	
 	/**
@@ -126,20 +117,6 @@ public class Manager {
 		totalMinutesLate += minutesLate;
 	}
 	
-	private boolean trotListIsFull() {
-		return trotCounter == trots.length;
-	}
-	
-	private void resizeTrotList() {
-		Trot[] bigTrots = new Trot[ARRAY_GROWTH * trots.length];
-		
-		for (int i = DEFAULT_VALUE; i < trotCounter; i++) {
-			bigTrots[i] = trots[i];
-		}
-		
-		trots = bigTrots;
-	}
-	
 	public String getClientNif(String nif) {
 		return clients[findClient(nif)].getNif();
 	}
@@ -181,7 +158,7 @@ public class Manager {
 	}
 	
 	public boolean clientHasTrot(String nif) {
-		return (clients[findClient(nif)].getTrot() != null);
+		return clients[findClient(nif)].getTrot() != null;
 	}
 	
 	public String getClientIdTrot(String nif) {
@@ -193,47 +170,47 @@ public class Manager {
 	}
 	
 	public boolean trotHasClient(String idTrot) {
-		return (trots[findTrot(idTrot)].getClient() != null);
+		return trots.getTrot(idTrot).getClient() != null;
 	}
 	
 	public String getTrotNif(String idTrot) {
-		return trots[findTrot(idTrot)].getClient().getNif();
+		return trots.getTrot(idTrot).getClient().getNif();
 	}
 	
 	public String getTrotName(String idTrot) {
-		return trots[findTrot(idTrot)].getClient().getName();
+		return trots.getTrot(idTrot).getClient().getName();
 	}
 	
 	public String getTrotId(String idTrot) {
-		return trots[findTrot(idTrot)].getId();
+		return trots.getTrot(idTrot).getId();
 	}
 	
 	public String getTrotLicensePlate(String idTrot) {
-		return trots[findTrot(idTrot)].getLicensePlate();
+		return trots.getTrot(idTrot).getLicensePlate();
 	}
 	
 	public String getTrotStatus(String idTrot) {
-		return trots[findTrot(idTrot)].status();
+		return trots.getTrot(idTrot).status();
 	}
 	
 	public int getTrotRents(String idTrot) {
-		return trots[findTrot(idTrot)].getRents();
+		return trots.getTrot(idTrot).getRents();
 	}
 	
 	public int getTrotTotalMinutes(String idTrot) {
-		return trots[findTrot(idTrot)].getTotalMinutes();
+		return trots.getTrot(idTrot).getTotalMinutes();
 	}
 	
 	public void deactivateTrot(String idTrot) {
-		trots[findTrot(idTrot)].deactivate();
+		trots.getTrot(idTrot).deactivate();
 	}
 	
 	public void activateTrot(String idTrot) {
-		trots[findTrot(idTrot)].activate();
+		trots.getTrot(idTrot).activate();
 	}
 	
 	public boolean trotIsActivated(String idTrot) {
-		return trots[findTrot(idTrot)].isActivated();
+		return trots.getTrot(idTrot).isActivated();
 	}
 	
 	public int getTotalRents() {
@@ -270,7 +247,7 @@ public class Manager {
 	
 	public void releaseTrotLocation(String idTrot, int minutes, double x, double y) {
 		releaseTrot(idTrot, minutes);
-		trots[findTrot(idTrot)].setCoordinates(x, y);
+		trots.getTrot(idTrot).setCoordinates(x, y);
 	}
 	
 	public TrotIteratorOrdDistance newTrotIteratorOrdDistance(double xClient, double yClient) {

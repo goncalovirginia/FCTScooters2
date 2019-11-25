@@ -55,6 +55,11 @@ public class ClientList {
 		
 		clients[counter++] = new Client(nif, email, phone, name);
 	}
+	public Client rentClient(String nif) {
+		int positionClient = findClient(nif);
+		
+		return clients[positionClient];
+	}
 	
 	public void removeClient(String nif) {
 		for (int i = findClient(nif); i < counter-1; i++) {
