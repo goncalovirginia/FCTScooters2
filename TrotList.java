@@ -21,15 +21,12 @@ public class TrotList {
 				i++;
 			}
 		}
+		
 		return position;
 	}
 
 	public boolean trotExist(String idTrot) {
 		return findTrot(idTrot) != -1;
-	}
-
-	public TrotIterator newTrotIterator() {
-		return new TrotIterator(trots, counter);
 	}
 
 	public Trot getTrot(String idTrot) {
@@ -64,10 +61,6 @@ public class TrotList {
 
 	public void rent(String idTrot, Client client) {
 		trots[findTrot(idTrot)].rent(client);
-	}
-
-	public TrotIteratorOrdDistance newTrotIteratorOrdDistance(double xClient, double yClient) {
-		return new TrotIteratorOrdDistance(trots, counter, xClient, yClient);
 	}
 	
 	public int getCounter() {

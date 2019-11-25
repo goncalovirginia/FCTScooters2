@@ -235,7 +235,7 @@ public class Manager {
 	}
 
 	public TrotIterator newTrotIterator() {
-		return trots.newTrotIterator();
+		return new TrotIterator(trots.getTrotList(), trots.getCounter());
 	}
 	
 	public ClientIterator newClientIterator() {
