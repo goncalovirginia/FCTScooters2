@@ -36,23 +36,15 @@ public class Client {
 	}
 	
 	/**
-	 * Unloads balance by an inserted amount.
-	 * @param amount - Money (cents) to remove from balance.
-	 * @pre amount > 0
-	 */
-	public void unloadBalance(int amount) {
-		balance -= amount;
-		totalSpent += amount;
-	}
-	
-	/**
 	 * Releases the connection to a scooter.
 	 * @param minutes - Time (minutes) the client spent using the Scooter.
 	 * @pre minutes > 0
 	 */
-	public void release(int minutes) {
+	public void release(int minutes, int amount) {
 		trot = null;
 		totalMinutes += minutes;
+		balance -= amount;
+		totalSpent += amount;
 		rents++;
 		
 		if (minutes > maxMinutes) {

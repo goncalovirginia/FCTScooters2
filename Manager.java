@@ -101,11 +101,6 @@ public class Manager {
 	 */
 	public void releaseTrot(String idTrot, int minutes) {
 		int times = DEFAULT_VALUE;
-		int positionTrot = findTrot(idTrot);
-		int positionClient = findClient(trots[positionTrot].getClient().getNif());
-
-		clients[positionClient].release(minutes);
-		trots[positionTrot].release(minutes);
 
 		minutesLate = (minutes - NORMAL_TIME);
 		totalRents++;
@@ -119,7 +114,8 @@ public class Manager {
 		}
 
 		tripCost = FEE * (times + 1);
-		clients[positionClient].unloadBalance(tripCost);
+		trots.release(idTrot, minutes);
+		clients.release(trots.getTrot(idTrot).getClient().getNif(), minutes, tripCost);
 		totalSpent += tripCost;
 		totalMinutesLate += minutesLate;
 	}
@@ -231,15 +227,9 @@ public class Manager {
 	public int getTotalMinutesLate() {
 		return totalMinutesLate;
 	}
-<<<<<<< Updated upstream
-
-	public boolean clientHasNegativeBalance(String nif) {
-		return clients[findClient(nif)].getBalance() < DEFAULT_VALUE;
-=======
 	
 	public boolean clientHasNegativeBalance(String nif) { 
 		return clients.getClient(nif).getBalance() < DEFAULT_VALUE; 
->>>>>>> Stashed changes
 	}
 
 	public TrotIterator newTrotIterator() {

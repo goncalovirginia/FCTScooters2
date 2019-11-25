@@ -72,4 +72,8 @@ public class ClientList {
 		clients[findClient(nif)].loadBalance(amount);
 	}
 	
+	public void release(String nif, int minutes, int amount) {
+		clients[findClient(nif)].release(minutes, amount);
+	}
+	
 }
