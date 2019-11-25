@@ -174,7 +174,6 @@ public class Main {
 	 * @param manager
 	 */
 	private static void addClient(Scanner in, Manager manager) {
-
 		String nif = in.next();
 		String email = in.next();
 		String phone = in.next();

@@ -20,6 +20,8 @@ public class Manager {
 
 	/* Constructor */
 	public Manager() {
+		clients = new ClientList();
+		trots = new TrotList();
 		totalRents = DEFAULT_VALUE;
 		totalSpent = DEFAULT_VALUE;
 		totalMinutesLate = DEFAULT_VALUE;
@@ -111,8 +113,8 @@ public class Manager {
 		}
 
 		tripCost = FEE * (times + 1);
-		trots.release(idTrot, minutes);
 		clients.release(trots.getTrot(idTrot).getClient().getNif(), minutes, tripCost);
+		trots.release(idTrot, minutes);
 		totalSpent += tripCost;
 		totalMinutesLate += minutesLate;
 		totalRents++;
