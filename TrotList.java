@@ -63,10 +63,8 @@ public class TrotList {
 	}
 	
 	
-	public Trot rentTrot(String idTrot) {
-		int positionTrot = findTrot(idTrot);
-		
-		return trots[positionTrot];
+	public void rent(String idTrot, Client client) {
+		trots[findTrot(idTrot)].rent(client);
 	}
 	
 	public TrotIteratorOrdDistance newTrotIteratorOrdDistance(double xClient, double yClient) {

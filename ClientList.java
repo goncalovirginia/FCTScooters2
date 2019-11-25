@@ -55,10 +55,13 @@ public class ClientList {
 		
 		clients[counter++] = new Client(nif, email, phone, name);
 	}
-	public Client rentClient(String nif) {
-		int positionClient = findClient(nif);
-		
-		return clients[positionClient];
+	
+	public void rent(String nif, Trot trot) {
+		clients[findClient(nif)].rent(trot);
+	}
+	
+	public void release(String nif, int minutes, int amount) {
+		clients[findClient(nif)].release(minutes, amount);
 	}
 	
 	public void removeClient(String nif) {
@@ -78,10 +81,6 @@ public class ClientList {
 	
 	public void loadBalance(String nif, int amount) {
 		clients[findClient(nif)].loadBalance(amount);
-	}
-	
-	public void release(String nif, int minutes, int amount) {
-		clients[findClient(nif)].release(minutes, amount);
 	}
 	
 }

@@ -88,8 +88,8 @@ public class Manager {
 	 */
 	public void rentTrot(String nif, String idTrot) {
 
-		clients.rentClient(nif).rent(trots.rentTrot(idTrot)); // MUDARRRR
-		trots.rentTrot(idTrot).rent(clients.rentClient(nif));
+		clients.rent(nif, trots.getTrot(idTrot));
+		trots.rent(idTrot, clients.getClient(nif));
 	}
 
 	/**
