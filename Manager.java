@@ -35,6 +35,14 @@ public class Manager {
 	public boolean trotExists(String idTrot) {
 		return trots.trotExist(idTrot);
 	}
+	
+	public boolean enoughBalance(String nif) {
+		return clients.getClient(nif).getBalance() < 100; 
+	}
+	
+	public boolean areValidMinutes(int minutes) {
+		return minutes <= 0;
+	}
 
 	/**
 	 * Creates a new client using the following parameters:
@@ -105,14 +113,14 @@ public class Manager {
 		int times = DEFAULT_VALUE;
 		int minutesLate = (minutes - NORMAL_TIME);
 
-		if (minutesLate > 0) {
-			if (minutesLate % 30 == 0) {
+		if (minutesLate > DEFAULT_VALUE) {
+			if (minutesLate % 30 == DEFAULT_VALUE) {
 				times = minutesLate / 30;
 			} else {
 				times = (minutesLate / 30) + 1;
 			}
 		} else {
-			minutesLate = 0;
+			minutesLate = DEFAULT_VALUE;
 		}
 
 		tripCost = FEE * (times + 1);

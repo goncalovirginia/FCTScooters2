@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Main {
 
-	/* Constants */
+	/* Constants  Errors */
 	private static final String ERROR_INVALID_COMMAND = "Comando invalido.";
 	private static final String ERROR_CLIENT_EXISTS = "Cliente existente.";
 	private static final String ERROR_CLIENT_DOES_NOT_EXIST = "Cliente inexistente.";
@@ -24,6 +24,7 @@ public class Main {
 	private static final String ERROR_SCOOTER_NOT_INACTIVE = "Trotinete nao inactiva.";
 	private static final String ERROR_INVALID_LOCATION = "Localizacao invalida.";
 
+	/* Constants  Successes */
 	private static final String SUCCESS_CLIENT_INSERTED = "Insercao de cliente com sucesso.";
 	private static final String SUCCESS_CLIENT_REMOVED = "Cliente removido com sucesso.";
 	private static final String SUCCESS_SCOOTER_INSERTED = "Insercao de trotinete com sucesso.";
@@ -34,6 +35,7 @@ public class Main {
 	private static final String SUCCESS_SCOOTER_REACTIVATED = "Trotinete reactivada.";
 	private static final String SUCCESS_EXIT = "Saindo...";
 
+	/* Constants  Options */
 	private static final String ADD_CLIENT = "ADCLIENTE";
 	private static final String REM_CLIENT = "REMCLIENTE";
 	private static final String ADD_SCOOTER = "ADTROT";
@@ -331,7 +333,9 @@ public class Main {
 			System.out.println(ERROR_SCOOTER_DOES_NOT_EXIST);
 		} else if (!(manager.trotIsActivated(idTrot) && manager.getTrotStatus(idTrot).equals("parada"))) {
 			System.out.println(ERROR_SCOOTER_CANNOT_BE_RENTED);
-		} else if (manager.getClientBalance(nif) < 100) {
+		} else if (manager.clientHasTrot(nif)) {
+			System.out.println(ERROR_CLIENT_MOVING);
+		} else if (manager.enoughBalance(nif)) {
 			System.out.println(ERROR_INSUFFICIENT_BALANCE);
 		} else {
 			manager.rentTrot(nif, idTrot);
@@ -350,7 +354,7 @@ public class Main {
 		int minutes = in.nextInt();
 		in.nextLine();
 
-		if (minutes <= 0) {
+		if (manager.areValidMinutes(minutes)) {
 			System.out.println(ERROR_INVALID_AMOUNT);
 		} else if (!manager.trotExists(idTrot)) {
 			System.out.println(ERROR_SCOOTER_DOES_NOT_EXIST);
