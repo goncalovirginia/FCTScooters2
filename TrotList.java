@@ -10,12 +10,14 @@ public class TrotList {
 	}
 
 	private int findTrot(String id) {
-		int position = -1;
-		for(int i=0; i < counter; i++ ) {
+		int i=0 ,position = -1;
+		boolean found = false;
+		while( i < counter && !found) {
 			if (trots[i].getId().equalsIgnoreCase(id)) {
 				position = i;
-				break;
+				found = true;
 			}
+			i++;
 		}
 		
 		return position;
