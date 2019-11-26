@@ -11,7 +11,6 @@ public class TrotList {
 
 	private int findTrot(String id) {
 		int position = -1;
-
 		for(int i=0; i < counter; i++ ) {
 			if (trots[i].getId().equalsIgnoreCase(id)) {
 				position = i;
