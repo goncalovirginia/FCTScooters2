@@ -492,9 +492,9 @@ public class Main {
 			Trot trot = iterator.next();
 
 			System.out.printf("Distancia: %.6f\n", trot.distance(yClient, xClient));
-			System.out.println(trot.getLicensePlate() + ": " + trot.status() + ", " + trot.getRents() + ", "
-					+ trot.getTotalMinutes() + ", ");
-			System.out.printf("%.6f, %.6f\n", trot.getY(), trot.getX());
+			System.out.printf(trot.getLicensePlate() + ": " + trot.status() + ", " + trot.getRents() + ", "
+					+ trot.getTotalMinutes() + ", %.6f, %.6f\n", trot.getY(), trot.getX());
+			
 		}
 	}
 
