@@ -486,7 +486,7 @@ public class Main {
 		double xClient = in.nextDouble();
 		in.nextLine();
 
-		TrotIteratorOrdDistance iterator = manager.newTrotIteratorOrdDistance(xClient, yClient);
+		TrotIteratorOrdDistance iterator = manager.newTrotIteratorOrdDistance(yClient, xClient);
 
 		if (!iterator.hasNext()) {
 			System.out.println("Nao existem trotinetes localizadas.");

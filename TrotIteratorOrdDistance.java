@@ -35,7 +35,7 @@ public class TrotIteratorOrdDistance {
 		int pos = -1, i = 0;
 
 		while (i < counter && pos == -1) {
-			if (trots[i].distance(yClient, xClient) > trot.distance(yClient, xClient)) {
+			if (trot.distance(yClient, xClient) < trots[i].distance(yClient, xClient)) {
 				pos = i;
 			} else {
 				i++;
