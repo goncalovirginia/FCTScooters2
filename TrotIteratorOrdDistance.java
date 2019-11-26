@@ -18,7 +18,8 @@ public class TrotIteratorOrdDistance {
 		this.yClient = yClient;
 
 		for (int i = 0; i < counter; i++) {
-			this.insertSort(trots[i]);
+			if (trots[i].getX() != 0 || trots[i].getY() != 0)
+				this.insertSort(trots[i]);
 		}
 	}
 
@@ -49,7 +50,7 @@ public class TrotIteratorOrdDistance {
 
 	private void insertAt(Trot trot, int pos) {
 		for (int i = counter - 1; i >= pos; i--) {
-			trots[i + 1] = trots[i];
+			trots[i+1] = trots[i];
 		}
 
 		trots[pos] = trot;

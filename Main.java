@@ -488,13 +488,16 @@ public class Main {
 
 		TrotIteratorOrdDistance iterator = manager.newTrotIteratorOrdDistance(xClient, yClient);
 
+		if (!iterator.hasNext()) {
+			System.out.println("Nao existem trotinetes localizadas.");
+		}
+		
 		while (iterator.hasNext()) {
 			Trot trot = iterator.next();
 
 			System.out.printf("Distancia: %.6f\n", trot.distance(yClient, xClient));
 			System.out.printf(trot.getLicensePlate() + ": " + trot.status() + ", " + trot.getRents() + ", "
 					+ trot.getTotalMinutes() + ", %.6f, %.6f\n", trot.getY(), trot.getX());
-			
 		}
 	}
 

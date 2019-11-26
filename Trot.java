@@ -23,6 +23,8 @@ public class Trot {
 		totalMinutes = 0;
 		client = null;
 		activated = true;
+		x = 0;
+		y = 0;
 	}
 	
 	public String getId() {
