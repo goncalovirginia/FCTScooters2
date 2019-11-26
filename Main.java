@@ -463,27 +463,27 @@ public class Main {
 	private static void releaseTrotLocation(Scanner in, Manager manager) {
 		String idTrot = in.next();
 		int minutes = in.nextInt();
-		double x = in.nextDouble();
 		double y = in.nextDouble();
+		double x = in.nextDouble();
 		in.nextLine();
 
-		if (!manager.checkCoordinates(x, y)) {
+		if (!manager.checkCoordinates(y, x)) {
 			System.out.println(ERROR_INVALID_LOCATION);
-		} else if (minutes <= 0) {
+		} else if (manager.areValidMinutes(minutes)) {
 			System.out.println(ERROR_INVALID_AMOUNT);
 		} else if (!manager.trotExists(idTrot)) {
 			System.out.println(ERROR_SCOOTER_DOES_NOT_EXIST);
 		} else if (!manager.getTrotStatus(idTrot).equals("alugada")) {
 			System.out.println(ERROR_SCOOTER_NOT_RENTED);
 		} else {
-			manager.releaseTrotLocation(idTrot, minutes, x, y);
+			manager.releaseTrotLocation(idTrot, minutes, y, x);
 			System.out.println(SUCCESS_RENT_TERMINATED);
 		}
 	}
 
 	private static void locateTrots(Scanner in, Manager manager) {
-		double xClient = in.nextDouble();
 		double yClient = in.nextDouble();
+		double xClient = in.nextDouble();
 		in.nextLine();
 
 		TrotIteratorOrdDistance iterator = manager.newTrotIteratorOrdDistance(xClient, yClient);
@@ -491,10 +491,10 @@ public class Main {
 		while (iterator.hasNext()) {
 			Trot trot = iterator.next();
 
-			System.out.printf("Distancia: %.6f\n", trot.distance(xClient, yClient));
+			System.out.printf("Distancia: %.6f\n", trot.distance(yClient, xClient));
 			System.out.println(trot.getLicensePlate() + ": " + trot.status() + ", " + trot.getRents() + ", "
 					+ trot.getTotalMinutes() + ", ");
-			System.out.printf("%.6f, %.6f\n", trot.getX(), trot.getY());
+			System.out.printf("%.6f, %.6f\n", trot.getY(), trot.getX());
 		}
 	}
 

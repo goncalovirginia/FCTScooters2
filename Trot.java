@@ -90,7 +90,7 @@ public class Trot {
 		return activated;
 	}
 	
-	public void setCoordinates(double x, double y) {
+	public void setCoordinates(double y, double x) {
 		this.x = x;
 		this.y = y;
 	}
@@ -103,7 +103,7 @@ public class Trot {
 		return y;
 	}
 	
-	public double distance(double xClient, double yClient) {
+	public double distance(double yClient, double xClient) {
 		return Math.sqrt((x - xClient)*(x - xClient) + (y - yClient)*(y - yClient));
 	}
 	

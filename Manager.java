@@ -243,13 +243,13 @@ public class Manager {
 		return clients.getClient(nif).getBalance() < DEFAULT_VALUE;
 	}
 	
-	public boolean checkCoordinates(double x, double y) {
+	public boolean checkCoordinates(double y, double x) {
 		return x >= OESTE && x <= LESTE && y >= SUL && y <= NORTE;
 	}
 
-	public void releaseTrotLocation(String idTrot, int minutes, double x, double y) {
+	public void releaseTrotLocation(String idTrot, int minutes, double y, double x) {
 		releaseTrot(idTrot, minutes);
-		trots.getTrot(idTrot).setCoordinates(x, y);
+		trots.getTrot(idTrot).setCoordinates(y, x);
 	}
 
 	public TrotIterator newTrotIterator() {
@@ -264,8 +264,8 @@ public class Manager {
 		return new ClientIteratorOrdNegBal(clients.getClientList(), clients.getCounter());
 	}
 
-	public TrotIteratorOrdDistance newTrotIteratorOrdDistance(double xClient, double yClient) {
-		return new TrotIteratorOrdDistance(trots.getTrotList(), trots.getCounter(), xClient, yClient);
+	public TrotIteratorOrdDistance newTrotIteratorOrdDistance(double yClient, double xClient) {
+		return new TrotIteratorOrdDistance(trots.getTrotList(), trots.getCounter(), yClient, xClient);
 	}
 
 }

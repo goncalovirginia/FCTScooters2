@@ -9,7 +9,7 @@ public class TrotIteratorOrdDistance {
 	private int counter, nextTrot;
 	private double xClient, yClient;
 
-	public TrotIteratorOrdDistance(Trot[] trots, int counter, double xClient, double yClient) {
+	public TrotIteratorOrdDistance(Trot[] trots, int counter, double yClient, double xClient) {
 		this.trots = new Trot[counter];
 		this.counter = 0;
 		nextTrot = 0;
@@ -34,7 +34,7 @@ public class TrotIteratorOrdDistance {
 		int pos = -1, i = 0;
 
 		while (i < counter && pos == -1) {
-			if (trots[i].distance(xClient, yClient) > trot.distance(xClient, yClient)) {
+			if (trots[i].distance(yClient, xClient) > trot.distance(yClient, xClient)) {
 				pos = i;
 			} else {
 				i++;
