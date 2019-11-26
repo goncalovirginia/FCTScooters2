@@ -105,12 +105,14 @@ public class Manager {
 		int times = DEFAULT_VALUE;
 		int minutesLate = (minutes - NORMAL_TIME);
 
-		if (minutesLate > DEFAULT_VALUE) {
-			if (minutesLate % 30 == DEFAULT_VALUE) {
+		if (minutesLate > 0) {
+			if (minutesLate % 30 == 0) {
 				times = minutesLate / 30;
 			} else {
 				times = (minutesLate / 30) + 1;
 			}
+		} else {
+			minutesLate = 0;
 		}
 
 		tripCost = FEE * (times + 1);
