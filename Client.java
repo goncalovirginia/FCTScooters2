@@ -1,7 +1,8 @@
 
 /**
- * Goncalo Virginia N-56773 e Afonso Batista N-57796 Handles all the information
- * concerning the client.
+ * @author Goncalo Virginia N-56773 e Afonso Batista N-57796 
+ * 
+ * Handles all the information concerning the client.
  */
 
 public class Client {
@@ -54,10 +55,9 @@ public class Client {
 	}
 
 	/**
-	 * Saves a scooters' ID.
+	 * Saves a scooter.
 	 * 
-	 * @param idTrot - The scooters' ID.
-	 * @pre idTrot != null
+	 * @param trot - The object trot.
 	 */
 	public void rent(Trot trot) {
 		this.trot = trot;
