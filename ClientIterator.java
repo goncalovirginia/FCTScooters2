@@ -8,6 +8,11 @@ public class ClientIterator {
 	private Client[] clients;
 	private int counter, nextClient;
 	
+	/**
+	 * 
+	 * @param clients -
+	 * @param counter -
+	 */
 	public ClientIterator(Client[] clients, int counter) {
 		this.clients = clients;
 		this.counter = counter;
@@ -15,10 +20,18 @@ public class ClientIterator {
 		
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean hasNext() {
 		return nextClient < counter;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Client next() {
 		return clients[nextClient++];
 	}
