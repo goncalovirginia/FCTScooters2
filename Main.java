@@ -24,6 +24,7 @@ public class Main {
 	private static final String ERROR_SCOOTER_MOVING = "Trotinete em movimento.";
 	private static final String ERROR_SCOOTER_NOT_INACTIVE = "Trotinete nao inactiva.";
 	private static final String ERROR_INVALID_LOCATION = "Localizacao invalida.";
+	private static final String ERROR_SCOOTER_LOCATIONS_NOT_FOUD = "Nao existem trotinetes localizadas.";
 
 	/* Success Constants */
 	private static final String SUCCESS_CLIENT_INSERTED = "Insercao de cliente com sucesso.";
@@ -34,6 +35,8 @@ public class Main {
 	private static final String SUCCESS_RENT_TERMINATED = "Aluguer terminado.";
 	private static final String SUCCESS_SCOOTER_DEACTIVATED = "Trotinete desactivada.";
 	private static final String SUCCESS_SCOOTER_REACTIVATED = "Trotinete reactivada.";
+	private static final String SUCCESS_SCOOTER_DISTANCE = "Distancia: ";
+	private static final String SUCCESS_MANAGER_STATUS = "Estado actual: ";
 	private static final String SUCCESS_EXIT = "Saindo...";
 
 	/* Option Constants */
@@ -77,8 +80,8 @@ public class Main {
 	}
 
 	/**
-	 * @param in
-	 * @return the first inserted word (before a space) in upper case.
+	 * @param in - Scanner object.
+	 * @return The first inserted word (before a space) in upper case.
 	 */
 	private static String readOption(Scanner in) {
 		return in.next().toUpperCase();
@@ -88,9 +91,9 @@ public class Main {
 	 * Reads the inserted option and executes the correct method. Gives an error
 	 * message in the case of an invalid command.
 	 * 
-	 * @param in
-	 * @param option
-	 * @param manager
+	 * @param in - Scanner object.
+	 * @param option - The first inserted word (before a space) in upper case.
+	 * @param manager - Manager object.
 	 */
 	private static void executeOption(Scanner in, String option, Manager manager) {
 		switch (option) {
@@ -158,10 +161,10 @@ public class Main {
 	}
 
 	/**
-	 * Creates a new scooter.
+	 * Creates a new client.
 	 * 
-	 * @param in
-	 * @param manager
+	 * @param in - Scanner object.
+	 * @param manager - Manager object.
 	 */
 	private static void addClient(Scanner in, Manager manager) {
 		String nif = in.next();
@@ -178,10 +181,10 @@ public class Main {
 	}
 
 	/**
-	 * Removes the existing client.
+	 * Removes a existing client.
 	 * 
-	 * @param in
-	 * @param manager
+	 * @param in - Scanner object.
+	 * @param manager - Manager object.
 	 */
 	private static void removeClient(Scanner in, Manager manager) {
 		String nif = in.next();
@@ -200,8 +203,8 @@ public class Main {
 	/**
 	 * Creates a new scooter.
 	 * 
-	 * @param in
-	 * @param manager
+	 * @param in - Scanner object.
+	 * @param manager - Manager object.
 	 */
 	private static void addTrot(Scanner in, Manager manager) {
 		String idTrot = in.next();
@@ -219,8 +222,8 @@ public class Main {
 	/**
 	 * Outputs the inserted clients' information.
 	 * 
-	 * @param in
-	 * @param manager
+	 * @param in - Scanner object.
+	 * @param manager - Manager object.
 	 */
 	private static void clientInfo(Scanner in, Manager manager) {
 		String nif = in.next();
@@ -240,8 +243,8 @@ public class Main {
 	/**
 	 * Outputs the inserted clients' scooter information.
 	 * 
-	 * @param in
-	 * @param manager
+	 * @param in - Scanner object.
+	 * @param manager - Manager object.
 	 */
 	private static void getTrotFromClient(Scanner in, Manager manager) {
 		String nif = in.next();
@@ -257,10 +260,10 @@ public class Main {
 	}
 
 	/**
-	 * Outputs the scooters' information.
+	 * Outputs the inserted scooters' information.
 	 * 
-	 * @param in
-	 * @param manager
+	 * @param in - Scanner object.
+	 * @param manager - Manager object.
 	 */
 	private static void trotInfo(Scanner in, Manager manager) {
 		String idTrot = in.next();
@@ -277,8 +280,8 @@ public class Main {
 	/**
 	 * Outputs the inserted scooters' client information.
 	 * 
-	 * @param in
-	 * @param manager
+	 * @param in - Scanner object.
+	 * @param manager - Manager object.
 	 */
 	private static void getClientFromTrot(Scanner in, Manager manager) {
 		String idTrot = in.next();
@@ -296,8 +299,8 @@ public class Main {
 	/**
 	 * Loads the inserted clients' balance with the inserted amount.
 	 * 
-	 * @param in
-	 * @param manager
+	 * @param in - Scanner object.
+	 * @param manager - Manager object.
 	 */
 	private static void loadBalance(Scanner in, Manager manager) {
 		String nif = in.next();
@@ -317,8 +320,8 @@ public class Main {
 	/**
 	 * Rents a scooter (using the inserted client).
 	 * 
-	 * @param in
-	 * @param manager
+	 * @param in - Scanner object.
+	 * @param manager - Manager object.
 	 */
 	private static void rentTrot(Scanner in, Manager manager) {
 		String nif = in.next();
@@ -342,10 +345,10 @@ public class Main {
 	}
 
 	/**
-	 * Releases the scooter after a client uses it for a certain amount of minutes.
+	 * Releases a scooter after a client uses it for a certain amount of minutes.
 	 * 
-	 * @param in
-	 * @param manager
+	 * @param in - Scanner object.
+	 * @param manager - Manager object.
 	 */
 	private static void releaseTrot(Scanner in, Manager manager) {
 		String idTrot = in.next();
@@ -365,21 +368,10 @@ public class Main {
 	}
 
 	/**
-	 * Outputs the system managers' information.
+	 * Deactivates a scooter (cannot be used for rents until reactivated).
 	 * 
-	 * @param in
-	 * @param manager
-	 */
-	private static void managerStatus(Manager manager) {
-		System.out.println("Estado actual: " + manager.getTotalRents() + ", " + manager.getTotalSpent() + ", "
-				+ manager.getTotalMinutesLate());
-	}
-
-	/**
-	 * Deactivates the scooter (cannot be used for rents until reactivated).
-	 * 
-	 * @param in
-	 * @param manager
+	 * @param in - Scanner object.
+	 * @param manager - Manager object.
 	 */
 	private static void deactivateTrot(Scanner in, Manager manager) {
 		String idTrot = in.next();
@@ -396,10 +388,10 @@ public class Main {
 	}
 
 	/**
-	 * Activates the scooter.
+	 * Activates a scooter.
 	 * 
-	 * @param in
-	 * @param manager
+	 * @param in - Scanner object.
+	 * @param manager - Manager object.
 	 */
 	private static void activateTrot(Scanner in, Manager manager) {
 		String idTrot = in.next();
@@ -415,6 +407,11 @@ public class Main {
 		}
 	}
 
+	/**
+	 * Outputs all the scooters' information by insertion order.
+	 * 
+	 * @param manager - Manager object.
+	 */
 	private static void listTrots(Manager manager) {
 		TrotIterator iterator = manager.newTrotIterator();
 
@@ -426,6 +423,11 @@ public class Main {
 		}
 	}
 
+	/**
+	 * Outputs all the clients' information sorted by NIF lexicographical order.
+	 * 
+	 * @param manager - Manager object.
+	 */
 	private static void listClientsOrdNif(Manager manager) {
 		ClientIterator iterator = manager.newClientIterator();
 
@@ -439,6 +441,12 @@ public class Main {
 		}
 	}
 
+	/**
+	 * Outputs all the clients' information sorted by negative balance in increasing,
+	 * order and NIF lexicographical order.
+	 * 
+	 * @param manager - Manager object.
+	 */
 	private static void listClientsNegativeBalance(Manager manager) {
 		ClientIteratorOrdNegBal iterator = manager.newClientIteratorOrdNegBal();
 
@@ -453,10 +461,10 @@ public class Main {
 	}
 
 	/**
-	 * Releases the scooter after a client uses it for a certain amount of minutes.
+	 * Releases the scooter after a client uses it for a certain amount of minutes at a certain location.
 	 * 
-	 * @param in
-	 * @param manager
+	 * @param in - Scanner object.
+	 * @param manager - Manager object.
 	 */
 	private static void releaseTrotLocation(Scanner in, Manager manager) {
 		String idTrot = in.next();
@@ -479,6 +487,12 @@ public class Main {
 		}
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param in - Scanner object.
+	 * @param manager - Manager object.
+	 */
 	private static void locateTrots(Scanner in, Manager manager) {
 		double yClient = in.nextDouble();
 		double xClient = in.nextDouble();
@@ -487,16 +501,26 @@ public class Main {
 		TrotIteratorOrdDistance iterator = manager.newTrotIteratorOrdDistance(yClient, xClient);
 
 		if (!iterator.hasNext()) {
-			System.out.println("Nao existem trotinetes localizadas.");
+			System.out.println(ERROR_SCOOTER_LOCATIONS_NOT_FOUD);
 		}
 
 		while (iterator.hasNext()) {
 			Trot trot = iterator.next();
 
-			System.out.printf("Distancia: %.6f\n", trot.distance(yClient, xClient));
+			System.out.printf(SUCCESS_SCOOTER_DISTANCE + "%.6f\n", trot.distance(yClient, xClient));
 			System.out.printf(trot.getLicensePlate() + ": " + trot.status() + ", " + trot.getRents() + ", "
 					+ trot.getTotalMinutes() + ", %.6f, %.6f\n", trot.getY(), trot.getX());
 		}
+	}
+
+	/**
+	 * Outputs the system managers' information.
+	 * 
+	 * @param manager - Manager object.
+	 */
+	private static void managerStatus(Manager manager) {
+		System.out.println(SUCCESS_MANAGER_STATUS + manager.getTotalRents() + ", " + manager.getTotalSpent() + ", "
+				+ manager.getTotalMinutesLate());
 	}
 
 }
