@@ -32,7 +32,7 @@ public class ClientIteratorOrdNegBal {
 		int pos = -1, i = 0;
 		
 		while (i < counter && pos == -1) {
-			if (clients[i].balanceGreaterThan(client) || (clients[i].balanceEquals(client) && clients[i].nifGreaterThan(client))) {
+			if (clients[i].balanceGreaterThan(client)) {
 				pos = i;
 			}
 			else {
