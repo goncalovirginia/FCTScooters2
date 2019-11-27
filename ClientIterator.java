@@ -9,7 +9,7 @@ public class ClientIterator {
 	private int counter, nextClient;
 
 	/**
-	 * Constructor
+	 * Constructor - Lists all the clients.
 	 * 
 	 * @param clients - List of clients to iterate.
 	 * @param counter - Number of clients present in the client list.
