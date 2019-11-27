@@ -17,7 +17,6 @@ public class ClientIterator {
 		this.clients = clients;
 		this.counter = counter;
 		nextClient = 0;
-		
 	}
 	
 	/**
@@ -35,5 +34,5 @@ public class ClientIterator {
 	public Client next() {
 		return clients[nextClient++];
 	}
-	
+
 }

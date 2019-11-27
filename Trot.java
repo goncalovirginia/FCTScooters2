@@ -63,17 +63,16 @@ public class Trot {
 	 * @return the current status.
 	 */
 	public String status() {
-		if (isActivated()) {
-			if (client == null) {
-				return "parada";
-			}
-			else {
-				return "alugada";
-			}
+		String status = "parada";
+		
+		if (isActivated() && client != null) {
+			status = "alugada";
 		}
 		else {
-			return "inactiva";
+			status = "inactiva";
 		}
+		
+		return status;
 	}
 	
 	public Client getClient() {

@@ -1,6 +1,7 @@
 
 /**
  * @author Goncalo Virginia N-56773 e Afonso Batista N-57796.
+ * 
  * Interacts with the user and Manager class in order to control the Scooter renting system.
  */
 
@@ -8,7 +9,7 @@ import java.util.Scanner;
 
 public class Main {
 
-	/* Constants  Errors */
+	/* Error Constants */
 	private static final String ERROR_INVALID_COMMAND = "Comando invalido.";
 	private static final String ERROR_CLIENT_EXISTS = "Cliente existente.";
 	private static final String ERROR_CLIENT_DOES_NOT_EXIST = "Cliente inexistente.";
@@ -24,7 +25,7 @@ public class Main {
 	private static final String ERROR_SCOOTER_NOT_INACTIVE = "Trotinete nao inactiva.";
 	private static final String ERROR_INVALID_LOCATION = "Localizacao invalida.";
 
-	/* Constants  Successes */
+	/* Success Constants */
 	private static final String SUCCESS_CLIENT_INSERTED = "Insercao de cliente com sucesso.";
 	private static final String SUCCESS_CLIENT_REMOVED = "Cliente removido com sucesso.";
 	private static final String SUCCESS_SCOOTER_INSERTED = "Insercao de trotinete com sucesso.";
@@ -35,7 +36,7 @@ public class Main {
 	private static final String SUCCESS_SCOOTER_REACTIVATED = "Trotinete reactivada.";
 	private static final String SUCCESS_EXIT = "Saindo...";
 
-	/* Constants  Options */
+	/* Option Constants */
 	private static final String ADD_CLIENT = "ADCLIENTE";
 	private static final String REM_CLIENT = "REMCLIENTE";
 	private static final String ADD_SCOOTER = "ADTROT";
@@ -66,10 +67,8 @@ public class Main {
 		String option;
 
 		do {
-
 			option = readOption(in);
 			executeOption(in, option, manager);
-
 		} while (!option.equals(EXIT));
 
 		System.out.println(SUCCESS_EXIT);
@@ -94,7 +93,6 @@ public class Main {
 	 * @param manager
 	 */
 	private static void executeOption(Scanner in, String option, Manager manager) {
-
 		switch (option) {
 		case ADD_CLIENT:
 			addClient(in, manager);
@@ -491,7 +489,7 @@ public class Main {
 		if (!iterator.hasNext()) {
 			System.out.println("Nao existem trotinetes localizadas.");
 		}
-		
+
 		while (iterator.hasNext()) {
 			Trot trot = iterator.next();
 

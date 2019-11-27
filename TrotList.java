@@ -10,16 +10,16 @@ public class TrotList {
 	}
 
 	private int findTrot(String id) {
-		int i=0 ,position = -1;
+		int i = 0, position = -1;
 		boolean found = false;
-		while( i < counter && !found) {
+		while (i < counter && !found) {
 			if (trots[i].getId().equalsIgnoreCase(id)) {
 				position = i;
 				found = true;
 			}
 			i++;
 		}
-		
+
 		return position;
 	}
 
@@ -60,11 +60,11 @@ public class TrotList {
 	public void rent(String idTrot, Client client) {
 		trots[findTrot(idTrot)].rent(client);
 	}
-	
+
 	public int getCounter() {
 		return counter;
 	}
-	
+
 	public Trot[] getTrotList() {
 		return trots;
 	}

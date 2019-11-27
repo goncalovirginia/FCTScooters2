@@ -20,7 +20,7 @@ public class Manager {
 
 	/* Constructor */
 	public Manager() {
-		
+
 		clients = new ClientList();
 		trots = new TrotList();
 		totalRents = DEFAULT_VALUE;
@@ -28,6 +28,13 @@ public class Manager {
 		totalMinutesLate = DEFAULT_VALUE;
 	}
 
+	/**
+	 * Searches the client list and verifies if a client with the inserted NIF
+	 * exists.
+	 * 
+	 * @param nif - The clients' Identification number.
+	 * @return True if a client with the inserted NIF exists.
+	 */
 	public boolean clientExists(String nif) {
 		return clients.clientExists(nif);
 	}
@@ -35,17 +42,17 @@ public class Manager {
 	public boolean trotExists(String idTrot) {
 		return trots.trotExist(idTrot);
 	}
-	
+
 	public boolean enoughBalance(String nif) {
-		return clients.getClient(nif).getBalance() < 100; 
+		return clients.getClient(nif).getBalance() < 100;
 	}
-	
+
 	public boolean areValidMinutes(int minutes) {
 		return minutes <= 0;
 	}
 
 	/**
-	 * Creates a new client using the following parameters:
+	 * Adds a new client using the following parameters:
 	 * 
 	 * @param nif   - The new clients' NIF (Identification number).
 	 * @param email - The new clients' Email.
@@ -55,7 +62,6 @@ public class Manager {
 	 */
 	public void addClient(String nif, String email, String phone, String name) {
 		clients.addClient(nif, email, phone, name);
-		
 	}
 
 	/**
@@ -68,7 +74,7 @@ public class Manager {
 	}
 
 	/**
-	 * Creates a new Scooter using the following parameters:
+	 * Adds a new Scooter using the following parameters:
 	 * 
 	 * @param idTrot       - The new scooters' ID.
 	 * @param licensePlate - The new scooters' license plate.
@@ -242,7 +248,7 @@ public class Manager {
 	public boolean clientHasNegativeBalance(String nif) {
 		return clients.getClient(nif).getBalance() < DEFAULT_VALUE;
 	}
-	
+
 	public boolean checkCoordinates(double y, double x) {
 		return x >= OESTE && x <= LESTE && y >= SUL && y <= NORTE;
 	}
@@ -255,11 +261,11 @@ public class Manager {
 	public TrotIterator newTrotIterator() {
 		return new TrotIterator(trots.getTrotList(), trots.getCounter());
 	}
-	
+
 	public ClientIterator newClientIterator() {
 		return new ClientIterator(clients.getClientList(), clients.getCounter());
 	}
-	
+
 	public ClientIteratorOrdNegBal newClientIteratorOrdNegBal() {
 		return new ClientIteratorOrdNegBal(clients.getClientList(), clients.getCounter());
 	}
