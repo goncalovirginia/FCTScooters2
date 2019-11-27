@@ -24,17 +24,21 @@ public class ClientList {
 		clients = bigClients;
 	}
 	
-	private int findClient(String nif) {
-		int i=0 ,position = -1;
+	public int findClient(String nif) {
 		boolean found = false;
-		while( i < counter && !found) {
-			if (clients[i].getNif().equalsIgnoreCase(nif)) {
-				position = i;
+		int low = 0, high = counter-1, position = -1;
+
+		while(low <= high && !found) {
+			int mid = ( low + high)/2;
+			if (clients[mid].getNif().compareToIgnoreCase(nif) == 0) { 
 				found = true;
+				position = mid;
+			} else if(clients[mid].getNif().compareToIgnoreCase(nif) > 0) {
+				high = mid-1;
+			} else { 
+				low = mid+1;
 			}
-			i++;
 		}
-			
 		return position;
 	}
 	
