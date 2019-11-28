@@ -339,7 +339,7 @@ public class Manager {
 	 * @return True if a scooter with the inserted ID exists.
 	 */
 	public boolean trotExists(String idTrot) {
-		return trots.trotExist(idTrot);
+		return trots.trotExists(idTrot);
 	}
 
 	/**
@@ -445,8 +445,8 @@ public class Manager {
 	 * Creates a new iterator object that sorts the scooter list by distance in relation
 	 * to thespecified client coordinates.
 	 * 
-	 * @param yClient - client latitude.
-	 * @param xClient - client longitude.
+	 * @param yClient - Client latitude.
+	 * @param xClient - Client longitude.
 	 * @return The scooter iterator.
 	 */
 	public TrotIteratorOrdDistance newTrotIteratorOrdDistance(double yClient, double xClient) {

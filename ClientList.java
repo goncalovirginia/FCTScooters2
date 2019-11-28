@@ -105,7 +105,6 @@ public class ClientList {
 	 * @param trot - The Scooter object.
 	 * @pre nif != null
 	 */
-
 	public void rent(String nif, Trot trot) {
 		clients[findClient(nif)].rent(trot);
 	}
@@ -172,8 +171,8 @@ public class ClientList {
 	/**
 	 * Inserts a client into a certain position on the client list.
 	 * 
-	 * @param client
-	 * @param pos
+	 * @param client - Client to insert into the list.
+	 * @param pos - Position to insert the client at.
 	 */
 	private void insertAt(Client client, int pos) {
 		for (int i = counter - 1; i >= pos; i--) {
