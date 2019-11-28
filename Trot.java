@@ -113,7 +113,6 @@ public class Trot {
 	}
 	
 	/**
-	 * 
 	 * @return The scooters' total number of rents.
 	 */
 	public int getRents() {

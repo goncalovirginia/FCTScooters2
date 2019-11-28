@@ -53,19 +53,19 @@ public class Manager {
 	}
 
 	/**
-	 * Removes a client.
+	 * Removes a specified client.
 	 * 
-	 * @param position - Position of the client on the list of clients.
+	 * @param nif - The clients' NIF (Identification number).
 	 */
 	public void removeClient(String nif) {
 		clients.removeClient(nif);
 	}
 
 	/**
-	 * Loads the clients' balance with a certain amount.
+	 * Loads the clients' balance with a certain amount (cents).
 	 * 
 	 * @param amount - Money (cents) to add to the clients' balance.
-	 * @param nif    - The clients' Identification number.
+	 * @param nif    - The clients' NIF (Identification number).
 	 * @pre amount > 0
 	 */
 	public void loadBalance(String nif, int amount) {
@@ -75,7 +75,7 @@ public class Manager {
 	/**
 	 * Rents a scooter (using the inserted client).
 	 * 
-	 * @param nif    - The clients' Identification number.
+	 * @param nif    - The clients' NIF (Identification number).
 	 * @param idTrot - The scooters' ID.
 	 * @pre nif != null && idTrot != null
 	 */
@@ -90,7 +90,7 @@ public class Manager {
 	 * of minutes.
 	 * 
 	 * @param minutes - Time (minutes) the client spent using a scooter.
-	 * @pre minutes > 0
+	 * @pre idTrot != null && minutes > 0
 	 */
 	public void releaseTrot(String idTrot, int minutes) {
 		int times = DEFAULT_VALUE;
@@ -115,7 +115,7 @@ public class Manager {
 	}
 
 	/**
-	 * Deactivate a scooter.
+	 * Deactivate a specified scooter.
 	 * 
 	 * @param idTrot - The scooters' ID.
 	 */
@@ -124,7 +124,7 @@ public class Manager {
 	}
 
 	/**
-	 * Activate a scooter.
+	 * Activate a specified scooter.
 	 * 
 	 * @param idTrot - The scooters' ID.
 	 */
@@ -146,7 +146,7 @@ public class Manager {
 	}
 
 	/**
-	 * @param nif - The clients' Identification number.
+	 * @param nif - The clients' NIF (Identification number).
 	 * @return The clients' NIF.
 	 */
 	public String getClientNif(String nif) {
@@ -154,7 +154,7 @@ public class Manager {
 	}
 
 	/**
-	 * @param nif - The clients' Identification number.
+	 * @param nif - The clients' NIF (Identification number).
 	 * @return The clients' name.
 	 */
 	public String getClientName(String nif) {
@@ -162,7 +162,7 @@ public class Manager {
 	}
 
 	/**
-	 * @param nif - The clients' Identification number.
+	 * @param nif - The clients' NIF (Identification number).
 	 * @return The clients' Email.
 	 */
 	public String getClientEmail(String nif) {
@@ -170,7 +170,7 @@ public class Manager {
 	}
 
 	/**
-	 * @param nif - The clients' Identification number.
+	 * @param nif - The clients' NIF (Identification number).
 	 * @return The clients' phone number.
 	 */
 	public String getClientPhone(String nif) {
@@ -178,7 +178,7 @@ public class Manager {
 	}
 
 	/**
-	 * @param nif - The clients' Identification number.
+	 * @param nif - The clients' NIF (Identification number).
 	 * @return The clients' rented scooter ID.
 	 */
 	public String getClientIdTrot(String nif) {
@@ -187,7 +187,7 @@ public class Manager {
 
 	/**
 	 * 
-	 * @param nif - The clients' Identification number.
+	 * @param nif - The clients' NIF (Identification number).
 	 * @return The clients' rented scooter license plate.
 	 */
 	public String getClientLicensePlate(String nif) {
@@ -195,7 +195,7 @@ public class Manager {
 	}
 
 	/**
-	 * @param nif - The clients' Identification number.
+	 * @param nif - The clients' NIF (Identification number).
 	 * @return The clients' balance.
 	 */
 	public int getClientBalance(String nif) {
@@ -203,7 +203,7 @@ public class Manager {
 	}
 
 	/**
-	 * @param nif - The clients' Identification number.
+	 * @param nif - The clients' NIF (Identification number).
 	 * @return The clients' total number of minutes renting.
 	 */
 	public int getClientTotalMinutes(String nif) {
@@ -211,7 +211,7 @@ public class Manager {
 	}
 
 	/**
-	 * @param nif - The clients' Identification number.
+	 * @param nif - The clients' NIF (Identification number).
 	 * @return The clients' total number of rents.
 	 */
 	public int getClientRents(String nif) {
@@ -219,23 +219,23 @@ public class Manager {
 	}
 
 	/**
-	 * @param nif - The clients' Identification number.
-	 * @return
+	 * @param The clients' NIF (Identification number).
+	 * @return The clients' maximum minutes spent on a single rent.
 	 */
 	public int getClientMaxMinutes(String nif) {
 		return clients.getClient(nif).getMaxMinutes();
 	}
 
 	/**
-	 * @param nif - The clients' Identification number.
-	 * @return The clients' maximum number of minutes spent in a single rent.
+	 * @param nif - The clients' NIF (Identification number).
+	 * @return The clients' average minutes spent on all rents.
 	 */
 	public int getClientAvgMinutes(String nif) {
 		return clients.getClient(nif).getAvgMinutes();
 	}
 
 	/**
-	 * @param nif - The clients' Identification number.
+	 * @param nif - The clients' NIF (Identification number).
 	 * @return The clients' total amount spent (in cents).
 	 */
 	public int getClientTotalSpent(String nif) {
@@ -244,7 +244,7 @@ public class Manager {
 
 	/**
 	 * @param idTrot - The scooters' ID.
-	 * @return
+	 * @return The scooters' saved client NIF.
 	 */
 	public String getTrotNif(String idTrot) {
 		return trots.getTrot(idTrot).getClient().getNif();
@@ -252,7 +252,7 @@ public class Manager {
 
 	/**
 	 * @param idTrot - The scooters' ID.
-	 * @return The scooters' rented client name.
+	 * @return The scooters' saved client name.
 	 */
 	public String getTrotName(String idTrot) {
 		return trots.getTrot(idTrot).getClient().getName();
@@ -300,21 +300,21 @@ public class Manager {
 	}
 
 	/**
-	 * @return The manager total number of rents.
+	 * @return The total number of rents saved in the scooter renting system.
 	 */
 	public int getTotalRents() {
 		return totalRents;
 	}
 
 	/**
-	 * @return The manager total amount spent by clients (in cents)
+	 * @return The total amount (cents) spent by all the clients.
 	 */
 	public int getTotalSpent() {
 		return totalSpent;
 	}
 
 	/**
-	 * @return The manager total of minutes late by clients.
+	 * @return The total number of minutes late (after 60 minutes).
 	 */
 	public int getTotalMinutesLate() {
 		return totalMinutesLate;
@@ -343,22 +343,22 @@ public class Manager {
 	}
 
 	/**
-	 * Searches the client list and verifies if a client with the inserted NIF have
+	 * Searches the client list and verifies if a client with the inserted NIF has
 	 * enough money to rent a scooter.
 	 * 
-	 * @param nif - The clients' Identification number.
-	 * @return True if a client with the inserted NIF have enough money to rent a
+	 * @param nif - The clients' NIF (Identification number).
+	 * @return True if the client with the inserted NIF has enough money to rent a
 	 *         scooter.
 	 */
-	public boolean enoughBalance(String nif) {
+	public boolean validBalance(String nif) {
 		return clients.getClient(nif).getBalance() > NORMAL_RENT_COST;
 	}
 
 	/**
 	 * @param minutes - Time (minutes) the client spent using a scooter.
-	 * @return True if the inserted minutes are greater than zero.
+	 * @return True if the inserted number of minutes is greater than zero.
 	 */
-	public boolean areValidMinutes(int minutes) {
+	public boolean validMinutes(int minutes) {
 		return minutes > DEFAULT_VALUE;
 	}
 
@@ -383,7 +383,7 @@ public class Manager {
 	}
 
 	/**
-	 * Verifies if the scooter with the inserted ID is activated.
+	 * Verifies if the specified scooter is activated.
 	 * 
 	 * @param idTrot - The scooters' ID.
 	 * @return True if the scooter with the inserted ID is activated.
@@ -393,21 +393,21 @@ public class Manager {
 	}
 
 	/**
+	 * Verifies if the specified clients' balance is below 0.
 	 * 
 	 * @param nif - The clients' Identification number.
-	 * @return
+	 * @return True if the specified client has a negativa balance.
 	 */
 	public boolean clientHasNegativeBalance(String nif) {
 		return clients.getClient(nif).getBalance() < DEFAULT_VALUE;
 	}
 
 	/**
-	 * Verifies if the scooter are between the limits of the college.
+	 * Verifies if a scooter is within the limits of the campus.
 	 * 
 	 * @param y - The scooters' latitude.
 	 * @param x - The scooters' longitude.
-	 * @return True if the coordenates inserted are between the values ​​of north
-	 *         south east and west
+	 * @return True if the coordenates are valid.
 	 */
 	public boolean checkCoordinates(double y, double x) {
 		return x >= OESTE && x <= LESTE && y >= SUL && y <= NORTE;
@@ -432,21 +432,22 @@ public class Manager {
 	}
 
 	/**
-	 * Creates a new iterator object that can sort the client list by negative balance
-	 * in increasing.
+	 * Creates a new iterator object that sorts the client list by negative balance
+	 * in increasing order.
 	 * 
-	 * @return The client iterator sorter by negative balance in increasing object.
+	 * @return The client iterator.
 	 */
 	public ClientIteratorOrdNegBal newClientIteratorOrdNegBal() {
 		return new ClientIteratorOrdNegBal(clients.getClientList(), clients.getCounter());
 	}
 
 	/**
-	 * Creates a new iterator object that can sort the scooter list by distance.
+	 * Creates a new iterator object that sorts the scooter list by distance in relation
+	 * to thespecified client coordinates.
 	 * 
 	 * @param yClient - client latitude.
 	 * @param xClient - client longitude.
-	 * @return The scooter iterator sorting by the ord distance.
+	 * @return The scooter iterator.
 	 */
 	public TrotIteratorOrdDistance newTrotIteratorOrdDistance(double yClient, double xClient) {
 		return new TrotIteratorOrdDistance(trots.getTrotList(), trots.getCounter(), yClient, xClient);
