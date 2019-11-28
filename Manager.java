@@ -20,7 +20,6 @@ public class Manager {
 
 	/* Constructor */
 	public Manager() {
-
 		clients = new ClientList();
 		trots = new TrotList();
 		totalRents = 0;
@@ -351,7 +350,7 @@ public class Manager {
 	 *         scooter.
 	 */
 	public boolean validBalance(String nif) {
-		return clients.getClient(nif).getBalance() > FEE;
+		return clients.getClient(nif).getBalance() >= FEE;
 	}
 
 	/**
