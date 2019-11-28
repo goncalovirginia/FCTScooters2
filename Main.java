@@ -307,7 +307,7 @@ public class Main {
 		int amount = in.nextInt();
 		in.nextLine();
 
-		if (!manager.validBalance(nif)) {
+		if (amount <= 0) {
 			System.out.println(ERROR_INVALID_AMOUNT);
 		} else if (!manager.clientExists(nif)) {
 			System.out.println(ERROR_CLIENT_DOES_NOT_EXIST);
