@@ -3,14 +3,14 @@
  * @author Goncalo Virginia N-56773 & Afonso Batista N-57796.
  * 
  *         Interacts and receives inputs from the Main class. Manages the
- *         scooter renting system and all the interactions concerning the Client
- *         and Trot (Scooter) classes.
+ *         scooter renting system and all the interactions concerning the clients
+ *         and scooters.
  */
 
 public class Manager {
 
 	/* Constants */
-	private static final int NORMAL_RENT_COST = 100, DEFAULT_VALUE = 0, NORMAL_TIME = 60, TAX_TIME = 30;
+	private static final int FEE = 100, NORMAL_TIME = 60, TAX_TIME = 30;
 	private static final double NORTE = 38.663964, SUL = 38.658475, OESTE = -9.209269, LESTE = -9.201978;
 
 	/* Instance variables */
@@ -23,9 +23,9 @@ public class Manager {
 
 		clients = new ClientList();
 		trots = new TrotList();
-		totalRents = DEFAULT_VALUE;
-		totalSpent = DEFAULT_VALUE;
-		totalMinutesLate = DEFAULT_VALUE;
+		totalRents = 0;
+		totalSpent = 0;
+		totalMinutesLate = 0;
 	}
 
 	/**
@@ -93,20 +93,20 @@ public class Manager {
 	 * @pre idTrot != null && minutes > 0
 	 */
 	public void releaseTrot(String idTrot, int minutes) {
-		int times = DEFAULT_VALUE;
+		int times = 0;
 		int minutesLate = (minutes - NORMAL_TIME);
 
-		if (minutesLate > DEFAULT_VALUE) {
-			if (minutesLate % TAX_TIME == DEFAULT_VALUE) {
+		if (minutesLate > 0) {
+			if (minutesLate % TAX_TIME == 0) {
 				times = minutesLate / TAX_TIME;
 			} else {
 				times = (minutesLate / TAX_TIME) + 1;
 			}
 		} else {
-			minutesLate = DEFAULT_VALUE;
+			minutesLate = 0;
 		}
 
-		tripCost = NORMAL_RENT_COST * (times + 1);
+		tripCost = FEE * (times + 1);
 		clients.release(trots.getTrot(idTrot).getClient().getNif(), minutes, tripCost);
 		trots.release(idTrot, minutes);
 		totalSpent += tripCost;
@@ -351,7 +351,7 @@ public class Manager {
 	 *         scooter.
 	 */
 	public boolean validBalance(String nif) {
-		return clients.getClient(nif).getBalance() > NORMAL_RENT_COST;
+		return clients.getClient(nif).getBalance() > FEE;
 	}
 
 	/**
@@ -359,7 +359,7 @@ public class Manager {
 	 * @return True if the inserted number of minutes is greater than zero.
 	 */
 	public boolean validMinutes(int minutes) {
-		return minutes > DEFAULT_VALUE;
+		return minutes > 0;
 	}
 
 	/**
@@ -399,7 +399,7 @@ public class Manager {
 	 * @return True if the specified client has a negativa balance.
 	 */
 	public boolean clientHasNegativeBalance(String nif) {
-		return clients.getClient(nif).getBalance() < DEFAULT_VALUE;
+		return clients.getClient(nif).getBalance() < 0;
 	}
 
 	/**
