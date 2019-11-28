@@ -93,15 +93,16 @@ public class Trot {
 	 * @return The current status.
 	 */
 	public String status() {
-		String status = "parada";
+		String status = "inactiva";
 		
-		if (isActivated() && client != null) {
-			status = "alugada";
+		if (isActivated()) {
+			if (client == null) {
+				status = "parada";
+			}
+			else {
+				status = "alugada";
+			}
 		}
-		else {
-			status = "inactiva";
-		}
-		
 		return status;
 	}
 	
