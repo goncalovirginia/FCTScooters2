@@ -69,8 +69,8 @@ public class ClientIteratorOrdNegBal {
 	/**
 	 * Inserts a client into a certain position on the client list.
 	 * 
-	 * @param client
-	 * @param pos
+	 * @param client - Client object to insert into the list.
+	 * @param pos - Position 
 	 */
 	private void insertAt(Client client, int pos) {
 		for (int i = counter - 1; i >= pos; i--) {
