@@ -10,7 +10,7 @@
 public class Manager {
 
 	/* Constants */
-	private static final int FEE = 100, DEFAULT_VALUE = 0, NORMAL_TIME = 60;
+	private static final int NORMAL_RENT_COST = 100, DEFAULT_VALUE = 0, NORMAL_TIME = 60, TAX_TIME = 30;
 	private static final double NORTE = 38.663964, SUL = 38.658475, OESTE = -9.209269, LESTE = -9.201978;
 
 	/* Instance variables */
@@ -29,30 +29,7 @@ public class Manager {
 	}
 
 	/**
-	 * Searches the client list and verifies if a client with the inserted NIF
-	 * exists.
-	 * 
-	 * @param nif - The clients' Identification number.
-	 * @return True if a client with the inserted NIF exists.
-	 */
-	public boolean clientExists(String nif) {
-		return clients.clientExists(nif);
-	}
-
-	public boolean trotExists(String idTrot) {
-		return trots.trotExist(idTrot);
-	}
-
-	public boolean enoughBalance(String nif) {
-		return clients.getClient(nif).getBalance() < 100;
-	}
-
-	public boolean areValidMinutes(int minutes) {
-		return minutes <= 0;
-	}
-
-	/**
-	 * Adds a new client using the following parameters:
+	 * Adds a new client to the list.
 	 * 
 	 * @param nif   - The new clients' NIF (Identification number).
 	 * @param email - The new clients' Email.
@@ -65,16 +42,7 @@ public class Manager {
 	}
 
 	/**
-	 * Removes the client.
-	 * 
-	 * @param position - Position of the client on the list of clients.
-	 */
-	public void removeClient(String nif) {
-		clients.removeClient(nif);
-	}
-
-	/**
-	 * Adds a new Scooter using the following parameters:
+	 * Adds a new Scooter to the list.
 	 * 
 	 * @param idTrot       - The new scooters' ID.
 	 * @param licensePlate - The new scooters' license plate.
@@ -85,10 +53,19 @@ public class Manager {
 	}
 
 	/**
+	 * Removes a client.
+	 * 
+	 * @param position - Position of the client on the list of clients.
+	 */
+	public void removeClient(String nif) {
+		clients.removeClient(nif);
+	}
+
+	/**
 	 * Loads the clients' balance with a certain amount.
 	 * 
-	 * @param amount   - Money (cents) to add to the clients' balance.
-	 * @param position - Position of the client on the list of clients.
+	 * @param amount - Money (cents) to add to the clients' balance.
+	 * @param nif    - The clients' Identification number.
 	 * @pre amount > 0
 	 */
 	public void loadBalance(String nif, int amount) {
@@ -112,7 +89,7 @@ public class Manager {
 	 * Releases the scooter and unloads the clients' balance depending on the amount
 	 * of minutes.
 	 * 
-	 * @param minutes - Time (minutes) the client spent using the Scooter.
+	 * @param minutes - Time (minutes) the client spent using a scooter.
 	 * @pre minutes > 0
 	 */
 	public void releaseTrot(String idTrot, int minutes) {
@@ -120,16 +97,16 @@ public class Manager {
 		int minutesLate = (minutes - NORMAL_TIME);
 
 		if (minutesLate > DEFAULT_VALUE) {
-			if (minutesLate % 30 == DEFAULT_VALUE) {
-				times = minutesLate / 30;
+			if (minutesLate % TAX_TIME == DEFAULT_VALUE) {
+				times = minutesLate / TAX_TIME;
 			} else {
-				times = (minutesLate / 30) + 1;
+				times = (minutesLate / TAX_TIME) + 1;
 			}
 		} else {
 			minutesLate = DEFAULT_VALUE;
 		}
 
-		tripCost = FEE * (times + 1);
+		tripCost = NORMAL_RENT_COST * (times + 1);
 		clients.release(trots.getTrot(idTrot).getClient().getNif(), minutes, tripCost);
 		trots.release(idTrot, minutes);
 		totalSpent += tripCost;
@@ -137,141 +114,341 @@ public class Manager {
 		totalRents++;
 	}
 
-	public String getClientNif(String nif) {
-		return clients.getClient(nif).getNif();
-	}
-
-	public String getClientName(String nif) {
-		return clients.getClient(nif).getName();
-	}
-
-	public String getClientEmail(String nif) {
-		return clients.getClient(nif).getEmail();
-	}
-
-	public String getClientPhone(String nif) {
-		return clients.getClient(nif).getPhone();
-	}
-
-	public int getClientBalance(String nif) {
-		return clients.getClient(nif).getBalance();
-	}
-
-	public int getClientTotalMinutes(String nif) {
-		return clients.getClient(nif).getTotalMinutes();
-	}
-
-	public int getClientRents(String nif) {
-		return clients.getClient(nif).getRents();
-	}
-
-	public int getClientMaxMinutes(String nif) {
-		return clients.getClient(nif).getMaxMinutes();
-	}
-
-	public int getClientAvgMinutes(String nif) {
-		return clients.getClient(nif).getAvgMinutes();
-	}
-
-	public int getClientTotalSpent(String nif) {
-		return clients.getClient(nif).getTotalSpent();
-	}
-
-	public boolean clientHasTrot(String nif) {
-		return clients.getClient(nif).getTrot() != null;
-	}
-
-	public String getClientIdTrot(String nif) {
-		return clients.getClient(nif).getTrot().getId();
-	}
-
-	public String getClientLicensePlate(String nif) {
-		return clients.getClient(nif).getTrot().getLicensePlate();
-	}
-
-	public boolean trotHasClient(String idTrot) {
-		return trots.getTrot(idTrot).getClient() != null;
-	}
-
-	public String getTrotNif(String idTrot) {
-		return trots.getTrot(idTrot).getClient().getNif();
-	}
-
-	public String getTrotName(String idTrot) {
-		return trots.getTrot(idTrot).getClient().getName();
-	}
-
-	public String getTrotId(String idTrot) {
-		return trots.getTrot(idTrot).getId();
-	}
-
-	public String getTrotLicensePlate(String idTrot) {
-		return trots.getTrot(idTrot).getLicensePlate();
-	}
-
-	public String getTrotStatus(String idTrot) {
-		return trots.getTrot(idTrot).status();
-	}
-
-	public int getTrotRents(String idTrot) {
-		return trots.getTrot(idTrot).getRents();
-	}
-
-	public int getTrotTotalMinutes(String idTrot) {
-		return trots.getTrot(idTrot).getTotalMinutes();
-	}
-
+	/**
+	 * Deactivate a scooter.
+	 * 
+	 * @param idTrot - The scooters' ID.
+	 */
 	public void deactivateTrot(String idTrot) {
 		trots.getTrot(idTrot).deactivate();
 	}
 
+	/**
+	 * Activate a scooter.
+	 * 
+	 * @param idTrot - The scooters' ID.
+	 */
 	public void activateTrot(String idTrot) {
 		trots.getTrot(idTrot).activate();
 	}
 
-	public boolean trotIsActivated(String idTrot) {
-		return trots.getTrot(idTrot).isActivated();
-	}
-
-	public int getTotalRents() {
-		return totalRents;
-	}
-
-	public int getTotalSpent() {
-		return totalSpent;
-	}
-
-	public int getTotalMinutesLate() {
-		return totalMinutesLate;
-	}
-
-	public boolean clientHasNegativeBalance(String nif) {
-		return clients.getClient(nif).getBalance() < DEFAULT_VALUE;
-	}
-
-	public boolean checkCoordinates(double y, double x) {
-		return x >= OESTE && x <= LESTE && y >= SUL && y <= NORTE;
-	}
-
+	/**
+	 * Releases the scooter at the inserted location.
+	 * 
+	 * @param idTrot  - The scooters' ID.
+	 * @param minutes - Time (minutes) the client spent using a scooter.
+	 * @param y       - The scooters' latitude.
+	 * @param x       - The scooters' longitude.
+	 */
 	public void releaseTrotLocation(String idTrot, int minutes, double y, double x) {
 		releaseTrot(idTrot, minutes);
 		trots.getTrot(idTrot).setCoordinates(y, x);
 	}
 
+	/**
+	 * @param nif - The clients' Identification number.
+	 * @return The clients' NIF.
+	 */
+	public String getClientNif(String nif) {
+		return clients.getClient(nif).getNif();
+	}
+
+	/**
+	 * @param nif - The clients' Identification number.
+	 * @return The clients' name.
+	 */
+	public String getClientName(String nif) {
+		return clients.getClient(nif).getName();
+	}
+
+	/**
+	 * @param nif - The clients' Identification number.
+	 * @return The clients' Email.
+	 */
+	public String getClientEmail(String nif) {
+		return clients.getClient(nif).getEmail();
+	}
+
+	/**
+	 * @param nif - The clients' Identification number.
+	 * @return The clients' phone number.
+	 */
+	public String getClientPhone(String nif) {
+		return clients.getClient(nif).getPhone();
+	}
+
+	/**
+	 * @param nif - The clients' Identification number.
+	 * @return The clients' rented scooter ID.
+	 */
+	public String getClientIdTrot(String nif) {
+		return clients.getClient(nif).getTrot().getId();
+	}
+
+	/**
+	 * 
+	 * @param nif - The clients' Identification number.
+	 * @return The clients' rented scooter license plate.
+	 */
+	public String getClientLicensePlate(String nif) {
+		return clients.getClient(nif).getTrot().getLicensePlate();
+	}
+
+	/**
+	 * @param nif - The clients' Identification number.
+	 * @return The clients' balance.
+	 */
+	public int getClientBalance(String nif) {
+		return clients.getClient(nif).getBalance();
+	}
+
+	/**
+	 * @param nif - The clients' Identification number.
+	 * @return The clients' total number of minutes renting.
+	 */
+	public int getClientTotalMinutes(String nif) {
+		return clients.getClient(nif).getTotalMinutes();
+	}
+
+	/**
+	 * @param nif - The clients' Identification number.
+	 * @return The clients' total number of rents.
+	 */
+	public int getClientRents(String nif) {
+		return clients.getClient(nif).getRents();
+	}
+
+	/**
+	 * @param nif - The clients' Identification number.
+	 * @return
+	 */
+	public int getClientMaxMinutes(String nif) {
+		return clients.getClient(nif).getMaxMinutes();
+	}
+
+	/**
+	 * @param nif - The clients' Identification number.
+	 * @return The clients' maximum number of minutes spent in a single rent.
+	 */
+	public int getClientAvgMinutes(String nif) {
+		return clients.getClient(nif).getAvgMinutes();
+	}
+
+	/**
+	 * @param nif - The clients' Identification number.
+	 * @return The clients' total amount spent (in cents).
+	 */
+	public int getClientTotalSpent(String nif) {
+		return clients.getClient(nif).getTotalSpent();
+	}
+
+	/**
+	 * @param idTrot - The scooters' ID.
+	 * @return
+	 */
+	public String getTrotNif(String idTrot) {
+		return trots.getTrot(idTrot).getClient().getNif();
+	}
+
+	/**
+	 * @param idTrot - The scooters' ID.
+	 * @return The scooters' rented client name.
+	 */
+	public String getTrotName(String idTrot) {
+		return trots.getTrot(idTrot).getClient().getName();
+	}
+
+	/**
+	 * @param idTrot - The scooters' ID.
+	 * @return The scooters' ID.
+	 */
+	public String getTrotId(String idTrot) {
+		return trots.getTrot(idTrot).getId();
+	}
+
+	/**
+	 * @param idTrot - The scooters' ID.
+	 * @return The scooters' license plate.
+	 */
+	public String getTrotLicensePlate(String idTrot) {
+		return trots.getTrot(idTrot).getLicensePlate();
+	}
+
+	/**
+	 * @param idTrot - The scooters' ID.
+	 * @return The current status.
+	 */
+	public String getTrotStatus(String idTrot) {
+		return trots.getTrot(idTrot).status();
+	}
+
+	/**
+	 * @param idTrot - The scooters' ID.
+	 * @return The scooters' total number of rents.
+	 */
+	public int getTrotRents(String idTrot) {
+		return trots.getTrot(idTrot).getRents();
+	}
+
+	/**
+	 * 
+	 * @param idTrot - The scooters' ID.
+	 * @return The scooters' total number of minutes rented.
+	 */
+	public int getTrotTotalMinutes(String idTrot) {
+		return trots.getTrot(idTrot).getTotalMinutes();
+	}
+
+	/**
+	 * @return The manager total number of rents.
+	 */
+	public int getTotalRents() {
+		return totalRents;
+	}
+
+	/**
+	 * @return The manager total amount spent by clients (in cents)
+	 */
+	public int getTotalSpent() {
+		return totalSpent;
+	}
+
+	/**
+	 * @return The manager total of minutes late by clients.
+	 */
+	public int getTotalMinutesLate() {
+		return totalMinutesLate;
+	}
+
+	/**
+	 * Searches the client list and verifies if a client with the inserted NIF
+	 * exists.
+	 * 
+	 * @param nif - The clients' Identification number.
+	 * @return True if a client with the inserted NIF exists.
+	 */
+	public boolean clientExists(String nif) {
+		return clients.clientExists(nif);
+	}
+
+	/**
+	 * Searches the scooter list and verifies if a scooter with the inserted ID
+	 * exists.
+	 * 
+	 * @param idTrot - The scooters' ID.
+	 * @return True if a scooter with the inserted ID exists.
+	 */
+	public boolean trotExists(String idTrot) {
+		return trots.trotExist(idTrot);
+	}
+
+	/**
+	 * Searches the client list and verifies if a client with the inserted NIF have
+	 * enough money to rent a scooter.
+	 * 
+	 * @param nif - The clients' Identification number.
+	 * @return True if a client with the inserted NIF have enough money to rent a
+	 *         scooter.
+	 */
+	public boolean enoughBalance(String nif) {
+		return clients.getClient(nif).getBalance() > NORMAL_RENT_COST;
+	}
+
+	/**
+	 * @param minutes - Time (minutes) the client spent using a scooter.
+	 * @return True if the inserted minutes are greater than zero.
+	 */
+	public boolean areValidMinutes(int minutes) {
+		return minutes > DEFAULT_VALUE;
+	}
+
+	/**
+	 * Verifies if the client with the inserted NIF is renting a scooter.
+	 * 
+	 * @param nif - The clients' Identification number.
+	 * @return True if the client with the inserted NIF is renting a scooter.
+	 */
+	public boolean clientHasTrot(String nif) {
+		return clients.getClient(nif).getTrot() != null;
+	}
+
+	/**
+	 * Verifies if a client is renting the scooter with the inserted ID.
+	 * 
+	 * @param idTrot - The scooters' ID.
+	 * @return True if a client is renting the scooter with the inserted ID.
+	 */
+	public boolean trotHasClient(String idTrot) {
+		return trots.getTrot(idTrot).getClient() != null;
+	}
+
+	/**
+	 * Verifies if the scooter with the inserted ID is activated.
+	 * 
+	 * @param idTrot - The scooters' ID.
+	 * @return True if the scooter with the inserted ID is activated.
+	 */
+	public boolean trotIsActivated(String idTrot) {
+		return trots.getTrot(idTrot).isActivated();
+	}
+
+	/**
+	 * 
+	 * @param nif - The clients' Identification number.
+	 * @return
+	 */
+	public boolean clientHasNegativeBalance(String nif) {
+		return clients.getClient(nif).getBalance() < DEFAULT_VALUE;
+	}
+
+	/**
+	 * Verifies if the scooter are between the limits of the college.
+	 * 
+	 * @param y - The scooters' latitude.
+	 * @param x - The scooters' longitude.
+	 * @return True if the coordenates inserted are between the values ​​of north
+	 *         south east and west
+	 */
+	public boolean checkCoordinates(double y, double x) {
+		return x >= OESTE && x <= LESTE && y >= SUL && y <= NORTE;
+	}
+
+	/**
+	 * Creates a new iterator object for the scooter list.
+	 * 
+	 * @return The scooter iterator object.
+	 */
 	public TrotIterator newTrotIterator() {
 		return new TrotIterator(trots.getTrotList(), trots.getCounter());
 	}
 
+	/**
+	 * Creates a new iterator object for the client list.
+	 * 
+	 * @return The client iterator object.
+	 */
 	public ClientIterator newClientIterator() {
 		return new ClientIterator(clients.getClientList(), clients.getCounter());
 	}
 
+	/**
+	 * Creates a new iterator object that can sort the client list by negative balance
+	 * in increasing.
+	 * 
+	 * @return The client iterator sorter by negative balance in increasing object.
+	 */
 	public ClientIteratorOrdNegBal newClientIteratorOrdNegBal() {
 		return new ClientIteratorOrdNegBal(clients.getClientList(), clients.getCounter());
 	}
 
+	/**
+	 * Creates a new iterator object that can sort the scooter list by distance.
+	 * 
+	 * @param yClient - client latitude.
+	 * @param xClient - client longitude.
+	 * @return The scooter iterator sorting by the ord distance.
+	 */
 	public TrotIteratorOrdDistance newTrotIteratorOrdDistance(double yClient, double xClient) {
 		return new TrotIteratorOrdDistance(trots.getTrotList(), trots.getCounter(), yClient, xClient);
 	}
-
 }

@@ -307,7 +307,7 @@ public class Main {
 		int amount = in.nextInt();
 		in.nextLine();
 
-		if (amount <= 0) {
+		if (!manager.enoughBalance(nif)) {
 			System.out.println(ERROR_INVALID_AMOUNT);
 		} else if (!manager.clientExists(nif)) {
 			System.out.println(ERROR_CLIENT_DOES_NOT_EXIST);
@@ -336,7 +336,7 @@ public class Main {
 			System.out.println(ERROR_SCOOTER_CANNOT_BE_RENTED);
 		} else if (manager.clientHasTrot(nif)) {
 			System.out.println(ERROR_CLIENT_MOVING);
-		} else if (manager.enoughBalance(nif)) {
+		} else if (!manager.enoughBalance(nif)) {
 			System.out.println(ERROR_INSUFFICIENT_BALANCE);
 		} else {
 			manager.rentTrot(nif, idTrot);
@@ -355,7 +355,7 @@ public class Main {
 		int minutes = in.nextInt();
 		in.nextLine();
 
-		if (manager.areValidMinutes(minutes)) {
+		if (!manager.areValidMinutes(minutes)) {
 			System.out.println(ERROR_INVALID_AMOUNT);
 		} else if (!manager.trotExists(idTrot)) {
 			System.out.println(ERROR_SCOOTER_DOES_NOT_EXIST);
@@ -475,7 +475,7 @@ public class Main {
 
 		if (!manager.checkCoordinates(y, x)) {
 			System.out.println(ERROR_INVALID_LOCATION);
-		} else if (manager.areValidMinutes(minutes)) {
+		} else if (!manager.areValidMinutes(minutes)) {
 			System.out.println(ERROR_INVALID_AMOUNT);
 		} else if (!manager.trotExists(idTrot)) {
 			System.out.println(ERROR_SCOOTER_DOES_NOT_EXIST);

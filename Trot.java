@@ -90,7 +90,7 @@ public class Trot {
 	
 	/**
 	 * Checks the scooters' current status.
-	 * @return the current status.
+	 * @return The current status.
 	 */
 	public String status() {
 		String status = "parada";
@@ -106,7 +106,7 @@ public class Trot {
 	}
 	
 	/**
-	 * @return The scooters' renting client.
+	 * @return The scooters' rented client.
 	 */
 	public Client getClient() {
 		return client;
@@ -114,7 +114,7 @@ public class Trot {
 	
 	/**
 	 * 
-	 * @return The scooters' total number of rents
+	 * @return The scooters' total number of rents.
 	 */
 	public int getRents() {
 		return rents;
