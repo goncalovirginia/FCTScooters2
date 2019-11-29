@@ -395,7 +395,7 @@ public class Manager {
 	 * Verifies if the specified clients' balance is below 0.
 	 * 
 	 * @param nif - The clients' Identification number.
-	 * @return True if the specified client has a negativa balance.
+	 * @return True if the specified client has a negative balance.
 	 */
 	public boolean clientHasNegativeBalance(String nif) {
 		return clients.getClient(nif).getBalance() < 0;
@@ -406,7 +406,7 @@ public class Manager {
 	 * 
 	 * @param y - The scooters' latitude.
 	 * @param x - The scooters' longitude.
-	 * @return True if the coordenates are valid.
+	 * @return True if the coordinates are valid.
 	 */
 	public boolean checkCoordinates(double y, double x) {
 		return x >= OESTE && x <= LESTE && y >= SUL && y <= NORTE;
@@ -442,7 +442,7 @@ public class Manager {
 
 	/**
 	 * Creates a new iterator object that sorts the scooter list by distance in relation
-	 * to thespecified client coordinates.
+	 * to the specified client coordinates.
 	 * 
 	 * @param yClient - Client latitude.
 	 * @param xClient - Client longitude.
