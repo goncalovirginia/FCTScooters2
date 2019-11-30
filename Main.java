@@ -488,7 +488,7 @@ public class Main {
 	}
 
 	/**
-	 * 
+	 * Outputs the distance between all the scooters and the inserted location and each scooters' information. 
 	 * 
 	 * @param in - Scanner object.
 	 * @param manager - Manager object.
